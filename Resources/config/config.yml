@@ -1,0 +1,9 @@
+services:
+    liip_vie.phpcr.controller:
+        class: Liip\VieBundle\Controller\PHPCRController
+        arguments:
+            request: @request
+            view: @fos_rest.view
+            manager: @doctrine_phpcr.odm.document_manager
+            map: %liip_vie.map%
+        scope: request
