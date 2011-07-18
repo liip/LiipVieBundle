@@ -5,8 +5,6 @@ namespace Liip\VieBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use FOS\RestBundle\Controller\Annotations\Prefix;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\View\ViewInterface;
