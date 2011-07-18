@@ -3,7 +3,7 @@ Installation
 
   1. Add this bundle to your project as Git submodules:
 
-          $ git submodule add git://github.com/liip/LiipVieBundle.git vendor/bundles/Liip/vieBundle
+          $ git submodule add git://github.com/liip/LiipVieBundle.git vendor/bundles/Liip/VieBundle
 
   2. Add the Liip namespace to your autoloader:
 
@@ -25,15 +25,20 @@ Installation
               );
           }
 
-  4. Initialize the view submodule
+  4. Initialize the vie submodule
 
           $ git submodule init
           $ git submodule update --recursive
 
+  5. Furthermore it is required to install FOSRestBundle
+
+          see https://github.com/FriendsOfSymfony/FOSRestBundle
+
 What is this?
 =============
 
-This Bundle atm doesn't really do anything besides maintain the VIE git submodule.
+This Bundle doesn't do much at this point, also its a gigantic security hole, since it
+doesn't attempt to check any permissions.
 
-The main is to eventually support tools to easily output Entity/Document instances
+The main gial is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
