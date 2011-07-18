@@ -23,9 +23,11 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('map')
-                ->useAttributeAsKey('name')
-                ->prototype('scalar')->end()
+                    ->useAttributeAsKey('name')
+                    ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('phpcr')->defaultFalse()->end()
+                ->scalarNode('orm')->defaultFalse()->end()
             ->end()
         ;
 

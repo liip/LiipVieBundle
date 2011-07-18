@@ -24,8 +24,23 @@ class LiipVieExtension extends Extension
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('config.yml');
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        if (!empty($config['phpcr'])) {
+            $loader->load('phpcr.xml');
+            if (is_string($config['phpcr'])) {
+                $phpcr = $container->getDefinition('liip_vie.phpcr.controller');
+                $dm = new Reference($config['phpcr']);
+                $phpcr->replaceArgument(2, $dm);
+            }
+        }
+        if (!empty($config['orm'])) {
+            $loader->load('orm.xml');
+            if (is_string($config['orm'])) {
+                $phpcr = $container->getDefinition('liip_vie.orm.controller');
+                $em = new Reference($config['orm']);
+                $phpcr->replaceArgument(2, $em);
+            }
+        }
 
         $container->setParameter($this->getAlias().'.map', $config['map']);
     }
