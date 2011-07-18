@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use FOS\RestBundle\Controller\Annotations\Prefix;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewInterface;
 
 use Doctrine\ODM\PHPCR\DocumentManager;
 
@@ -20,7 +20,7 @@ use Doctrine\ODM\PHPCR\DocumentManager;
 class PHPCRController
 {
     /**
-     * @var FOS\RestBundle\View\View
+     * @var FOS\RestBundle\View\ViewInterface
      */
     protected $view;
 
@@ -39,7 +39,7 @@ class PHPCRController
      */
     protected $map;
 
-    public function __construct(Request $request, View $view, DocumentManager $dm, array $map)
+    public function __construct(Request $request, ViewInterface $view, DocumentManager $dm, array $map)
     {
         $this->request = $request;
         $this->view = $view;
