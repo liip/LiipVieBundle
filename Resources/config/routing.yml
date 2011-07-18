@@ -1,3 +1,0 @@
-vie:
-    resource: liip_vie.phpcr.controller
-    type:     rest
