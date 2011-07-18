@@ -69,7 +69,7 @@ class PHPCRController
         $data = $this->request->request->all();
 
         $repo = $this->getRepository($data);
-        $id = "/vie/$id";
+        $id = '/'.$id;
         $document = $repo->find($id);
         if (empty($document)) {
             throw new ResourceNotFoundException($id.' not found');
