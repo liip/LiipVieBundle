@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManager;
  * @Prefix("liip/vie/orm")
  * @NamePrefix("liip_vie_orm_")
  */
-class PHPCRController
+class ORMController
 {
     /**
      * @var FOS\RestBundle\View\ViewInterface
