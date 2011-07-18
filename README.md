@@ -56,5 +56,5 @@ What is this?
 This Bundle doesn't do much at this point, also its a gigantic security hole, since it
 doesn't attempt to check any permissions.
 
-The main gial is to eventually support tools to easily output Entity/Document instances
+The main goal is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
