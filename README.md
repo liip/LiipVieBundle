@@ -1,38 +1,54 @@
 Installation
 ============
 
-  1. Add this bundle to your project as Git submodules:
+    1. Add this bundle to your project as Git submodules:
 
-          $ git submodule add git://github.com/liip/LiipVieBundle.git vendor/bundles/Liip/VieBundle
+        $ git submodule add git://github.com/liip/LiipVieBundle.git vendor/bundles/Liip/VieBundle
 
-  2. Add the Liip namespace to your autoloader:
+    2. Add the Liip namespace to your autoloader:
 
-          // app/autoload.php
-          $loader->registerNamespaces(array(
-                'Liip' => __DIR__.'/../vendor/bundles',
-                // your other namespaces
-          ));
+        // app/autoload.php
+        $loader->registerNamespaces(array(
+            'Liip' => __DIR__.'/../vendor/bundles',
+            // your other namespaces
+        ));
 
-  3. Add this bundle to your application's kernel:
+    3. Add this bundle to your application's kernel:
 
-          // application/ApplicationKernel.php
-          public function registerBundles()
-          {
-              return array(
-                  // ...
-                  new Liip\HelloBundle\LiipVieBundle(),
-                  // ...
-              );
-          }
+    // application/ApplicationKernel.php
+    public function registerBundles()
+    {
+        return array(
+            // ...
+            new Liip\HelloBundle\LiipVieBundle(),
+            // ...
+        );
+    }
 
-  4. Initialize the vie submodule
+    4. Initialize the vie submodule
 
-          $ git submodule init
-          $ git submodule update --recursive
+        $ git submodule init
+        $ git submodule update --recursive
 
-  5. Furthermore it is required to install FOSRestBundle
+    5. It is required to also install FOSRestBundle
 
-          see https://github.com/FriendsOfSymfony/FOSRestBundle
+        see https://github.com/FriendsOfSymfony/FOSRestBundle
+
+    6. Add a mapping to the `config.yml` and enable a controller
+
+        liip_vie:
+            phpcr: true
+            #orm: doctrine.orm.my_entity_manager
+            map:
+                '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
+
+    7. Finally add the relevant routing to your configuration
+
+        <import resource="liip_vie.phpcr.controller" type="rest" />
+
+        vie:
+            resource: liip_vie.phpcr.controller
+            type:     rest
 
 What is this?
 =============
