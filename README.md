@@ -47,8 +47,7 @@ Installation
         <import resource="liip_vie.phpcr.controller" type="rest" />
 
         vie:
-            resource: liip_vie.phpcr.controller
-            type:     rest
+            resource: "@LiipVieBundle/Resources/config/routing.xml"
 
 What is this?
 =============
