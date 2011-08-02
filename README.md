@@ -37,7 +37,7 @@ Installation
     6. Add a mapping to the `config.yml` and enable a controller
 
         liip_vie:
-            phpcr: true
+            phpcr_odm: true
             #orm: doctrine.orm.my_entity_manager
             map:
                 '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
@@ -47,7 +47,7 @@ Installation
         <import resource="liip_vie.phpcr.controller" type="rest" />
 
         vie:
-            resource: "@LiipVieBundle/Resources/config/routing.xml"
+            resource: "@LiipVieBundle/Resources/config/routing/phpcr_odm.xml"
 
 What is this?
 =============

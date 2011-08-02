@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('phpcr')->defaultFalse()->end()
+                ->scalarNode('phpcr_odm')->defaultFalse()->end()
                 ->scalarNode('orm')->defaultFalse()->end()
             ->end()
         ;

@@ -6,10 +6,11 @@
 
     <services>
 
-        <service id="liip_vie.phpcr.controller" class="Liip\VieBundle\Controller\PhpcrController" scope="request">
+        <service id="liip_vie.phpcr_odm.controller" class="Liip\VieBundle\Controller\PhpcrOdmController" scope="request">
             <argument type="service" id="request"/>
             <argument type="service" id="fos_rest.view"/>
-            <argument type="service" id="phpcr.session"/>
+            <argument type="service" id="doctrine_phpcr.odm.document_manager"/>
+            <argument>%liip_vie.map%</argument>
         </service>
 
     </services>

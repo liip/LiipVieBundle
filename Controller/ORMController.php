@@ -2,6 +2,6 @@
 
 namespace Liip\VieBundle\Controller;
 
-class ORMController extends Controller
+class ORMController extends DoctrineController
 {
 }

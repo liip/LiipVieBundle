@@ -29,8 +29,16 @@ class LiipVieExtension extends Extension
             $loader->load('phpcr.xml');
             if (is_string($config['phpcr'])) {
                 $phpcr = $container->getDefinition('liip_vie.phpcr.controller');
-                $dm = new Reference($config['phpcr']);
-                $phpcr->replaceArgument(2, $dm);
+                $session = new Reference($config['phpcr']);
+                $phpcr->replaceArgument(2, $session);
+            }
+        }
+        if (!empty($config['phpcr_odm'])) {
+            $loader->load('phpcr_odm.xml');
+            if (is_string($config['phpcr_odm'])) {
+                $phpcr_odm = $container->getDefinition('liip_vie.phpcr_odm.controller');
+                $dm = new Reference($config['phpcr_odm']);
+                $phpcr_odm->replaceArgument(2, $dm);
             }
         }
         if (!empty($config['orm'])) {

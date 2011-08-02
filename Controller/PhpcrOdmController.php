@@ -2,7 +2,7 @@
 
 namespace Liip\VieBundle\Controller;
 
-class PHPCRController extends Controller
+class PhpcrOdmController extends DoctrineController
 {
     /**
      * Handle article PUT

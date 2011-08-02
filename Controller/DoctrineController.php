@@ -7,13 +7,14 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use FOS\RestBundle\View\ViewInterface;
+use FOS\RestBundle\Response\Codes;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Liip\VieBundle\FromJsonLdInterface;
 use Liip\VieBundle\ToJsonLdInterface;
 
-abstract class Controller
+abstract class DoctrineController
 {
     /**
      * @var FOS\RestBundle\View\ViewInterface
@@ -78,7 +79,7 @@ abstract class Controller
         $this->manager->flush();
 
         if (!($model instanceof ToJsonLdInterface)) {
-            return new Response('', 204);
+            return new Response('', Codes::HTTP_NO_CONTENT);
         }
 
         // return the updated version
