@@ -6,13 +6,13 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use FOS\RestBundle\View\ViewInterface;
-use FOS\RestBundle\Response\Codes;
+use FOS\RestBundle\View\ViewInterface,
+    FOS\RestBundle\Response\Codes;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Liip\VieBundle\FromJsonLdInterface;
-use Liip\VieBundle\ToJsonLdInterface;
+use Liip\VieBundle\FromJsonLdInterface,
+    Liip\VieBundle\ToJsonLdInterface;
 
 abstract class DoctrineController
 {
@@ -20,11 +20,6 @@ abstract class DoctrineController
      * @var FOS\RestBundle\View\ViewInterface
      */
     protected $view;
-
-    /**
-     * @var Symfony\Component\HttpFoundation\Request
-     */
-    protected $request;
 
     /**
      * @var Doctrine\Common\Persistence\ObjectManager
@@ -36,9 +31,8 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(Request $request, ViewInterface $view, ObjectManager $manager, array $map)
+    public function __construct(ViewInterface $view, ObjectManager $manager, array $map)
     {
-        $this->request = $request;
         $this->view = $view;
         $this->manager = $manager;
         $this->map = $map;
@@ -61,9 +55,9 @@ abstract class DoctrineController
     /**
      * Handle article PUT
      */
-    public function putDocumentAction($id)
+    public function putDocumentAction(Request $request, $id)
     {
-        $data = $this->request->request->all();
+        $data = $request->request->all();
 
         $repository = $this->getRepository($data);
         $model = $repository->find($id);

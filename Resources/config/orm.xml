@@ -6,9 +6,8 @@
 
     <services>
 
-        <service id="liip_vie.phpcr.controller" class="Liip\VieBundle\Controller\ORMController" scope="request">
-            <argument type="service" id="request"/>
             <argument type="service" id="fos_rest.view"/>
+        <service id="liip_vie.phpcr.controller" class="Liip\VieBundle\Controller\ORMController">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%liip_vie.map%</argument>
         </service>

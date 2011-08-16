@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Request,
 
 use FOS\RestBundle\View\ViewInterface;
 
-use PHPCR\SessionInterface;
-use PHPCR\NodeInterface;
+use PHPCR\SessionInterface,
+    PHPCR\NodeInterface;
 
 class PhpcrController
 {
@@ -18,18 +18,12 @@ class PhpcrController
     protected $view;
 
     /**
-     * @var Symfony\Component\HttpFoundation\Request
-     */
-    protected $request;
-
-    /**
      * @var PHPCR\SessionInterface
      */
     protected $session;
 
-    public function __construct(Request $request, ViewInterface $view, SessionInterface $session)
+    public function __construct(ViewInterface $view, SessionInterface $session)
     {
-        $this->request = $request;
         $this->view = $view;
         $this->session = $session;
     }
@@ -53,10 +47,10 @@ class PhpcrController
     /**
      * Handle article PUT
      */
-    public function putDocumentAction($id)
+    public function putDocumentAction(Request $request, $id)
     {
         $path = '/'.$id;
-        $data = $this->request->request->all();
+        $data = $request->request->all();
 
         $node = $this->session->getNode($path);
         if (empty($node)) {

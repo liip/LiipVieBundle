@@ -7,8 +7,8 @@ class PhpcrOdmController extends DoctrineController
     /**
      * Handle article PUT
      */
-    public function putDocumentAction($id)
+    public function putDocumentAction(Request $request, $id)
     {
-        return parent::putDocumentAction('/'.$id);
+        return parent::putDocumentAction($request, '/'.$id);
     }
 }
