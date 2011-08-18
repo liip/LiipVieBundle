@@ -5,7 +5,7 @@ namespace Liip\VieBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use FOS\RestBundle\View\ViewInterface;
+use FOS\RestBundle\View\ViewHandlerInterface;
 
 use PHPCR\SessionInterface,
     PHPCR\NodeInterface;
@@ -13,18 +13,18 @@ use PHPCR\SessionInterface,
 class PhpcrController
 {
     /**
-     * @var FOS\RestBundle\View\ViewInterface
+     * @var FOS\RestBundle\View\ViewHandlerInterface
      */
-    protected $view;
+    protected $viewHandler;
 
     /**
      * @var PHPCR\SessionInterface
      */
     protected $session;
 
-    public function __construct(ViewInterface $view, SessionInterface $session)
+    public function __construct(ViewHandlerInterface $viewHandler, SessionInterface $session)
     {
-        $this->view = $view;
+        $this->viewHandler = $viewHandler;
         $this->session = $session;
     }
 
@@ -61,8 +61,7 @@ class PhpcrController
         $this->session->save();
 
         // return the updated version
-        $this->view->setParameters($this->toJsonLd($node));
-        $this->view->setFormat('json');
-        return $this->view->handle();
+        $view = View::create($this->toJsonLd($node))->setFormat('json');
+        return $this->viewHandler->handle($view, $request);
     }
 }

@@ -6,7 +6,8 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use FOS\RestBundle\View\ViewInterface,
+use FOS\RestBundle\View\ViewHandlerInterface,
+    FOS\RestBundle\View\View,
     FOS\RestBundle\Response\Codes;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,9 +18,9 @@ use Liip\VieBundle\FromJsonLdInterface,
 abstract class DoctrineController
 {
     /**
-     * @var FOS\RestBundle\View\ViewInterface
+     * @var FOS\RestBundle\View\ViewHandlerInterface
      */
-    protected $view;
+    protected $viewHandler;
 
     /**
      * @var Doctrine\Common\Persistence\ObjectManager
@@ -31,9 +32,9 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(ViewInterface $view, ObjectManager $manager, array $map)
+    public function __construct(ViewHandlerInterface $viewHandler, ObjectManager $manager, array $map)
     {
-        $this->view = $view;
+        $this->viewHandle = $viewHandler;
         $this->manager = $manager;
         $this->map = $map;
     }
@@ -77,8 +78,7 @@ abstract class DoctrineController
         }
 
         // return the updated version
-        $this->view->setParameters($model->toJsonLd());
-        $this->view->setFormat('json');
-        return $this->view->handle();
+        $view = View::create($model->toJsonLd())->setFormat('json');
+        return $this->viewHandler->handle($view, $request);
     }
 }

@@ -7,7 +7,7 @@
     <services>
 
         <service id="liip_vie.phpcr_odm.controller" class="Liip\VieBundle\Controller\PhpcrOdmController">
-            <argument type="service" id="fos_rest.view"/>
+            <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="doctrine_phpcr.odm.document_manager"/>
             <argument>%liip_vie.map%</argument>
         </service>
