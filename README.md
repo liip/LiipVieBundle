@@ -20,7 +20,7 @@ Installation
     {
         return array(
             // ...
-            new Liip\HelloBundle\LiipVieBundle(),
+            new Liip\LiipVieBundle(),
             // ...
         );
     }
