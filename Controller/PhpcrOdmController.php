@@ -2,6 +2,8 @@
 
 namespace Liip\VieBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class PhpcrOdmController extends DoctrineController
 {
     /**
