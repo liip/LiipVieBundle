@@ -49,6 +49,13 @@ Installation
         vie:
             resource: "@LiipVieBundle/Resources/config/routing/phpcr_odm.xml"
 
+
+    8. Editor (TODO: detect if there and make optional)
+
+        To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
+        Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/Resources/public/aloha
+        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/bundles/Liip/VieBundle/Resources/public/aloha/aloha.js
+
 What is this?
 =============
 
@@ -57,8 +64,4 @@ doesn't attempt to check any permissions.
 
 The main goal is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
-
-Editor
-======
-To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
-Unzip the contents of the aloha folder in your zip file to your /vendor/bundles/Liip/VieBundle/Resources/public/aloha folder. You should then have a /vendor/bundles/Liip/VieBundle/Resources/public/aloha/aloha.js file.
+TODO: Think if we can help with outputting Entity/Documents with RDFa somehow (annotations on Document + twig extension?)
