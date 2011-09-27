@@ -1,5 +1,17 @@
 GENTICS_Aloha_base = 'http://aloha-editor.org/aloha-0.9.3/aloha/';
 jQuery(document).ready(function() {
+    GENTICS.Aloha.settings = {
+        "plugins": {
+            "com.gentics.aloha.plugins.Format": {
+                // all elements with no specific configuration get this configuration
+                config: ['b', 'i', 'del', 'sub', 'sup', 'p', 'title', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat'],
+                editables: {
+                    // less formatting allowed for title
+                    '[property="dcterms:title"]': ['b', 'i', 'sub', 'del', 'sup'],
+                }
+            }
+        }
+    };
 
     VIE.EntityManager.initializeCollection();
 
