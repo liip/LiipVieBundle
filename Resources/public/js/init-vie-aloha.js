@@ -1,6 +1,13 @@
 GENTICS_Aloha_base = 'http://aloha-editor.org/aloha-0.9.3/aloha/';
 jQuery(document).ready(function() {
 
+    VIE.EntityManager.initializeCollection();
+
+    VIE.EntityManager.entities.bind('add', function(model) {
+        model.url = vie_phpcr_path + model.id;
+        model.toJSON = model.toJSONLD;
+    });
+
     // Load all RDFa entities into VIE
     VIE.RDFaEntities.getInstances();
 
