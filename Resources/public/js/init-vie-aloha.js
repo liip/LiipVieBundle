@@ -28,9 +28,6 @@ jQuery(document).ready(function() {
             objectInstance.save(null, {
                 success: function(savedModel, response) {
                     alert(savedModel.id + " was saved, see JS console for details");
-                    jQuery.each(modifiedProperties, function(propertyName, propertyValue) {
-                        savedModel.editables[propertyName].setUnmodified();
-                    });
                     jQuery('#savebutton').hide();
                 },
                 error: function(response) {
