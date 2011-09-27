@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
                     jQuery.each(modifiedProperties, function(propertyName, propertyValue) {
                         savedModel.editables[propertyName].setUnmodified();
                     });
-                    jQuery('#saveButton').addClass('hidden');
+                    jQuery('#savebutton').hide();
                 },
                 error: function(response) {
                     console.log("Save failed");
@@ -34,8 +34,7 @@ jQuery(document).ready(function() {
     });
 
     GENTICS.Aloha.EventRegistry.subscribe(GENTICS.Aloha,'editableActivated', function(){
-        console.log('editableActivated');
-        jQuery('#saveButton').removeClass('hidden');
+        jQuery('#savebutton').show();
     });
 
 });
