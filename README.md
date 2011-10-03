@@ -1,3 +1,10 @@
+Introduction
+============
+
+VIE is a way to make any site using RDFa editable.
+
+For more information see http://wiki.iks-project.eu/index.php/Semantic_Editor
+
 Installation
 ============
 
@@ -64,4 +71,5 @@ doesn't attempt to check any permissions.
 
 The main goal is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
+
 TODO: Think if we can help with outputting Entity/Documents with RDFa somehow (annotations on Document + twig extension?)
