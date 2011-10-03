@@ -3,4 +3,4 @@
 	url = https://github.com/liip/VIE.git
 [submodule "vendor/hallo"]
 	path = vendor/hallo
-	url = git@github.com:liip/hallo.git
+	url = https://github.com/liip/hallo.git
