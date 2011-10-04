@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
 
     VIE.EntityManager.initializeCollection();
 
@@ -12,34 +12,10 @@ jQuery(document).ready(function() {
 
     // Make all RDFa entities editable
     jQuery('[typeof][about]').each(function() {
-        var containerInstance = VIE.RDFaEntities.getInstance(jQuery(this));
-        if (!containerInstance) {
-            return;
-        }
-        if (typeof containerInstance.editables === 'undefined') {
-            containerInstance.editables = {};
-        }
-
-        VIE.RDFa.findPredicateElements(containerInstance.id, this, false).each(function() {
-            var containerProperty = jQuery(this);
-
-            var propertyName = containerProperty.attr('property');
-            if (propertyName === undefined) {
-                return true;
-            }
-
-            if (containerInstance.get(propertyName) instanceof Array) {
-                // For now we don't deal with multivalued properties in Aloha
-                return true;
-            }
-
-            containerInstance.editables[propertyName] = jQuery(this).hallo({ plugins: { 'halloformat': {} }, activated: function() { jQuery('#savebutton').show(); } });
-            console.log(containerInstance.editables[propertyName]);
-            containerInstance.editables[propertyName].vieContainerInstance = containerInstance;
-        });
+        jQuery(this).vieSemanticHallo();
     });
 
-    jQuery('#savebutton').bind('click', function() {
+    $('#savebutton').bind('click', function() {
         // Go through all Backbone model instances loaded for the page
         VIE.EntityManager.entities.each(function(objectInstance) {
             if (!objectInstance.editables) {
@@ -57,12 +33,21 @@ console.log(objectInstance);
             objectInstance.save(null, {
                 success: function(savedModel, response) {
                     alert(savedModel.id + " was saved, see JS console for details");
-                    jQuery('#savebutton').hide();
+                    $('#savebutton').hide();
                 },
                 error: function(response) {
                     console.log("Save failed");
+                    console.log(response);
                 }
             });
         });
     });
+
+    $(this).bind('halloactivated', function() {
+        $('#savebutton').show();
+    });
+    $(this).bind('hallodeactivated', function() {
+        //$('#savebutton').hide();
+    });
+
 });
