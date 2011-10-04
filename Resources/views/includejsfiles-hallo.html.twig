@@ -1,13 +1,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://bergie.github.com/hallo/js/jquery-ui-1.8.14.custom.min.js"></script>
-{% javascripts  '@LiipVieBundle/Resources/public/js/init-vie-hallo.js'
+{% javascripts output="/js/instant.js"
+                '@LiipVieBundle/Resources/public/js/init-vie-hallo.js'
                 '@LiipVieBundle/vendor/hallo/examples/hallo.js'
                 '@LiipVieBundle/vendor/hallo/examples/format.js'
-                '@LiipVieBundle/vendor/vie/underscore-min.js'
-                '@LiipVieBundle/vendor/vie/backbone-min.js'
+                '@LiipVieBundle/vendor/vie/lib/underscoreJS/underscore.min.js'
+                '@LiipVieBundle/vendor/vie/lib/backboneJS/backbone.min.js'
                 '@LiipVieBundle/vendor/vie/vie.js'
                 '@LiipVieBundle/vendor/vie/vie-containermanager.js'
                 '@LiipVieBundle/vendor/vie/vie-collectionmanager.js'
+                '@LiipVieBundle/vendor/vie/vie-hallo.js'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
