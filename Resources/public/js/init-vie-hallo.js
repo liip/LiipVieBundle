@@ -23,8 +23,10 @@ jQuery(document).ready(function($) {
                 console.log('no editable');
                 return true;
             }
-console.log(objectInstance);
-            if (!jQuery(objectInstance).isModified()) {
+
+            console.log(objectInstance);
+
+            if (!$(objectInstance).isModified()) {
                 console.log('no changes');
                 return true;
             }
