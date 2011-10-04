@@ -60,8 +60,8 @@ Installation
     8. Editor (TODO: detect if there and make optional)
 
         To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
-        Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/Resources/public/aloha
-        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/bundles/Liip/VieBundle/Resources/public/aloha/aloha.js
+        Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/vendor/aloha
+        Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/bundles/Liip/VieBundle/vendor/aloha/aloha.js
 
 What is this?
 =============
