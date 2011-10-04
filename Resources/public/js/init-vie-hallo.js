@@ -12,7 +12,16 @@ jQuery(document).ready(function($) {
 
     // Make all RDFa entities editable
     jQuery('[typeof][about]').each(function() {
-        jQuery(this).vieSemanticHallo();
+        jQuery(this).vieSemanticHallo({
+            plugins: {
+                'halloformat': {}
+            },
+            floating: false,
+            offset: {
+                'x':0,
+                'y':45
+            }
+        });
     });
 
     $('#savebutton').bind('click', function() {
