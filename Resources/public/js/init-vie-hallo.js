@@ -25,18 +25,12 @@ jQuery(document).ready(function($) {
     });
 
     $('#savebutton').bind('click', function() {
+
         // Go through all Backbone model instances loaded for the page
         VIE.EntityManager.entities.each(function(objectInstance) {
-            if (!objectInstance.editables) {
+
+            if (!VIE.HalloEditable.refreshFromEditables(objectInstance)) {
                 // No changes to this object, skip
-                console.log('no editable');
-                return true;
-            }
-
-            console.log(objectInstance);
-
-            if (!$(objectInstance).isModified()) {
-                console.log('no changes');
                 return true;
             }
 
