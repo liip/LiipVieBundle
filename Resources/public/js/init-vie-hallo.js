@@ -17,13 +17,17 @@ jQuery(document).ready(function($) {
     jQuery('[typeof][about]').each(function() {
         jQuery(this).vieSemanticHallo({
             plugins: {
-                'halloformat': {}
+                'halloheadings': {},
+                'halloformat': {},
+                'hallolists':{},
+                'hallojustify':{}
             },
             floating: false,
             offset: {
                 'x':0,
-                'y':45
-            }
+                'y':30
+            },
+            showalways: true
         });
     });
 
@@ -56,6 +60,11 @@ jQuery(document).ready(function($) {
     });
     $(this).bind('hallodeactivated', function() {
         //$('#savebutton').hide();
+    });
+
+    $(window).resize(function(){
+        $('.halloToolbar').css('left', $('.inEditMode')[0].offsetLeft);
+        console.log();
     });
 
 });
