@@ -37,6 +37,9 @@ class VieController extends Controller
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
+        // We could inject a list of names to template mapping for this
+        // to allow adding other editors without changing this bundle
+
         if ('hallo' == $editor) {
             if ($this->coffee) {
                 return $this->render('LiipVieBundle::includecoffeefiles-hallo.html.twig');
@@ -45,8 +48,9 @@ class VieController extends Controller
             }
         } elseif ('aloha' == $editor) {
             return $this->render('LiipVieBundle::includejsfiles-aloha.html.twig');
-        } else {
-            throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
+
+        // No editor matched
+        throw new \InvalidArgumentException("Unknown editor '$editor' requested");
     }
 }
