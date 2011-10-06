@@ -1,0 +1,21 @@
+{# basic js files needed for vie #}
+
+<script type="text/javascript">
+    var vie_phpcr_path = '{{ path('liip_vie_phpcr_odm_put_document', {'id': ''}) }}';
+</script>
+
+{#
+ # TODO: include jquery here? probably not a good idea
+ # vie files explicitly listed as the order is relevant
+#}
+
+{% javascripts output="js/vie.js"
+                '@LiipVieBundle/vendor/vie/lib/underscoreJS/underscore.min.js'
+                '@LiipVieBundle/vendor/vie/lib/backboneJS/backbone.min.js'
+                '@LiipVieBundle/vendor/vie/lib/jquery/1.6/jquery-1.6.1.min.js'
+                '@LiipVieBundle/vendor/vie/vie.js'
+                '@LiipVieBundle/vendor/vie/vie-containermanager.js'
+                '@LiipVieBundle/vendor/vie/vie-collectionmanager.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}

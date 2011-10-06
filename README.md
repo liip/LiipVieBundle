@@ -56,20 +56,44 @@ Installation
         vie:
             resource: "@LiipVieBundle/Resources/config/routing/phpcr_odm.xml"
 
-
-    8. Editor (TODO: detect if there and make optional)
+    8. Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
 
         To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
         Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/vendor/aloha
         Make sure you have just one aloha folder with the js, not aloha/aloha/... - you should have vendor/bundles/Liip/VieBundle/vendor/aloha/aloha.js
 
+
+Usage
+=====
+
+Adjust your template to load the editor js files if the current session is allowed to edit content.
+
+    {% render "iip_vie.viecontroller:includeJSFilesAction" %}
+
+The other thing you have to do is adjusting your templates to include semantic RDFa annotations so VIE knows what content is editable.
+For an example RDFa annotation, see the cmf sandbox template:
+https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/views/EditableStaticContent/index.html.twig
+
+
 What is this?
 =============
 
-This Bundle doesn't do much at this point, also its a gigantic security hole, since it
-doesn't attempt to check any permissions.
+This Bundle currently is a gigantic security hole, since it doesn't attempt to check any permissions.
 
 The main goal is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
 
-TODO: Think if we can help with outputting Entity/Documents with RDFa somehow (annotations on Document + twig extension?)
+The bundle currently provides:
+* A REST handler to save JSON-LD data into ORM/ODM Entities resp. Documents.
+* The VIE library and the hallo editor, and support for integration the aloha editor
+* TODO: Think if we can help with outputting Entity/Documents with RDFa somehow (annotations on Document + twig extension?)
+
+
+
+Dependencies
+============
+
+This bundle includes vie and the hallo editor as submodules.
+Your symfony must have two bundles activated:
+* FOSRestBundle to handle the requests (see installation instructions above)
+* AsseticBundle to be able to provide the javascript files. (part of symfony-standard, just make sure you did not disable it)

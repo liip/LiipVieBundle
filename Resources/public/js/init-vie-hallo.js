@@ -1,3 +1,6 @@
+// TODO: update to VIE 2.0
+// var VIE = new VIE();
+
 jQuery(document).ready(function($) {
 
     VIE.EntityManager.initializeCollection();
