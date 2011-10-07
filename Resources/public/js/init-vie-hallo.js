@@ -19,8 +19,14 @@ jQuery(document).ready(function($) {
             plugins: {
                 'halloheadings': {},
                 'halloformat': {},
-                'hallolists':{},
-                'hallojustify':{}
+                'hallolists': {},
+                'hallojustify': {},
+                'hallooverlay': {
+                    offsetTop: 2,
+                    offsetLeft: 2,
+                    offsetRight: 1,
+                    offsetBottom: 3,
+                }
             },
             floating: false,
             offset: {
@@ -31,8 +37,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $('#savebutton').bind('click', function() {
-
+    $(this).bind('hallodeactivated', function() {
         // Go through all Backbone model instances loaded for the page
         VIE.EntityManager.entities.each(function(objectInstance) {
 
@@ -44,8 +49,7 @@ jQuery(document).ready(function($) {
             // Set the modified properties to the model instance
             objectInstance.save(null, {
                 success: function(savedModel, response) {
-                    alert(savedModel.id + " was saved, see JS console for details");
-                    $('#savebutton').hide();
+                    console.log(savedModel.id + " was saved");
                 },
                 error: function(response) {
                     console.log("Save failed");
@@ -55,16 +59,8 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $(this).bind('halloactivated', function() {
-        $('#savebutton').show();
-    });
-    $(this).bind('hallodeactivated', function() {
-        //$('#savebutton').hide();
-    });
-
     $(window).resize(function(){
         $('.halloToolbar').css('left', $('.inEditMode')[0].offsetLeft);
-        console.log();
     });
 
 });
