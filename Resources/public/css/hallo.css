@@ -1,6 +1,7 @@
 
 /* Editable elements */
 [contenteditable]{
+    position: relative;
     outline: none;
     padding: 5px 5px 0;
     border-left: 1px dotted #fff;
@@ -8,9 +9,8 @@
 }
 
 [contenteditable]:hover{
-    background-color: #ffffee;
-    border-left: 1px dotted #ccc;
-    border-right: 1px dotted #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     cursor: pointer;
 }
 
@@ -53,6 +53,25 @@
     padding: 0;
 }
 
+.editButton{
+    outline: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    padding: 3px 25px 2px 10px;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8) url(/bundles/liipvie/img/editIcon.png) no-repeat 36px 3px;
+}
+
+.inEditMode .editButton{
+    display: none;
+}
 
 #savebutton{
     background: #222;

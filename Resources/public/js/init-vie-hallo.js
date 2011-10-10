@@ -63,4 +63,13 @@ jQuery(document).ready(function($) {
         $('.halloToolbar').css('left', $('.inEditMode')[0].offsetLeft);
     });
 
+    $('[contenteditable]').hover(function(){
+        if(!$(this).hasClass('inEditMode')){
+            var editButton = $('<div>edit</div>').addClass('editButton').attr('contenteditable', false);
+            $(this).append(editButton);
+        }
+    }, function(){
+        $('.editButton').remove();
+    });
+
 });
