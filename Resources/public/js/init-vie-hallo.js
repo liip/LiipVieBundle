@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 
     $('[contenteditable]').hover(function(){
         if(!$(this).hasClass('inEditMode')){
-            var editButton = $('<div>edit</div>').addClass('editButton').attr('contenteditable', false);
+            var editButton = $('<div>edit</div>').addClass('editButton');
             $(this).append(editButton);
         }
     }, function(){
