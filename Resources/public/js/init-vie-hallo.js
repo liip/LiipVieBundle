@@ -60,7 +60,9 @@ jQuery(document).ready(function($) {
     });
 
     $(window).resize(function(){
-        $('.halloToolbar').css('left', $('.inEditMode')[0].offsetLeft);
+        if(!$('.inEditMode')[0] == undefined ){
+            $('.halloToolbar').css('left', $('.inEditMode')[0].offsetLeft);
+        }
     });
 
     $('[contenteditable]').hover(function(){
