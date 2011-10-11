@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
                     offsetTop: 2,
                     offsetLeft: 2,
                     offsetRight: 1,
-                    offsetBottom: 3,
+                    offsetBottom: 3
                 }
             },
             floating: false,
