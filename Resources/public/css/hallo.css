@@ -102,17 +102,17 @@
 .halloToolbar .ui-buttonset .underline_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -199px -34px; }
 .halloToolbar .ui-buttonset .underline_button.ui-state-active{ background-position: -199px 0; }
 
-.halloToolbar .ui-buttonset .unordered_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -254px -34px; }
-.halloToolbar .ui-buttonset .unordered_button.ui-state-active{ background-position: -254px 0; }
+.halloToolbar .ui-buttonset .Unordered_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -254px -34px; }
+.halloToolbar .ui-buttonset .Unordered_button.ui-state-active{ background-position: -254px 0; }
 
-.halloToolbar .ui-buttonset .left_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -298px -34px; }
-.halloToolbar .ui-buttonset .left_button.ui-state-active{ background-position: -298px 0; }
+.halloToolbar .ui-buttonset .Left_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -298px -34px; }
+.halloToolbar .ui-buttonset .Left_button.ui-state-active{ background-position: -298px 0; }
 
-.halloToolbar .ui-buttonset .center_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -327px -34px; }
-.halloToolbar .ui-buttonset .center_button.ui-state-active{ background-position: -327px 0; }
+.halloToolbar .ui-buttonset .Center_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -327px -34px; }
+.halloToolbar .ui-buttonset .Center_button.ui-state-active{ background-position: -327px 0; }
 
-.halloToolbar .ui-buttonset .right_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -357px -34px; }
-.halloToolbar .ui-buttonset .right_button.ui-state-active{ background-position: -357px 0; }
+.halloToolbar .ui-buttonset .Right_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -357px -34px; }
+.halloToolbar .ui-buttonset .Right_button.ui-state-active{ background-position: -357px 0; }
 
 
 
