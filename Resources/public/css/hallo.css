@@ -30,6 +30,7 @@
     background: #000;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
+    z-index: 1000;
 }
 
 /* Overriding jQuery UI css styles */
