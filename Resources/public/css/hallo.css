@@ -38,20 +38,38 @@
 }
 
 .halloToolbar .ui-button{
-    margin: 0;
-    background: #000;
+    margin: 0 0 0 1px;
     color: #fff;
     box-shadow: none;
+    height: 33px;
+    width: 26px;
 }
 
 .halloToolbar .ui-button-text-only .ui-button-text{
-    padding: 2px 8px;
-    margin: 2px;
+    padding: 0;
+    margin: 0;
 }
 
 .halloToolbar .ui-button-text .ui-button-text{
+    display: block;
+    height: 22px;
+    width: 17px;
+    margin: 0;
     padding: 0;
+    text-indent: 1000px;
+    overflow: hidden;
 }
+
+.halloToolbar .ui-buttonset{
+    display: block;
+    float: left;
+    padding: 0 5px 0;
+}
+
+.halloToolbar .ui-buttonset:last-child{
+    border-right: 0;
+}
+
 
 .editButton{
     outline: none;
@@ -72,6 +90,31 @@
 .inEditMode .editButton{
     display: none;
 }
+
+/* Buttons */
+.ui-buttonset .ui-button.ui-state-active{ background: none; }
+.halloToolbar .ui-buttonset .bold_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -144px -34px; }
+.halloToolbar .ui-buttonset .bold_button.ui-state-active{ background-position: -144px 0; }
+
+.halloToolbar .ui-buttonset .italic_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -171px -34px; }
+.halloToolbar .ui-buttonset .italic_button.ui-state-active{ background-position: -171px 0; }
+
+.halloToolbar .ui-buttonset .underline_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -199px -34px; }
+.halloToolbar .ui-buttonset .underline_button.ui-state-active{ background-position: -199px 0; }
+
+.halloToolbar .ui-buttonset .unordered_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -254px -34px; }
+.halloToolbar .ui-buttonset .unordered_button.ui-state-active{ background-position: -254px 0; }
+
+.halloToolbar .ui-buttonset .left_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -298px -34px; }
+.halloToolbar .ui-buttonset .left_button.ui-state-active{ background-position: -298px 0; }
+
+.halloToolbar .ui-buttonset .center_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -327px -34px; }
+.halloToolbar .ui-buttonset .center_button.ui-state-active{ background-position: -327px 0; }
+
+.halloToolbar .ui-buttonset .right_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -357px -34px; }
+.halloToolbar .ui-buttonset .right_button.ui-state-active{ background-position: -357px 0; }
+
+
 
 #savebutton{
     background: #222;
