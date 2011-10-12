@@ -253,6 +253,6 @@
 /* This is used by the overlay plugin */
 /**************************************/
 .halloOverlay {
-    background-color: '#000000';
+    background-color: #000000;
     opacity: 0.5;
 }
