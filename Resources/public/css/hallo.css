@@ -65,7 +65,6 @@
 /* Toolbar */
 .halloToolbar{
     width: 800px;
-    background: #000;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     z-index: 1000;
@@ -169,3 +168,18 @@
 .halloToolbar .ui-buttonset .h3_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -85px -34px; }
 .halloToolbar .ui-buttonset .h3_button.ui-state-active{ background-position: -85px 0; }
 /* END Buttons */
+
+.halloToolbar .halloButtonrow { background-color: #000000; }
+
+.halloToolbar .halloButtonrow-1 {
+    background-color: #272727;
+    text-align: right;
+    width: auto;
+    margin-left: 900px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.halloToolbar .halloButtonrow-2 {
+    border-top-left-radius: 5px;
+}
