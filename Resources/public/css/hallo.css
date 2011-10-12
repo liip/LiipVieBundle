@@ -183,12 +183,12 @@
 .halloToolbar .ui-buttonset .h3_button.ui-state-active{ background-position: -85px 0; }
 
 /* Anchor */
-.halloToolbar .ui-buttonset .anchor_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -91px 0; }
-.halloToolbar .ui-buttonset .anchor_button.ui-state-active{ background-position: -91px -34px; }
+.halloToolbar .ui-buttonset .anchor_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -91px -34px; }
+.halloToolbar .ui-buttonset .anchor_button.ui-state-active{ background-position: -91px 0; }
 
 /* Image */
-.halloToolbar .ui-buttonset .image_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -13px 0; }
-.halloToolbar .ui-buttonset .image_button.ui-state-active{ background-position: -13px -34px; }
+.halloToolbar .ui-buttonset .image_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -13px -34px; }
+.halloToolbar .ui-buttonset .image_button.ui-state-active{ background-position: -13px 0; }
 
 
 /* END Buttons */
