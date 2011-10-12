@@ -1,4 +1,3 @@
-
 /* Editable elements */
 [contenteditable]{
     position: relative;
@@ -24,6 +23,45 @@
     border-bottom-left-radius: 5px;
 }
 
+/* Edit Button */
+.editButton{
+    outline: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    padding: 3px 25px 2px 10px;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8) url(/bundles/liipvie/img/editIcon.png) no-repeat 36px 3px;
+}
+
+.inEditMode .editButton{
+    display: none;
+}
+/* End Edit Button */
+
+#savebutton{
+    background: #222;
+    display: none;
+    padding: 5px 10px 6px;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    margin: 15px 0 0;
+}
+
+#savebutton:hover{
+    background-color: #111;
+    color: #fff;
+}
+
 /* Toolbar */
 .halloToolbar{
     width: 800px;
@@ -31,12 +69,11 @@
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     z-index: 1000;
+    padding-bottom: 5px;
 }
 
-/* Overriding jQuery UI css styles */
-.halloToolbar .ui-state-default{
-    border: none;
-}
+/* jQueryUI OVERRIDES */
+.halloToolbar .ui-state-default{ border: none; }
 
 .halloToolbar .ui-button{
     margin: 0 0 0 1px;
@@ -62,38 +99,18 @@
 }
 
 .halloToolbar .ui-buttonset{
-    display: block;
-    float: left;
-    padding: 0 5px 0;
+    display: inline-block;
+    padding: 0 6px 0 5px;
+    background: url(/bundles/liipvie/img/stripe.png) no-repeat right 5px;
 }
 
-.halloToolbar .ui-buttonset:last-child{
-    border-right: 0;
-}
+.halloToolbar .ui-buttonset:last-child{ background: none; }
+/* END jQueryUI OVERRIDES */
 
-
-.editButton{
-    outline: none;
-    position: absolute;
-    top: 10px;
-    right: 0;
-    padding: 3px 25px 2px 10px;
-    color: #fff;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.6;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.8) url(/bundles/liipvie/img/editIcon.png) no-repeat 36px 3px;
-}
-
-.inEditMode .editButton{
-    display: none;
-}
-
-/* Buttons */
+/* BUTTONS */
 .ui-buttonset .ui-button.ui-state-active{ background: none; }
+
+/* Format */
 .halloToolbar .ui-buttonset .bold_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -144px -34px; }
 .halloToolbar .ui-buttonset .bold_button.ui-state-active{ background-position: -144px 0; }
 
@@ -103,9 +120,11 @@
 .halloToolbar .ui-buttonset .underline_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -199px -34px; }
 .halloToolbar .ui-buttonset .underline_button.ui-state-active{ background-position: -199px 0; }
 
+/* Lists */
 .halloToolbar .ui-buttonset .Unordered_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -254px -34px; }
 .halloToolbar .ui-buttonset .Unordered_button.ui-state-active{ background-position: -254px 0; }
 
+/* Justify */
 .halloToolbar .ui-buttonset .Left_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -298px -34px; }
 .halloToolbar .ui-buttonset .Left_button.ui-state-active{ background-position: -298px 0; }
 
@@ -115,22 +134,16 @@
 .halloToolbar .ui-buttonset .Right_button{ background: url(/bundles/liipvie/img/buttons.png) no-repeat -357px -34px; }
 .halloToolbar .ui-buttonset .Right_button.ui-state-active{ background-position: -357px 0; }
 
+/* Paragraph & Heading */
+.halloToolbar .ui-buttonset .p_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -4px -34px; }
+.halloToolbar .ui-buttonset .p_button.ui-state-active{ background-position: -4px 0; }
 
+.halloToolbar .ui-buttonset .h1_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -31px -34px; }
+.halloToolbar .ui-buttonset .h1_button.ui-state-active{ background-position: -31px 0; }
 
-#savebutton{
-    background: #222;
-    display: none;
-    padding: 5px 10px 6px;
-    color: #fff;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    margin: 15px 0 0;
-}
+.halloToolbar .ui-buttonset .h2_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -58px -34px; }
+.halloToolbar .ui-buttonset .h2_button.ui-state-active{ background-position: -58px 0; }
 
-#savebutton:hover{
-    background-color: #111;
-    color: #fff;
-}
-
+.halloToolbar .ui-buttonset .h3_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -85px -34px; }
+.halloToolbar .ui-buttonset .h3_button.ui-state-active{ background-position: -85px 0; }
+/* END Buttons */
