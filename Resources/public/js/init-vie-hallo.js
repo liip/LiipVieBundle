@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
                 'x': 0,
                 'y': "top"
             },
-            showalways: true
+            showAlways: true
         });
     });
 
