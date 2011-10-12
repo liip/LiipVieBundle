@@ -21,6 +21,7 @@ jQuery(document).ready(function($) {
                 'halloformat': {},
                 'hallolists': {},
                 'hallojustify': {},
+                'hallolinebreak': { 'after': ['halloimage'] },
                 'hallooverlay': {
                     offsetTop: 2,
                     offsetLeft: 2,
@@ -30,8 +31,8 @@ jQuery(document).ready(function($) {
             },
             floating: false,
             offset: {
-                'x':0,
-                'y':30
+                'x': 0,
+                'y': "top"
             },
             showalways: true
         });
