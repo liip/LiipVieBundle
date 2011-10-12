@@ -248,3 +248,11 @@
     padding: 3px;
     box-shadow: 4px 4px 7px #888;
 }
+
+/**************************************/
+/* This is used by the overlay plugin */
+/**************************************/
+.halloOverlay {
+    background-color: '#000000';
+    opacity: 0.5;
+}
