@@ -105,6 +105,27 @@
     background: url(/bundles/liipvie/img/stripe.png) no-repeat right 5px;
 }
 
+.halloToolbar .ui-buttonset:last-child{
+    border-right: 0;
+}
+
+
+.editButton{
+    outline: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    padding: 3px 25px 2px 10px;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8) url(/bundles/liipvie/img/editIcon.png) no-repeat 36px 3px;
+}
+
 .halloToolbar .ui-buttonset:last-child{ background: none; }
 /* END jQueryUI OVERRIDES */
 
