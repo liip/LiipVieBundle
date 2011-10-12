@@ -18,11 +18,12 @@ jQuery(document).ready(function($) {
         jQuery(this).vieSemanticHallo({
             plugins: {
                 'halloimage': {},
+                'hallolinkimg': {},
                 'halloheadings': {},
                 'halloformat': {},
                 'hallolists': {},
                 'hallojustify': {},
-                'hallolinebreak': { 'after': ['halloimage'] },
+                'hallolinebreak': { 'after': ['hallolinkimg'] },
                 'hallooverlay': {
                     offsetTop: 0,
                     offsetLeft: 2,

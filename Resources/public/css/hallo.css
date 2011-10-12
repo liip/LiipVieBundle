@@ -107,9 +107,16 @@
 
 .halloToolbar .ui-buttonset{
     display: inline-block;
-    padding: 0 6px 0 5px;
     margin: 0;
+}
+
+.halloToolbar .halloButtonrow-2 .ui-buttonset {
     background: url(/bundles/liipvie/img/stripe.png) no-repeat right 5px;
+    padding: 0 6px 0 5px;
+}
+
+.halloToolbar .halloButtonrow-1 {
+    padding: 0px 5px;
 }
 
 .halloToolbar .ui-buttonset:last-child{
@@ -181,6 +188,8 @@
 .halloToolbar .ui-buttonset .anchor_button.ui-state-active{ background-position: 91px -34; }
 
 /* Image */
+.halloToolbar .ui-buttonset .image_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -13px 0; }
+.halloToolbar .ui-buttonset .image_button.ui-state-active{ background-position: -13px -34; }
 
 
 /* END Buttons */
@@ -191,7 +200,7 @@
     background-color: #272727;
     text-align: right;
     width: auto;
-    margin-left: 900px;
+    margin-left: 890px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
