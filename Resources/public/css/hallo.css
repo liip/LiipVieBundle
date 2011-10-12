@@ -27,6 +27,10 @@
     border-bottom-left-radius: 5px;
 }
 
+#content [contenteditable] a{
+    color: #00add2;
+}
+
 /* Edit Button */
 .editButton{
     outline: none;
@@ -171,6 +175,14 @@
 
 .halloToolbar .ui-buttonset .h3_button{ background: url("/bundles/liipvie/img/headings.png") no-repeat -85px -34px; }
 .halloToolbar .ui-buttonset .h3_button.ui-state-active{ background-position: -85px 0; }
+
+/* Anchor */
+.halloToolbar .ui-buttonset .anchor_button{ background: url("/bundles/liipvie/img/imagelink.png") no-repeat -91px 0; }
+.halloToolbar .ui-buttonset .anchor_button.ui-state-active{ background-position: 91px -34; }
+
+/* Image */
+
+
 /* END Buttons */
 
 .halloToolbar .halloButtonrow { background-color: #000000; }
