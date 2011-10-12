@@ -101,6 +101,7 @@
 .halloToolbar .ui-buttonset{
     display: inline-block;
     padding: 0 6px 0 5px;
+    margin: 0;
     background: url(/bundles/liipvie/img/stripe.png) no-repeat right 5px;
 }
 
