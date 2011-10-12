@@ -17,13 +17,14 @@ jQuery(document).ready(function($) {
     jQuery('[typeof][about]').each(function() {
         jQuery(this).vieSemanticHallo({
             plugins: {
+                'halloimage': {},
                 'halloheadings': {},
                 'halloformat': {},
                 'hallolists': {},
                 'hallojustify': {},
                 'hallolinebreak': { 'after': ['halloimage'] },
                 'hallooverlay': {
-                    offsetTop: 2,
+                    offsetTop: 0,
                     offsetLeft: 2,
                     offsetRight: 1,
                     offsetBottom: 3

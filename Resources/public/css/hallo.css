@@ -13,6 +13,10 @@
     cursor: pointer;
 }
 
+[contenteditable] img:hover, [contenteditable] img:active{
+    cursor: move;
+}
+
 [contenteditable].inEditMode{
     cursor: text;
     border-left: 3px solid #000;
@@ -182,4 +186,53 @@
 
 .halloToolbar .halloButtonrow-2 {
     border-top-left-radius: 5px;
+}
+
+
+.ui-dialog {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 3px solid black;
+}
+
+.ui-dialog-titlebar {
+    background: #000000;
+    color: white;
+
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    background-color: red;
+}
+
+.ui-dialog .halloimage-dialognav {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: white;
+    height: 30px;
+    background-color: #36B4D9;
+    text-align: center;
+    line-height: 30px;
+}
+
+.ui-dialog .ui-dialog-content { padding: 0; }
+
+.halloimage-dialogcontent {
+    text-align: center;
+    padding: 15px;
+}
+
+.halloimage-activeimage {
+    -moz-transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    padding: 3px;
+    box-shadow: 4px 4px 7px #888;
+}
+
+.halloimage-activeimage {
+    -moz-transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    padding: 3px;
+    box-shadow: 4px 4px 7px #888;
 }
