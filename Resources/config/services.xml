@@ -13,6 +13,10 @@
             <argument type="service" id="service_container"/>
             <argument>%liip_vie.use_coffee%</argument>
         </service>
+
+        <service id="liip_vie.assets.controller" class="Liip\VieBundle\Controller\AssetsController" public="true">
+            <argument type="service" id="service_container"/>
+        </service>
     </services>
 
 </container>

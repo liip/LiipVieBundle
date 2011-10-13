@@ -10,4 +10,9 @@
         <requirement key="id">.+</requirement>
     </route>
 
+    <route id="liip_vie_assets_search" pattern="/liip/vie/assets/search/">
+        <default key="_controller">liip_vie.assets.controller:searchAction</default>
+        <default key="_format">json</default>
+        <requirement key="_method">GET</requirement>
+    </route>
 </routes>
