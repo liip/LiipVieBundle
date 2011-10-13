@@ -130,6 +130,10 @@
     padding: 0px 5px;
 }
 
+.hallotoolbar .halloButtonrow-1:last-child {
+    border-top-right-radius: 5px;
+}
+
 .hallotoolbar .halloButtonrow:last-of-type {
     border-top-left-radius: 5px;
 }
