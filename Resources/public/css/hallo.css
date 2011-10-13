@@ -109,19 +109,36 @@
     margin: 0;
 }
 
+/**********************************/
+/* Special styling of button rows */
+/**********************************/
+.halloToolbar .halloButtonrow { background-color: #000000; }
+
+.halloToolbar .halloButtonrow-1 {
+    background-color: #272727;
+    text-align: right;
+    width: auto;
+    margin-left: 890px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0px 5px;
+}
+
+.halloToolbar .halloButtonrow-2 {
+    border-top-left-radius: 5px;
+}
+
 .halloToolbar .halloButtonrow-2 .ui-buttonset {
     background: url(/bundles/liipvie/img/stripe.png) no-repeat right 5px;
     padding: 0 6px 0 5px;
 }
 
-.halloToolbar .halloButtonrow-1 {
-    padding: 0px 5px;
-}
+
+
 
 .halloToolbar .ui-buttonset:last-child{
     border-right: 0;
 }
-
 
 .editButton{
     outline: none;
@@ -142,7 +159,9 @@
 .halloToolbar .ui-buttonset:last-child{ background: none; }
 /* END jQueryUI OVERRIDES */
 
-/* BUTTONS */
+/**********************/
+/* Buttons in Toolbar */
+/**********************/
 .ui-buttonset .ui-button.ui-state-active{ background: none; }
 
 /* Format */
@@ -193,22 +212,9 @@
 
 /* END Buttons */
 
-.halloToolbar .halloButtonrow { background-color: #000000; }
-
-.halloToolbar .halloButtonrow-1 {
-    background-color: #272727;
-    text-align: right;
-    width: auto;
-    margin-left: 890px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.halloToolbar .halloButtonrow-2 {
-    border-top-left-radius: 5px;
-}
-
-
+/****************/
+/* Image Dialog */
+/****************/
 .ui-dialog {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -216,28 +222,47 @@
     border: 3px solid black;
 }
 
+.ui-dialog .ui-dialog-content { padding: 0; }
+
+/* Title bar */
+
 .ui-dialog-titlebar {
     background: #000000;
     color: white;
-
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
     background-color: red;
 }
 
-.ui-dialog .halloimage-dialognav {
+/* Nav/Tabs */
+.ui-dialog .halloimage-tabs {
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
     color: white;
     height: 30px;
-    background-color: #36B4D9;
+    background-color: #01add2;
     text-align: center;
     line-height: 30px;
+    padding-top: 3px;
 }
 
-.ui-dialog .ui-dialog-content { padding: 0; }
+.ui-dialog .halloimage-tabs li {
+    display: inline-block;
+    padding: 0 5px;
+    cursor: pointer;
+}
 
+.halloimage-tab-search, .halloimage-tab-upload {
+    display: none;
+}
+
+.ui-dialog .halloimage-tab-activeIndicator {
+    vertical-align: top;
+    margin-left: 50px;
+}
+
+/* Content */
 .halloimage-dialogcontent {
     text-align: center;
     padding: 15px;
@@ -248,13 +273,14 @@
     -webkit-transform: rotate(-3deg);
     padding: 3px;
     box-shadow: 4px 4px 7px #888;
+    cursor: move;
 }
 
-.halloimage-activeimage {
-    -moz-transform: rotate(-3deg);
-    -webkit-transform: rotate(-3deg);
-    padding: 3px;
-    box-shadow: 4px 4px 7px #888;
+.halloimage-activeimage:hover {
+    position: relative;
+    left: -20px;
+    -moz-transform: rotate(-6deg);
+    -webkit-transform: rotate(-6deg);
 }
 
 /**************************************/
