@@ -231,6 +231,7 @@
     box-shadow: none;
     border: 3px solid black;
     border-radius: 5px;
+    overflow: visible;
 }
 
 .ui-dialog .ui-dialog-content { padding: 0; }
@@ -241,6 +242,7 @@
     background: #000000;
     color: white;
     padding: 5px 10px;
+    border: none;
 }
 
 .ui-dialog .ui-dialog-title {
@@ -249,9 +251,16 @@
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
-    background-color: red;
+    background: url(/bundles/liipvie/img/close_button.png) no-repeat 0px -25px;
+    top: -2px;
+    right: -11px;
+    width: 25px;
+    height: 25px;
 }
 
+.ui-dialog .ui-dialog-titlebar-close:hover {
+    background-position: 0px 0px;
+}
 
 /* Nav/Tabs */
 .ui-dialog .halloimage-dialognav {
@@ -263,16 +272,28 @@
     font-size: 10px;
     color: white;
     height: 30px;
-    background-color: #01add2;
-    text-align: center;
     line-height: 30px;
-    padding-top: 3px;
+}
+
+.ui-dialog .halloimage-tabs {
+    display: table;
+    width: 100%;
 }
 
 .ui-dialog .halloimage-tabs li {
-    display: inline-block;
+    display: table-cell;
     padding: 0 5px;
     cursor: pointer;
+    background: #01add2 url(/bundles/liipvie/img/divider.png) no-repeat right;
+    padding: 3px 6px 0 5px;
+    text-align: center;
+}
+.ui-dialog .halloimage-tabs li:hover {
+    background-color: #32AAC8;
+}
+
+.ui-dialog .halloimage-tabs li:last-of-type {
+    background-image: none;
 }
 
 .halloimage-tab-search, .halloimage-tab-upload {
@@ -346,6 +367,10 @@
     border: 0;
     border-radius: 3px;
     margin-top: 10px;
+}
+
+.halloimage-metadata button:hover {
+    background-color: #01add2;
 }
 
 .ui-dialog .linkForm{
