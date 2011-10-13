@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
                 'halloformat': {},
                 'hallolists': {},
                 'hallojustify': {},
-                'hallolinebreak': { 'after': ['hallolinkimg'] },
+                'hallotoolbarlinebreak': { 'breakAfter': ['hallolinkimg'] },
                 'hallooverlay': {
                     offsetTop: 0,
                     offsetLeft: 2,
