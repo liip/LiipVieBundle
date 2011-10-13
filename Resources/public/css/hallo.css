@@ -324,8 +324,22 @@
 
 .halloimage-metadata {
     margin-top: 20px;
+    text-align: left;
 }
 
+.halloimage-metadata label {
+    color: #A1A1A1;
+    font-size: 14px;
+}
+
+.halloimage-metadata button {
+    color: white;
+    background-color: #646464;
+    padding: 5px;
+    border: 0;
+    border-radius: 3px;
+    margin-top: 10px;
+}
 
 .ui-dialog .linkForm{
     padding: 23px 32px;
