@@ -87,6 +87,9 @@
     box-shadow: none;
     height: 33px;
     width: 26px;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
 }
 
 .halloToolbar .ui-button-text-only .ui-button-text{
