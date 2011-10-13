@@ -78,7 +78,7 @@ https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Re
 What is this?
 =============
 
-This Bundle currently is a gigantic security hole, since it doesn't attempt to check any permissions.
+<b>This Bundle currently is a gigantic security hole, since it doesn't attempt to check any permissions and does not cleanup or validate the content (XSS attacks, ...).</b>
 
 The main goal is to eventually support tools to easily output Entity/Document instances
 as RDFa inside HTML, as well as map them back from JSON-LD for processing.
