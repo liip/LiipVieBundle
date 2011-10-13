@@ -317,6 +317,8 @@
     -webkit-transform: rotate(-3deg);
     padding: 3px;
     box-shadow: 4px 4px 7px #888;
+    max-width: 200px;
+    max-height: 150px;
     /* cursor: move; */
 }
 
