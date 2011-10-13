@@ -230,9 +230,15 @@
 
 /* Title bar */
 
-.ui-dialog-titlebar {
+.ui-dialog .ui-dialog-titlebar {
     background: #000000;
     color: white;
+    padding: 5px 10px;
+}
+
+.ui-dialog .ui-dialog-title {
+    font-weight: normal;
+    text-shadow: none;
 }
 
 .ui-dialog .ui-dialog-titlebar-close {
