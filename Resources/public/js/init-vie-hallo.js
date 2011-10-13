@@ -14,21 +14,33 @@ jQuery(document).ready(function($) {
     VIE.RDFaEntities.getInstances();
 
     // Make all RDFa entities editable
+
+    var overlayOptions = {
+        offsetTop: 0,
+        offsetLeft: 2,
+        offsetRight: 1,
+        offsetBottom: 3
+    };
     jQuery('[typeof][about]').each(function() {
+
         jQuery(this).vieSemanticHallo({
             plugins: {
-                'halloimage': {},
-                'hallolinkimg': {},
-                'halloheadings': {},
-                'halloformat': {},
-                'hallolists': {},
-                'hallojustify': {},
-                'hallotoolbarlinebreak': { 'breakAfter': ['hallolinkimg'] },
-                'hallooverlay': {
-                    offsetTop: 0,
-                    offsetLeft: 2,
-                    offsetRight: 1,
-                    offsetBottom: 3
+                'dcterms:title': {
+                    'halloheadings': {},
+                    'halloformat': {},
+                    'hallojustify': {},
+                    'hallooverlay': overlayOptions,
+                    'hallotoolbarlinebreak': {},
+                },
+                'default': {
+                    'halloimage': {},
+                    'hallolinkimg': {},
+                    'halloheadings': {},
+                    'halloformat': {},
+                    'hallolists': {},
+                    'hallojustify': {},
+                    'hallotoolbarlinebreak': { 'breakAfter': ['hallolinkimg'] },
+                    'hallooverlay': overlayOptions
                 }
             },
             floating: false,

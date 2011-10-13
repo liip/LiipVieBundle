@@ -115,9 +115,12 @@
 /**********************************/
 /* Special styling of button rows */
 /**********************************/
-.hallotoolbar .halloButtonrow { background-color: #000000; }
+.hallotoolbar .halloButtonrow {
+    background-color: #000000;
+}
 
-.hallotoolbar .halloButtonrow-1 {
+/* Only apply this block if there is another line in the toolbar */
+.hallotoolbar .halloButtonrow-1:not(:last-child) {
     background-color: #272727;
     text-align: right;
     width: auto;
@@ -127,7 +130,7 @@
     padding: 0px 5px;
 }
 
-.hallotoolbar .halloButtonrow-2 {
+.hallotoolbar .halloButtonrow:last-of-type {
     border-top-left-radius: 5px;
 }
 
