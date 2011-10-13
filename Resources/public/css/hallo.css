@@ -223,6 +223,7 @@
     -moz-box-shadow: none;
     box-shadow: none;
     border: 3px solid black;
+    border-radius: 5px;
 }
 
 .ui-dialog .ui-dialog-content { padding: 0; }
