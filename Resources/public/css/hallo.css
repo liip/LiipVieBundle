@@ -228,8 +228,8 @@
 
 .ui-dialog .ui-dialog-content { padding: 0; }
 
-/* Title bar */
 
+/* Title bar */
 .ui-dialog .ui-dialog-titlebar {
     background: #000000;
     color: white;
@@ -245,7 +245,12 @@
     background-color: red;
 }
 
+
 /* Nav/Tabs */
+.ui-dialog .halloimage-dialognav {
+    height: 35px;
+}
+
 .ui-dialog .halloimage-tabs {
     text-transform: uppercase;
     font-size: 10px;
@@ -272,26 +277,55 @@
     margin-left: 50px;
 }
 
+
 /* Content */
 .halloimage-dialogcontent {
     text-align: center;
     padding: 15px;
 }
 
-.halloimage-activeimage {
+.halloimage-activeImage {
     -moz-transform: rotate(-3deg);
     -webkit-transform: rotate(-3deg);
     padding: 3px;
     box-shadow: 4px 4px 7px #888;
-    cursor: move;
+    /* cursor: move; */
 }
 
-.halloimage-activeimage:hover {
+.halloimage-activeImage:hover {
     position: relative;
     left: -20px;
     -moz-transform: rotate(-6deg);
     -webkit-transform: rotate(-6deg);
 }
+
+.halloimage-imageThumbnail {
+    max-width: 45px;
+    max-height: 45px;
+    padding: 2px;
+    border: 1px solid #E1E1E1;
+    box-shadow: 2px 2px 4px #888;
+}
+
+.halloimage-imageThumbnail:hover {
+    border: 1px solid #01add2;
+}
+
+.halloimage-imageThumbnailActive, .halloimage-imageThumbnailActive:hover {
+    padding: 0px;
+    border: 3px solid black;
+    box-shadow: 2px 2px 4px #888;
+    outline: 1px solid black;
+}
+
+.halloimage-activeImageContainer {
+    padding-top: 20px;
+}
+
+.halloimage-metadata {
+    margin-top: 20px;
+}
+
 
 .ui-dialog .linkForm{
     padding: 23px 32px;
