@@ -286,6 +286,10 @@
     -webkit-transform: rotate(-6deg);
 }
 
+.ui-dialog .linkForm{
+    padding: 23px 32px;
+}
+
 /**************************************/
 /* This is used by the overlay plugin */
 /**************************************/
