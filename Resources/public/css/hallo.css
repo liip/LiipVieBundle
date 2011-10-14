@@ -312,7 +312,7 @@
     padding: 15px;
 }
 
-.halloimage-activeImage {
+.halloimage-activeImage, .halloimage-activeImageBg {
     -moz-transform: rotate(-3deg);
     -webkit-transform: rotate(-3deg);
     padding: 3px;
@@ -322,11 +322,26 @@
     /* cursor: move; */
 }
 
+.halloimage-activeImageBg {
+    opacity: 0.2;
+    position: absolute;
+}
+
 .halloimage-activeImage:hover {
     position: relative;
     left: -20px;
     -moz-transform: rotate(-6deg);
     -webkit-transform: rotate(-6deg);
+}
+
+.halloimage-activeImageContainer {
+    padding-top: 20px;
+}
+
+.halloimage-activeImageAligner {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .halloimage-imageThumbnail {
@@ -346,10 +361,6 @@
     border: 3px solid black;
     box-shadow: 2px 2px 4px #888;
     outline: 1px solid black;
-}
-
-.halloimage-activeImageContainer {
-    padding-top: 20px;
 }
 
 .halloimage-metadata {
