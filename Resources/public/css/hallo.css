@@ -265,6 +265,7 @@
 /* Nav/Tabs */
 .ui-dialog .halloimage-dialognav {
     height: 35px;
+    width: 100%;
 }
 
 .ui-dialog .halloimage-tabs {
