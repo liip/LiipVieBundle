@@ -387,6 +387,29 @@
     background-color: #01add2;
 }
 
+.ui-dialog input.searchInput{
+    height: 28px;
+    width: 178px;
+    border: none !important;
+    box-shadow: none !important;
+    background: url(/bundles/liipvie/img/search_input.png)
+}
+
+.ui-dialog input.searchButton{
+    background: url("/bundles/liipvie/img/ok_button.png") repeat scroll 0 0 transparent;
+    text-indent: 1000px;
+    overflow: hidden;
+    border: none;
+    width: 56px;
+    height: 34px;
+    position: relative;
+    top: 1px;
+}
+
+.ui-dialog .searchResults{
+    padding: 15px 0 0 0;
+}
+
 .ui-dialog .linkForm{
     padding: 23px 32px;
 }
