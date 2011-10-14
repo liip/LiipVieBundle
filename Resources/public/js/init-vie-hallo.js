@@ -26,11 +26,9 @@ jQuery(document).ready(function($) {
         jQuery(this).vieSemanticHallo({
             plugins: {
                 'dcterms:title': {
-                    'halloheadings': {},
                     'halloformat': {},
-                    'hallojustify': {},
                     'hallooverlay': overlayOptions,
-                    'hallotoolbarlinebreak': {},
+                    'hallotoolbarlinebreak': {}
                 },
                 'default': {
                     'halloimage': {},
