@@ -2,11 +2,19 @@
 
 namespace Liip\VieBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use FOS\RestBundle\View\ViewHandlerInterface,
+    FOS\RestBundle\View\View;
 
-class VieController extends Controller
+class VieController
 {
+    /**
+     * @var FOS\RestBundle\View\ViewHandlerInterface
+     */
+    private $viewHandler;
+
+    /**
+     * @var Boolean
+     */
     private $coffee;
 
     /**
@@ -14,14 +22,14 @@ class VieController extends Controller
      *
      * When using hallo, the controller can include the compiled js files from
      * hallo's examples folder or use the assetic coffee filter.
-     * When developping hallo, make sure to use the coffee filter.
+     * When developing hallo, make sure to use the coffee filter.
      *
-     * @param ContainerInterface $container the container
-     * @param string $useCoffee whether assetic is set up to use coffee script
+     * @param ViewHandlerInterface $viewHandler view handler
+     * @param Boolean $useCoffee whether assetic is set up to use coffee script
      */
-    public function __construct(ContainerInterface $container, $useCoffee = false)
+    public function __construct(ViewHandlerInterface $viewHandler, $useCoffee = false)
     {
-        $this->setContainer($container);
+        $this->viewHandler = $viewHandler;
         $this->coffee = $useCoffee;
     }
 
@@ -37,20 +45,22 @@ class VieController extends Controller
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
-        // We could inject a list of names to template mapping for this
-        // to allow adding other editors without changing this bundle
-
-        if ('hallo' == $editor) {
-            if ($this->coffee) {
-                return $this->render('LiipVieBundle::includecoffeefiles-hallo.html.twig');
-            } else {
-                return $this->render('LiipVieBundle::includejsfiles-hallo.html.twig');
-            }
-        } elseif ('aloha' == $editor) {
-            return $this->render('LiipVieBundle::includejsfiles-aloha.html.twig');
+        $view = new View();
+        switch ($editor) {
+            case 'hallo':
+                if ($this->coffee) {
+                    $view->setTemplate('LiipVieBundle::includecoffeefiles-hallo.html.twig');
+                } else {
+                    $view->setTemplate('LiipVieBundle::includejsfiles-hallo.html.twig');
+                }
+                break;
+            case 'aloha':
+                $view->setTemplate('LiipVieBundle::includejsfiles-aloha.html.twig');
+            break;
+            default:
+                throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
 
-        // No editor matched
-        throw new \InvalidArgumentException("Unknown editor '$editor' requested");
+        return $this->viewHandler->handle($view);
     }
 }

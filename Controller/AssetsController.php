@@ -2,16 +2,27 @@
 
 namespace Liip\VieBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class AssetsController extends Controller
-{
+use FOS\RestBundle\View\ViewHandlerInterface,
+    FOS\RestBundle\View\View;
 
-    public function __construct(ContainerInterface $container)
+/**
+ * TODO this controller should eventually be removed
+ * Or at most an example optional service using the FS could be offered
+ *
+ * Instead a REST API should be defined
+ */
+class AssetsController
+{
+    /**
+     * @var FOS\RestBundle\View\ViewHandlerInterface
+     */
+    private $viewHandler;
+
+    public function __construct(ViewHandlerInterface $viewHandler)
     {
-        $this->setContainer($container);
+        $this->viewHandler = $viewHandler;
     }
 
     /**
@@ -45,22 +56,24 @@ class AssetsController extends Controller
             )
         );
 
-        $page = $request->query->get('page');
-        if ($page === null || !is_numeric($page) || $page < 1) {
+        $page = (int)$request->query->get('page', 1);
+        if ($page < 1) {
             $page = 1;
         }
-        $length = $request->query->get('length');
-        if ($length === null || !is_numeric($length) || $length < 1) {
+
+        $length = (int)$request->query->get('length', 4);
+        if ($length < 1) {
             $length = 4;
         }
 
-        $responseArray = array(
+        $data = array(
             'page' => $page,
             'length' => $length,
             'total' => count($data),
             'assets' => array_slice($data, ($page-1)*$length, $length)
         );
 
-        return $responseArray;
+        $view = View::create($data);
+        return $this->viewHandler->handle($view);
     }
 }
