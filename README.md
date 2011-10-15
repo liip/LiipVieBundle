@@ -45,7 +45,7 @@ Installation
 
         liip_vie:
             phpcr_odm: true
-            #orm: doctrine.orm.my_entity_manager
+            #orm: my_document_manager
             map:
                 '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
 
@@ -68,7 +68,7 @@ Usage
 
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
-    {% render "iip_vie.viecontroller:includeJSFilesAction" %}
+    {% render "liip_vie.controller.vie:includeJSFilesAction" %}
 
 The other thing you have to do is adjusting your templates to include semantic RDFa annotations so VIE knows what content is editable.
 For an example RDFa annotation, see the cmf sandbox template:

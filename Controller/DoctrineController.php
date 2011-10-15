@@ -10,7 +10,7 @@ use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View,
     FOS\RestBundle\Response\Codes;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 use Liip\VieBundle\FromJsonLdInterface,
     Liip\VieBundle\ToJsonLdInterface;
@@ -23,26 +23,40 @@ abstract class DoctrineController
     protected $viewHandler;
 
     /**
-     * @var Doctrine\Common\Persistence\ObjectManager
+     * @var ManagerRegistry
      */
-    protected $manager;
+    protected $registry;
+
+    /**
+     * @var string
+     */
+    protected $name;
 
     /**
      * @var array
      */
     protected $map;
 
-    public function __construct(ViewHandlerInterface $viewHandler, ObjectManager $manager, array $map)
+    public function __construct(ViewHandlerInterface $viewHandler, ManagerRegistry $registry, $name = null, array $map = array())
     {
         $this->viewHandle = $viewHandler;
-        $this->manager = $manager;
+        $this->registry = $registry;
+        $this->name = $name;
         $this->map = $map;
+    }
+
+    /**
+     * @return Doctrine\Common\Persistence\ObjectManager
+     */
+    protected function getManager()
+    {
+        return $this->registry->getManager($this->name);
     }
 
     /**
      * @throws \Symfony\Component\Routing\Exception\ResourceNotFoundException
      * @param array $data
-     * @return \Doctrine\ODM\PHPCR\DocumentRepository
+     * @return object a repository instance
      */
     protected function getRepository($data)
     {
@@ -50,7 +64,7 @@ abstract class DoctrineController
             throw new ResourceNotFoundException($data['a'].' is not mapped to a class');
         }
 
-        return $this->manager->getRepository($this->map[$data['a']]);
+        return $this->getManager()->getRepository($this->map[$data['a']]);
     }
 
     /**
@@ -71,7 +85,7 @@ abstract class DoctrineController
         }
 
         $model->fromJsonLD($data);
-        $this->manager->flush();
+        $this->getManager()->flush();
 
         if (!($model instanceof ToJsonLdInterface)) {
             return new Response('', Codes::HTTP_NO_CONTENT);

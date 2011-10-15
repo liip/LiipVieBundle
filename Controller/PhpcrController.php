@@ -7,10 +7,14 @@ use Symfony\Component\HttpFoundation\Request,
 
 use FOS\RestBundle\View\ViewHandlerInterface;
 
-use PHPCR\SessionInterface,
-    PHPCR\NodeInterface;
+use PHPCR\NodeInterface;
 
-class PhpcrController
+use Doctrine\Common\Persistence\ManagerRegistry;
+
+use Liip\VieBundle\FromJsonLdInterface,
+    Liip\VieBundle\ToJsonLdInterface;
+
+abstract class DoctrineController
 {
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
@@ -18,14 +22,19 @@ class PhpcrController
     protected $viewHandler;
 
     /**
-     * @var PHPCR\SessionInterface
+     * @var ManagerRegistry
      */
-    protected $session;
+    protected $registry;
 
-    public function __construct(ViewHandlerInterface $viewHandler, SessionInterface $session)
+    /**
+     * @var string
+     */
+    protected $name;
+
+    public function __construct(ViewHandlerInterface $viewHandler, ManagerRegistry $registry, $name = null)
     {
-        $this->viewHandler = $viewHandler;
-        $this->session = $session;
+        $this->viewHandle = $viewHandler;
+        $this->registry = $registry;
     }
 
     protected function fromJsonLD(NodeInterface $node, array $data)
@@ -52,13 +61,14 @@ class PhpcrController
         $path = '/'.$id;
         $data = $request->request->all();
 
-        $node = $this->session->getNode($path);
+        $session = $this->registry->getConnection($this->name);
+        $node = $session->getNode($path);
         if (empty($node)) {
             throw new ResourceNotFoundException($path.' not found');
         }
 
         $this->fromJsonLD($node, $data);
-        $this->session->save();
+        $session->save();
 
         // return the updated version
         $view = View::create($this->toJsonLd($node))->setFormat('json');
