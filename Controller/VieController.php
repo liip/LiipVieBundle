@@ -45,6 +45,9 @@ class VieController
      */
     public function includeJSFilesAction($editor = 'hallo')
     {
+        // We could inject a list of names to template mapping for this
+        // to allow adding other editors without changing this bundle
+
         $view = new View();
         switch ($editor) {
             case 'hallo':
