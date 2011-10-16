@@ -56,7 +56,7 @@ class VieController
                 break;
             case 'aloha':
                 $view->setTemplate('LiipVieBundle::includejsfiles-aloha.html.twig');
-            break;
+                break;
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
