@@ -15,19 +15,12 @@ jQuery(document).ready(function($) {
 
     // Make all RDFa entities editable
 
-    var overlayOptions = {
-        offsetTop: 0,
-        offsetLeft: 2,
-        offsetRight: 1,
-        offsetBottom: 3
-    };
     jQuery('[typeof][about]').each(function() {
-
         jQuery(this).vieSemanticHallo({
             plugins: {
                 'dcterms:title': {
                     'halloformat': {},
-                    'hallooverlay': overlayOptions,
+                    'hallooverlay': {},
                     'hallotoolbarlinebreak': {}
                 },
                 'default': {
@@ -38,7 +31,7 @@ jQuery(document).ready(function($) {
                     'hallolists': {},
                     'hallojustify': {},
                     'hallotoolbarlinebreak': { 'breakAfter': ['hallolinkimg'] },
-                    'hallooverlay': overlayOptions
+                    'hallooverlay': {}
                 }
             },
             floating: false,
