@@ -51,10 +51,12 @@ jQuery(document).ready(function($) {
                 // No changes to this object, skip
                 return true;
             }
+            $(document).trigger("vieSavedStart");
 
             // Set the modified properties to the model instance
             objectInstance.save(null, {
                 success: function(savedModel, response) {
+                    $(document).trigger("vieSavedSuccess");
                     console.log(savedModel.id + " was saved");
                 },
                 error: function(response) {
