@@ -43,29 +43,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $(this).bind('hallodeactivated', function() {
-        // Go through all Backbone model instances loaded for the page
-        VIE.EntityManager.entities.each(function(objectInstance) {
-
-            if (!VIE.HalloEditable.refreshFromEditables(objectInstance)) {
-                // No changes to this object, skip
-                return true;
-            }
-            $(document).trigger("vieSavedStart");
-
-            // Set the modified properties to the model instance
-            objectInstance.save(null, {
-                success: function(savedModel, response) {
-                    $(document).trigger("vieSavedSuccess");
-                    console.log(savedModel.id + " was saved");
-                },
-                error: function(response) {
-                    console.log("Save failed");
-                    console.log(response);
-                }
-            });
-        });
-    });
+    $(this).bind('hallodeactivated', vieSaveContent);
 
     $(window).resize(function(){
         if(!$('.inEditMode')[0] == undefined ){
@@ -83,3 +61,27 @@ jQuery(document).ready(function($) {
     });
 
 });
+
+function vieSaveContent() {
+    // Go through all Backbone model instances loaded for the page
+    VIE.EntityManager.entities.each(function(objectInstance) {
+
+        if (!VIE.HalloEditable.refreshFromEditables(objectInstance)) {
+            // No changes to this object, skip
+            return true;
+        }
+        $(document).trigger("vieSaveStart");
+
+        // Set the modified properties to the model instance
+        objectInstance.save(null, {
+            success: function(savedModel, response) {
+                $(document).trigger("vieSaveSuccess");
+                console.log(savedModel.id + " was saved");
+            },
+            error: function(response) {
+                console.log("Save failed");
+                console.log(response);
+            }
+        });
+    });
+}
