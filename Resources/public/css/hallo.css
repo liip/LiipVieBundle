@@ -232,6 +232,19 @@
 /* END Buttons */
 
 
+.ui-dialog input#searchButton, .ui-dialog input#addlinkButton {
+    border: 1px solid #01add2;
+    height: 30px;
+    position: relative;
+    background-color: #01add2;
+    color: white;
+    border-radius: 0 3px 3px 0;
+    box-shadow: none;
+}
+
+.ui-dialog input#searchButton {
+    width: 56px;
+}
 
 .ui-dialog .linkForm{
     padding: 23px 32px;
