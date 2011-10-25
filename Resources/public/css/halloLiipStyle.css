@@ -13,6 +13,11 @@
     padding: 5px 5px 0;
     border-left: 1px dotted #fff;
     border-right: 1px dotted #fff;
+    overflow: hidden;
+}
+
+[contenteditable] p{
+    padding: 0 0 15px;
 }
 
 .editButton{
@@ -208,7 +213,7 @@
 
 /* Close button */
 .ui-dialog .ui-dialog-titlebar-close {
-    background: url('/bundles/liipvie/img/close_button.png') no-repeat 0px -25px;
+    background: url('/bundles/liipvie/img/close_button.png') no-repeat 0 -25px;
     top: -2px;
     right: -11px;
     width: 25px;
@@ -216,7 +221,7 @@
 }
 
 .ui-dialog .ui-dialog-titlebar-close:hover {
-    background-position: 0px 0px;
+    background-position: 0 0;
 }
 
 .ui-dialog input[type="submit"] {
@@ -227,4 +232,66 @@
     color: white;
     border-radius: 0 3px 3px 0;
     box-shadow: none;
+}
+
+/* Drag n Drop */
+
+[contenteditable] .tmp {
+    opacity: 0.3
+}
+
+[contenteditable] .tmpBig{
+    background-color: #ffffff;
+    width: 98%;
+    height: 2px;
+    margin: 0 auto 10px auto;
+    border-top: 1px solid #1cb8d6;
+    border-bottom: 1px solid #1cb8d6;
+    opacity: 1
+}
+
+.bigBlueOverlay, .smallDottedOverlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(28, 184, 214, 0.4);
+}
+
+.blueOverlayRight{
+    display : block;
+    border-right : 3px dashed rgb(28, 184, 214);
+    border-left : none;
+}
+
+.blueOverlayLeft{
+    display : block;
+    border-left : 3px dashed rgb(28, 184, 214);
+    border-right : none;
+}
+
+.smallDottedOverlay{
+    background: none;
+}
+
+.smallDottedOverlayLeft{
+   border-right : 3px dashed rgb(28, 184, 214);
+}
+
+.smallDottedOverlayRight{
+    border-left : 3px dashed rgb(28, 184, 214);
+}
+
+.ui-draggable{
+    cursor: move;
+}
+.ui-draggable-dragging{
+    border: 2px solid black;
+}
+
+.customHelper{
+    -moz-transform: rotate(+6deg);
+-webkit-transform: rotate(+6deg);
+transform: rotate(+6deg);
+
 }
