@@ -7,6 +7,7 @@
     <services>
 
         <service id="liip_vie.orm.controller" class="Liip\VieBundle\Controller\ORMController">
+            <argument type="service" id="security.context"/>
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="doctrine"/>
             <argument>null</argument>

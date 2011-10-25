@@ -4,7 +4,9 @@ namespace Liip\VieBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
-    Symfony\Component\Routing\Exception\ResourceNotFoundException;
+    Symfony\Component\Routing\Exception\ResourceNotFoundException,
+    Symfony\Component\Security\Core\Exception\AccessDeniedException,
+    Symfony\Component\Security\Core\SecurityContextInterface;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View,
@@ -17,6 +19,11 @@ use Liip\VieBundle\FromJsonLdInterface,
 
 abstract class DoctrineController
 {
+    /**
+     * @var SecurityContext
+     */
+    protected $securityContext;
+
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
      */
@@ -37,8 +44,9 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(ViewHandlerInterface $viewHandler, ManagerRegistry $registry, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ManagerRegistry $registry, $name = null, array $map = array())
     {
+        $this->securityContext = $securityContext;
         $this->viewHandle = $viewHandler;
         $this->registry = $registry;
         $this->name = $name;
@@ -72,6 +80,10 @@ abstract class DoctrineController
      */
     public function putDocumentAction(Request $request, $id)
     {
+        if (false === $this->securityContext->isGranted("IS_AUTHENTICATED_ANONYMOUSLY")) {
+            throw new AccessDeniedException();
+        }
+
         $data = $request->request->all();
 
         $repository = $this->getRepository($data);
