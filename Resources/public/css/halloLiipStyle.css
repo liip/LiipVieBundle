@@ -288,10 +288,3 @@
 .ui-draggable-dragging{
     border: 2px solid black;
 }
-
-.customHelper{
-    -moz-transform: rotate(+6deg);
--webkit-transform: rotate(+6deg);
-transform: rotate(+6deg);
-
-}
