@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Liip\VieBundle\FromJsonLdInterface,
     Liip\VieBundle\ToJsonLdInterface;
 
-abstract class DoctrineController
+class PhpcrController
 {
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
