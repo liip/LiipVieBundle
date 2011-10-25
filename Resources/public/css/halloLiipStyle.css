@@ -138,8 +138,6 @@
 /* Buttons */
 /***********/
 
-.hallotoolbar .ui-buttonset .ui-button.ui-state-active { background: none; }
-
 /* Format */
 .hallotoolbar .ui-buttonset .bold_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -144px -35px; }
 
@@ -247,7 +245,8 @@
     margin: 0 auto 10px auto;
     border-top: 1px solid #1cb8d6;
     border-bottom: 1px solid #1cb8d6;
-    opacity: 1
+    opacity: 1;
+    padding-bottom: 10px;
 }
 
 .bigBlueOverlay, .smallDottedOverlay {
