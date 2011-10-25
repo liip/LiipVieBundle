@@ -285,6 +285,14 @@
 .ui-draggable{
     cursor: move;
 }
+
 .ui-draggable-dragging{
     border: 2px solid black;
+}
+
+.customHelper{
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    z-index: 1005;
 }
