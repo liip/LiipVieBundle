@@ -1,13 +1,13 @@
 /* Before editing */
 /******************/
 
-[contenteditable]:hover{
+div[contenteditable]:hover{
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     cursor: pointer;
 }
 
-[contenteditable] {
+div[contenteditable] {
     position: relative;
     outline: none;
     padding: 5px 5px 0;
@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-[contenteditable] p{
+div[contenteditable] p{
     padding: 0 0 15px;
 }
 
@@ -45,7 +45,7 @@
 /* While editing */
 /*****************/
 
-[contenteditable].inEditMode{
+div[contenteditable].inEditMode{
     cursor: auto;
     outline: 3px solid black;
 }
@@ -234,11 +234,11 @@
 
 /* Drag n Drop */
 
-[contenteditable] .tmp {
+div[contenteditable] .tmp {
     opacity: 0.3
 }
 
-[contenteditable] .tmpBig{
+div[contenteditable] .tmpBig{
     background-color: #ffffff;
     width: 98%;
     height: 2px;
@@ -287,6 +287,10 @@
 
 .ui-draggable-dragging{
     border: 2px solid black;
+}
+
+div[contenteditable] img.ui-state-disabled {
+    opacity: 1;
 }
 
 .customHelper{
