@@ -6,7 +6,8 @@ use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\Routing\Exception\ResourceNotFoundException,
     Symfony\Component\Security\Core\Exception\AccessDeniedException,
-    Symfony\Component\Security\Core\SecurityContextInterface;
+    Symfony\Component\Security\Core\SecurityContextInterface,
+    Symfony\Component\Validator\ValidatorInterface;
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View,
@@ -30,6 +31,11 @@ abstract class DoctrineController
     protected $viewHandler;
 
     /**
+     * @var ValidatorInterface
+     */
+    protected $validator;
+
+    /**
      * @var ManagerRegistry
      */
     protected $registry;
@@ -44,10 +50,11 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ManagerRegistry $registry, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, $name = null, array $map = array())
     {
         $this->securityContext = $securityContext;
         $this->viewHandle = $viewHandler;
+        $this->validator = $validator;
         $this->registry = $registry;
         $this->name = $name;
         $this->map = $map;
@@ -97,14 +104,21 @@ abstract class DoctrineController
         }
 
         $model->fromJsonLD($data);
-        $this->getManager()->flush();
+        $errors = $this->validator->validate($model);
+        if (count($errors)) {
+            // TODO ensure we are returning JSON-LD
+            $view = View::create($errors, 400)->setFormat('json');
+        } else {
+            $this->getManager()->flush();
 
-        if (!($model instanceof ToJsonLdInterface)) {
-            return new Response('', Codes::HTTP_NO_CONTENT);
+            if (!($model instanceof ToJsonLdInterface)) {
+                return new Response('', Codes::HTTP_NO_CONTENT);
+            }
+
+            // return the updated version
+            $view = View::create($model->toJsonLd())->setFormat('json');
         }
 
-        // return the updated version
-        $view = View::create($model->toJsonLd())->setFormat('json');
         return $this->viewHandler->handle($view, $request);
     }
 }
