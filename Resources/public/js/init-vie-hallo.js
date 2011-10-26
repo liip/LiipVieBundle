@@ -58,11 +58,13 @@ jQuery(document).ready(function($) {
     });
 
     $('[contenteditable]').hover(function(){
+        $(document).trigger('startPreventSave');
         if(!$(this).hasClass('inEditMode')){
             var editButton = $('<div>edit</div>').addClass('editButton');
             $(this).append(editButton);
         }
     }, function(){
+        $(document).trigger('stopPreventSave');
         $('.editButton').remove();
     });
 
