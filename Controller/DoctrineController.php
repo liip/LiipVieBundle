@@ -57,7 +57,7 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, FilterInterface $filter, ValidatorInterface $validator, ManagerRegistry $registry, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null, array $map = array())
     {
         $this->securityContext = $securityContext;
         $this->viewHandle = $viewHandler;

@@ -13,11 +13,11 @@
     <services>
         <service id="liip_vie.metadata.annotation_reader" alias="annotation_reader" public="false" />
 
-        <service id="liip_vie.mapping.annotation_loader" class="%liip_vie.mapping.annotation_loader.class%" public="true">
+        <service id="liip_vie.mapping.annotation_loader" class="%liip_vie.mapping.annotation_loader.class%" public="false">
             <argument type="service" id="liip_vie.metadata.annotation_reader" />
         </service>
 
-        <service id="liip_vie.mapping.factory" class="%liip_vie.mapping.factory.class%" public="true">
+        <service id="liip_vie.mapping.factory" class="%liip_vie.mapping.factory.class%" public="false">
             <argument type="service" id="liip_vie.mapping.annotation_loader" />
         </service>
 
