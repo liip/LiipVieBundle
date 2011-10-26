@@ -44,6 +44,12 @@ jQuery(document).ready(function($) {
     });
 
     $(this).bind('hallodeactivated', vieSaveContent);
+    $(this).bind('startPreventSave', function() {
+        preventSave = true;
+    });
+    $(this).bind('stopPreventSave', function() {
+        preventSave = false;
+    });
 
     $(window).resize(function(){
         if(!$('.inEditMode')[0] == undefined ){
@@ -62,7 +68,13 @@ jQuery(document).ready(function($) {
 
 });
 
+var preventSave = false;
 function vieSaveContent() {
+    if (preventSave) {
+        setTimeout(vieSaveContent, 5000);
+        return;
+    }
+
     // Go through all Backbone model instances loaded for the page
     VIE.EntityManager.entities.each(function(objectInstance) {
 
