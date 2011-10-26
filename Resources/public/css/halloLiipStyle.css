@@ -46,7 +46,7 @@
 /*****************/
 
 [contenteditable].inEditMode{
-    /* cursor: text; */
+    cursor: auto;
     outline: 3px solid black;
 }
 
