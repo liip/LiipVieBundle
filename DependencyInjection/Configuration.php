@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('phpcr_odm')->defaultFalse()->end()
                 ->scalarNode('orm')->defaultFalse()->end()
                 ->scalarNode('use_coffee')->defaultFalse()->end()
+                ->scalarNode('filter')->defaultFalse()->end()
             ->end()
         ;
 

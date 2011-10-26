@@ -97,3 +97,28 @@ This bundle includes vie and the hallo editor as submodules.
 Your symfony must have two bundles activated:
 * FOSRestBundle to handle the requests (see installation instructions above)
 * AsseticBundle to be able to provide the javascript files. (part of symfony-standard, just make sure you did not disable it)
+
+Furthermore there is an optional dependency in DMS\Filter:
+https://github.com/rdohms/DMS-Filter
+
+Add the following to your deps file:
+
+```
+[DMS-Filter]
+   git=http://github.com/rdohms/DMS-Filter.git
+```
+
+And the following to your autoload.php
+
+```
+$loader->registerNamespaces(array(
+    'DMS\Filter'       => __DIR__.'/vendor/DMS-Filter',
+));
+```
+
+And finally enable the filter service:
+
+```
+liip_vie:
+    filter: true
+```

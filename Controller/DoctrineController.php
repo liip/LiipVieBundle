@@ -15,6 +15,8 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+use DMS\Filter\FilterInterface;
+
 use Liip\VieBundle\FromJsonLdInterface,
     Liip\VieBundle\ToJsonLdInterface;
 
@@ -26,9 +28,14 @@ abstract class DoctrineController
     protected $securityContext;
 
     /**
-     * @var FOS\RestBundle\View\ViewHandlerInterface
+     * @var ViewHandlerInterface
      */
     protected $viewHandler;
+
+    /**
+     * @var FilterInterface
+     */
+    protected $filter;
 
     /**
      * @var ValidatorInterface
@@ -50,10 +57,11 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, FilterInterface $filter, ValidatorInterface $validator, ManagerRegistry $registry, $name = null, array $map = array())
     {
         $this->securityContext = $securityContext;
         $this->viewHandle = $viewHandler;
+        $this->filter = $filter;
         $this->validator = $validator;
         $this->registry = $registry;
         $this->name = $name;
@@ -104,6 +112,9 @@ abstract class DoctrineController
         }
 
         $model->fromJsonLD($data);
+        if ($this->filter) {
+            $this->filter->filter($model);
+        }
         $errors = $this->validator->validate($model);
         if (count($errors)) {
             // TODO ensure we are returning JSON-LD
