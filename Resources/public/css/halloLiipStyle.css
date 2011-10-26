@@ -299,3 +299,13 @@ div[contenteditable] img.ui-state-disabled {
     height: 100px;
     z-index: 1050;
 }
+
+.trashcan{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: 25px;
+    left: 25px;
+    background: rgba(0,0,0,0.8) url('/bundles/liipvie/img/trash.png') no-repeat 12px 12px;
+    border-radius: 10px;
+}
