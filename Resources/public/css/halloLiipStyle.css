@@ -249,7 +249,7 @@ div[contenteditable] .tmpBig{
     padding-bottom: 10px;
 }
 
-.bigBlueOverlay, .smallDottedOverlay {
+.bigOverlay, .smallOverlay {
     display: none;
     position: absolute;
     top: 0;
@@ -257,27 +257,27 @@ div[contenteditable] .tmpBig{
     background-color: rgba(28, 184, 214, 0.4);
 }
 
-.blueOverlayRight{
+.bigOverlayRight{
     display : block;
     border-right : 3px dashed rgb(28, 184, 214);
     border-left : none;
 }
 
-.blueOverlayLeft{
+.bigOverlayLeft{
     display : block;
     border-left : 3px dashed rgb(28, 184, 214);
     border-right : none;
 }
 
-.smallDottedOverlay{
+.smallOverlay{
     background: none;
 }
 
-.smallDottedOverlayLeft{
+.smallOverlayLeft{
    border-right : 3px dashed rgb(28, 184, 214);
 }
 
-.smallDottedOverlayRight{
+.smallOverlayRight{
     border-left : 3px dashed rgb(28, 184, 214);
 }
 
