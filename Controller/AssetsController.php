@@ -53,6 +53,25 @@ class AssetsController
             array(
                 'url' => 'http://www.ouramazingplanet.com/images/stories/pattaya-beach-110201-02.jpg',
                 'alt' => 'Amazing view from my plane'
+            ),
+            array(
+                'url' => 'http://www.hotelplan.ch/CMS/1/1823506/4/ferien_auf_den_malediven.jpg',
+            ),
+            array(
+                'url' => 'http://stuckincustoms.smugmug.com/Portfolio-The-Best/your-favorites/3410783929310572ed16o/742619149_CYkrj-750x750.jpg',
+                'alt' => 'Blue mountains'
+            ),
+            array(
+                'url' => 'http://media.smashingmagazine.com/images/fantastic-hdr-pictures/hdr-10.jpg',
+                'alt' => 'Sun, Clouds, Stuff'
+            ),
+            array(
+                'url' => 'http://farm3.static.flickr.com/2139/1524795919_62631ab870.jpg',
+                'alt' => 'Two lone trees'
+            ),
+            array(
+                'url' => 'http://www.bigpicture.in/wp-content/uploads/2010/12/HDR-Photography-By-Paul-21-660x494.jpg',
+                'alt' => 'Bridge'
             )
         );
 
@@ -61,9 +80,9 @@ class AssetsController
             $page = 1;
         }
 
-        $length = (int)$request->query->get('length', 4);
+        $length = (int)$request->query->get('length', 8);
         if ($length < 1) {
-            $length = 4;
+            $length = 8;
         }
 
         $data = array(
