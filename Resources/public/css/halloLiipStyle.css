@@ -308,4 +308,5 @@ div[contenteditable] img.ui-state-disabled {
     left: 25px;
     background: rgba(0,0,0,0.8) url('/bundles/liipvie/img/trash.png') no-repeat 12px 12px;
     border-radius: 10px;
+    cursor: none;
 }
