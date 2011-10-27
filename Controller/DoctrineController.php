@@ -15,6 +15,8 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+use DMS\Filter\FilterInterface;
+
 use Liip\VieBundle\FromJsonLdInterface,
     Liip\VieBundle\ToJsonLdInterface;
 
@@ -31,7 +33,7 @@ abstract class DoctrineController
     protected $viewHandler;
 
     /**
-     * @var \DMS\Filter\FilterInterface
+     * @var FilterInterface
      */
     protected $filter;
 
@@ -55,7 +57,7 @@ abstract class DoctrineController
      */
     protected $map;
 
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, $filter = null, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null, array $map = array())
     {
         $this->securityContext = $securityContext;
         $this->viewHandle = $viewHandler;
