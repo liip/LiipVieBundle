@@ -310,3 +310,24 @@ div[contenteditable] img.ui-state-disabled {
     border-radius: 10px;
     cursor: none;
 }
+
+/** LINK DIALOG **/
+
+.hallolink-dialog .ui-dialog-content {
+    padding-top: 1em;
+}
+
+.hallolink-dialog form {
+    display: table;
+    margin: auto;
+}
+
+.hallolink-dialog form input[name=url] {
+    width: 430px;
+}
+
+.hallolink-dialog form input[type=submit] {
+    position: relative;
+    top: -1px;
+    left: -1px;
+}
