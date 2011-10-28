@@ -25,12 +25,12 @@ jQuery(document).ready(function($) {
                 },
                 'default': {
                     'halloimage': { 'searchUrl': 'liip/vie/assets/search/' },
-                    'hallolinkimg': {},
+                    'hallolink': {},
                     'halloheadings': {},
                     'halloformat': {},
                     'hallolists': {},
                     'hallojustify': {},
-                    'hallotoolbarlinebreak': { 'breakAfter': ['hallolinkimg'] },
+                    'hallotoolbarlinebreak': { 'breakAfter': ['hallolink'] },
                     'hallooverlay': {}
                 }
             },
