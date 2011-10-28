@@ -238,7 +238,7 @@ div[contenteditable] .tmp {
     opacity: 0.3
 }
 
-div[contenteditable] .tmpBig{
+div[contenteditable] .tmpLine{
     background-color: #ffffff;
     width: 98%;
     height: 2px;
