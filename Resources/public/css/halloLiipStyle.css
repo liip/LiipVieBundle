@@ -269,10 +269,6 @@ div[contenteditable] .tmpLine{
     border-right : none;
 }
 
-.smallOverlay{
-    background: none;
-}
-
 .smallOverlayLeft{
    border-right : 3px dashed rgb(28, 184, 214);
 }
