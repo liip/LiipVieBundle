@@ -57,7 +57,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $('[contenteditable]').not('.inEditMode').hover(function(){
+    $('div[contenteditable]').not('.inEditMode').hover(function(){
         $(document).trigger('startPreventSave');
         if(!$(this).hasClass('inEditMode')){
             var editButton = $('<div>edit</div>').addClass('editButton');
