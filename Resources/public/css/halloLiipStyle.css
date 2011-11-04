@@ -18,6 +18,7 @@
 
 [contenteditable="false"]:hover, [contenteditable="false"]{
     border: none;
+    padding: 0;
 }
 
 [contenteditable] p{
