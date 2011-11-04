@@ -1,13 +1,13 @@
 /* Before editing */
 /******************/
 
-div[contenteditable]:hover{
+[contenteditable]:hover{
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     cursor: pointer;
 }
 
-div[contenteditable] {
+[contenteditable] {
     position: relative;
     outline: none;
     padding: 10px 10px 0;
@@ -16,7 +16,7 @@ div[contenteditable] {
     overflow: hidden;
 }
 
-div[contenteditable] p{
+[contenteditable] p{
     padding: 0 0 15px;
 }
 
@@ -45,7 +45,7 @@ div[contenteditable] p{
 /* While editing */
 /*****************/
 
-div[contenteditable].inEditMode{
+[contenteditable].inEditMode{
     cursor: auto;
     outline: 3px solid black;
 }
@@ -234,11 +234,11 @@ div[contenteditable].inEditMode{
 
 /* Drag n Drop */
 
-div[contenteditable] .tmp {
+[contenteditable] .tmp {
     opacity: 0.3
 }
 
-div[contenteditable] .tmpLine{
+[contenteditable] .tmpLine{
     background-color: #ffffff;
     width: 98%;
     height: 2px;
@@ -285,7 +285,7 @@ div[contenteditable] .tmpLine{
     border: 3px solid white;
 }
 
-div[contenteditable] img.ui-state-disabled {
+[contenteditable] img.ui-state-disabled {
     opacity: 1;
 }
 
