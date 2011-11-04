@@ -16,6 +16,10 @@
     overflow: hidden;
 }
 
+[contenteditable="false"]:hover, [contenteditable="false"]{
+    border: none;
+}
+
 [contenteditable] p{
     padding: 0 0 15px;
 }
