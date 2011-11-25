@@ -83,11 +83,11 @@ abstract class DoctrineController
      */
     protected function getRepository($data)
     {
-        if (empty($this->map[$data['a']])) {
-            throw new ResourceNotFoundException($data['a'].' is not mapped to a class');
+        if (empty($this->map[$data['@type']])) {
+            throw new ResourceNotFoundException($data['@type'].' is not mapped to a class');
         }
 
-        return $this->getManager()->getRepository($this->map[$data['a']]);
+        return $this->getManager()->getRepository($this->map[$data['@type']]);
     }
 
     /**
