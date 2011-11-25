@@ -157,6 +157,7 @@
 /* Lists */
 .hallotoolbar .ui-buttonset .Unordered_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -254px -36px; }
 .hallotoolbar .ui-buttonset .Unordered_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Unordered_button.ui-state-hover { background-position: -254px -2px; }
+
 /* Justify */
 .hallotoolbar .ui-buttonset .Left_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -298px -36px; }
 .hallotoolbar .ui-buttonset .Left_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Left_button.ui-state-hover { background-position: -298px -2px; }
@@ -166,6 +167,11 @@
 
 .hallotoolbar .ui-buttonset .Right_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -357px -36px; }
 .hallotoolbar .ui-buttonset .Right_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Right_button.ui-state-hover { background-position: -357px -2px; }
+
+/* Undo/Redo */
+.hallotoolbar .ui-buttonset.halloreundo .ui-button { background: #000; }
+.hallotoolbar .ui-buttonset.halloreundo .ui-button-text .ui-button-text { text-indent: 0; }
+.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-clicked, .hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-hover {  }
 
 /* Paragraph & Heading */
 .hallotoolbar .ui-buttonset .p_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -4px -35px; }
