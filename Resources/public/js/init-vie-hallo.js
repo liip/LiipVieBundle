@@ -12,11 +12,6 @@ jQuery(document).ready(function($) {
 
     vie.namespaces.add('sioc', 'http://rdfs.org/sioc/ns#');
 
-    // Load all RDFa entities into VIE
-    vie.RDFaEntities.getInstances();
-
-    // Make all RDFa entities editable
-
     jQuery('[typeof][about]').each(function() {
         jQuery(this).vieSemanticHallo({
             vie: vie,
