@@ -13,6 +13,31 @@ jQuery(document).ready(function($) {
     vie.namespaces.add('sioc', 'http://rdfs.org/sioc/ns#');
 
     jQuery('[typeof][about]').each(function() {
+
+        // load article tags
+        vie.load({element: this}).from('rdfa').execute().done(function(entities) {
+            var tags = entities[0].attributes['<http://purl.org/dc/elements/1.1/subject>'].models;
+            jQuery(tags).each(function (key, value) {
+                $('#articleTags').addTag(value.id);
+            });
+        });
+        
+        // load suggested tags  
+        var text = $(this).text();
+        vie.use(new vie.StanbolService({
+          url: "http://cmf.lo/stanbol",
+          proxyDisabled: true
+        }));
+        vie.analyze({element: $(this)}).using(['stanbol']).execute().success(function(enhancements) {
+          return $(enhancements).each(function(i, e) {
+              if (e.attributes['<rdfschema:label>']) {
+                  $('#suggestedTags').addTag(e.id);
+              }
+          });
+        }).fail(function(xhr) {
+          console.log(xhr);
+        });
+        
         jQuery(this).vieSemanticHallo({
             vie: vie,
             plugins: {
