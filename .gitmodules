@@ -4,3 +4,6 @@
 [submodule "vendor/hallo"]
 	path = vendor/hallo
 	url = https://github.com/liip/hallo.git
+[submodule "vendor/create"]
+	path = vendor/create
+	url = https://github.com/liip/create.git
