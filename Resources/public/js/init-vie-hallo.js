@@ -38,31 +38,31 @@ jQuery(document).ready(function($) {
           console.log(xhr);
         });
         
-        jQuery(this).vieSemanticHallo({
+        jQuery('body').midgardEditable({
             vie: vie,
-            plugins: {
+            editorOptions: {
                 'dcterms:title': {
-                    'hallooverlay': {},
-                    'hallotoolbarlinebreak': {}
+                    plugins: {
+                        'hallooverlay': {},
+                        'hallotoolbarlinebreak': {}
+                    }
                 },
                 'default': {
-                    'halloimage': { 'searchUrl': 'liip/vie/assets/search/', 'vie': vie },
-                    'hallolink': {},
-                    'halloheadings': {},
-                    'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
-                    'hallolists': {'lists': {'ordered': false}},
-                    'hallojustify': {},
-                    'halloreundo': {},
-                    'hallotoolbarlinebreak': { 'breakAfter': ['hallolink'] },
-                    'hallooverlay': {}
+                    plugins: {
+                        'halloimage': { 'searchUrl': 'liip/vie/assets/search/', 'vie': vie },
+                        'hallolink': {},
+                        'halloheadings': {},
+                        'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
+                        'hallolists': {'lists': {'ordered': false}},
+                        'hallojustify': {},
+                        'halloreundo': {},
+                        'hallotoolbarlinebreak': { 'breakAfter': ['hallolink'] },
+                        'hallooverlay': {}
+                    },
+                    floating: false,
+                    showAlways: true
                 }
-            },
-            floating: false,
-            offset: {
-                'x': 0,
-                'y': "top"
-            },
-            showAlways: true
+            }
         });
     });
 
@@ -91,7 +91,7 @@ jQuery(document).ready(function($) {
         $('.editButton').remove();
     });
 
-
+    
     var preventSave = false;
     function vieSaveContent() {
         if (preventSave) {
@@ -99,13 +99,11 @@ jQuery(document).ready(function($) {
             return;
         }
 
+        jQuery('[typeof][about]').each(function() {
         // Go through all Backbone model instances loaded for the page
-        vie.EntityManager.entities.each(function(objectInstance) {
+        vie.load({element: this}).from('rdfa').execute().done(function(entities) {
 
-            if (!VIE.HalloEditable.refreshFromEditables(objectInstance)) {
-                // No changes to this object, skip
-                return true;
-            }
+            jQuery.each(entities, function(key, objectInstance) {
             $(document).trigger("vieSaveStart");
 
             // Set the modified properties to the model instance
@@ -119,6 +117,8 @@ jQuery(document).ready(function($) {
                     console.log(response);
                 }
             });
+            });
+        });
         });
     }
 });
