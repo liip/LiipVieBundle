@@ -62,11 +62,11 @@ jQuery(document).ready(function($) {
                     floating: false,
                     showAlways: true
                 }
-            }
+            },
+            deactivated: vieSaveContent
         });
     });
 
-    $(this).bind('hallodeactivated', vieSaveContent);
     $(this).bind('startPreventSave', function() {
         preventSave = true;
     });
@@ -93,32 +93,22 @@ jQuery(document).ready(function($) {
 
     
     var preventSave = false;
-    function vieSaveContent() {
+    function vieSaveContent(event, args) {
         if (preventSave) {
             setTimeout(vieSaveContent, 5000);
             return;
         }
 
-        jQuery('[typeof][about]').each(function() {
-        // Go through all Backbone model instances loaded for the page
-        vie.load({element: this}).from('rdfa').execute().done(function(entities) {
-
-            jQuery.each(entities, function(key, objectInstance) {
-            $(document).trigger("vieSaveStart");
-
-            // Set the modified properties to the model instance
-            objectInstance.save(null, {
-                success: function(savedModel, response) {
-                    $(document).trigger("vieSaveSuccess");
-                    console.log(savedModel.id + " was saved");
-                },
-                error: function(response) {
-                    console.log("Save failed");
-                    console.log(response);
-                }
-            });
-            });
-        });
+        // Set the modified properties to the model instance
+        args.instance.save(null, {
+            success: function(savedModel, response) {
+                $(document).trigger("vieSaveSuccess");
+                console.log(savedModel.id + " was saved");
+            },
+            error: function(response) {
+                console.log("Save failed");
+                console.log(response);
+            }
         });
     }
 });
