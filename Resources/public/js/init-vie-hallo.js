@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-
+    
     var vie = new VIE();
     vie.EntityManager.entities.bind('add', function(model) {
         if (typeof model.id == 'string') {
@@ -11,9 +11,43 @@ jQuery(document).ready(function($) {
     vie.use(new vie.RdfaService);
 
     vie.namespaces.add('sioc', 'http://rdfs.org/sioc/ns#');
-
+    
     jQuery('[typeof][about]').each(function() {
+        
 
+        var that = this;
+        $('#articleTags').tagsInput({
+            width:'auto',
+            height: 'auto',
+            onAddTag: function (tag) {
+                
+                var subject = vie.service('rdfa').getElementSubject(that);
+                
+                var entity = vie.entities.get(subject);
+                
+                // convert to reference url
+                if (!entity.isReference(tag)) {
+                    tag = 'urn:tag:' + tag;
+                }
+                
+                entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].vie = vie;
+                entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].addOrUpdate({'@subject': tag});
+            }
+        });
+        
+        $('#suggestedTags').tagsInput({
+            width:'auto',
+            height: 'auto',
+            interactive: false
+        });
+        
+        $("#suggestedTags_tagsinput .tag span").live("click", 
+        function(){
+            var tag = $(this).text();
+            $('#articleTags').addTag($.trim(tag));
+            $('#suggestedTags').removeTag($.trim(tag));
+        });
+        
         // load article tags
         vie.load({element: this}).from('rdfa').execute().done(function(entities) {
             var tags = entities[0].attributes['<http://purl.org/dc/elements/1.1/subject>'].models;
