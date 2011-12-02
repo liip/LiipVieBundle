@@ -96,8 +96,18 @@
                 }
 
                 if (value !='' && skipTag != true) {
+                    
+                    var label = value;
+                    if (label.substring(0, 9) == '<urn:tag:') {
+                        label = label.substring(9, label.length - 1);
+                    }
+                    
+                    if (label.substring(0, 8) == '<http://') {
+                        label = label.substring(label.lastIndexOf('/') + 1, label.length - 1);
+                    }
+                    
                     $('<span>').addClass('tag').append(
-                        $('<span>').text(value).append('&nbsp;&nbsp;'),
+                        $('<span>').text(label).data('value', value).append('&nbsp;&nbsp;'),
                         $('<a>', {
                             href  : '#',
                             title : 'Removing tag',
