@@ -69,6 +69,11 @@ VieBundle.Model.prototype.initTags = function () {
             // add tag to entity
             entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].vie = that.vie;
             entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].addOrUpdate({'@subject': tag});
+        },
+        onRemoveTag: function (tag) {
+
+            // remove tag from entity
+            that.entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].remove(tag);
         }
     });
 
