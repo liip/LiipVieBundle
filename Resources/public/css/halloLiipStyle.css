@@ -28,11 +28,11 @@
 .editButton{
     outline: none;
     position: absolute;
-    right: 0;
+    left: 0;
     padding: 3px 25px 2px 10px;
     color: #fff;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     font-size: 14px;
     font-weight: bold;
     line-height: 1.6;
