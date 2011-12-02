@@ -119,6 +119,7 @@ VieBundle.Model.prototype.initEditable = function () {
     this.element.midgardEditable({
         vie: this.vie,
         model: this.entity,
+        addButton: true,
         editorOptions: {
             'dcterms:title': {
                 plugins: {
