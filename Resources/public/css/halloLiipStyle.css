@@ -134,10 +134,17 @@
 
 .hallotoolbar .ui-buttonset:last-child{
     border-right: 0;
+    background: none;
 }
 
-.hallotoolbar .ui-buttonset:last-child{ background: none; }
+.hallotoolbar .ui-buttonset.halloreundo label,
+.hallotoolbar .ui-buttonset.halloreundo label span{
+    width: 40px;
+}
 
+.hallotoolbar .ui-buttonset.halloreundo label span span{
+    width: 40px;
+}
 
 
 /* Buttons */
