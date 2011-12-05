@@ -96,7 +96,8 @@ VieBundle.Model.prototype.initTags = function () {
         width:'auto',
         height: 'auto',
         interactive: false,
-        label: this.tagLabel
+        label: this.tagLabel,
+        remove: false
     });
 
     // add suggested tag on click to tags
