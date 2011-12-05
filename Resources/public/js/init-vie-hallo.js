@@ -37,7 +37,7 @@ VieBundle.Model = function(bundle, element) {
         $('.hiddenfieldsToggle', context).show();
         $('.hiddenfieldsCloseCorner', context).hide();
         $('.hiddenfieldsCloseButton', context).hide();
-        
+
         // save on close
         that.save();
     });
@@ -45,22 +45,22 @@ VieBundle.Model = function(bundle, element) {
     // init tags
     this.initTags();
     this.loadTags();
-    
+
     // init editor
     this.initEditable();
 };
 
 VieBundle.Model.prototype.tagLabel = function (value) {
-    
+
     if (value.substring(0, 9) == '<urn:tag:') {
         value = value.substring(9, value.length - 1);
     }
-    
+
     if (value.substring(0, 8) == '<http://') {
         value = value.substring(value.lastIndexOf('/') + 1, value.length - 1);
         value = value.replace(/_/g, ' ');
     }
-    
+
     return value;
 };
 
@@ -188,20 +188,20 @@ VieBundle.Model.prototype.save = function () {
 VieBundle.Hallo = function () {
 
     this.preventSave = false;
-    
+
     this.initVIE();
 
     var that = this;
     $('[typeof][about]').each(function() {
-       
+
         var element = $(this);
-        
+
         var model = new VieBundle.Model(that, element);
     });
 };
 
 VieBundle.Hallo.prototype.initVIE = function () {
-    
+
     this.vie = new VIE();
     this.vie.EntityManager.entities.bind('add', function(model) {
         if (typeof model.id == 'string') {
