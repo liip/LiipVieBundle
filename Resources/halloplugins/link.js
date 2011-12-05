@@ -25,7 +25,7 @@
             var _this = this;
             widget = this;
             dialogId = "" + this.options.dialog + "-dialog";
-            dialog = jQuery("<div id=\"" + dialogId + "\"><div class=\"nav\"><ul class=\"tabs\"><li id=\"" + this.options.uuid + "-tab-insert\">Insert URL</li><li id=\"" + this.options.uuid + "-tab-suggested\">Suggested URLs</li></ul></div><div id=\"" + this.options.uuid + "-tab-insert-content\" class=\"" + dialogId + "-tab\"><form action=\"#\" method=\"post\" class=\"linkForm\"><input class=\"url\" type=\"text\" name=\"url\" value=\"" + this.options.defaultUrl + "\" /><input type=\"submit\" id=\"addlinkButton\" value=\"Insert\" /></form></div><div id=\"" + this.options.uuid + "-tab-suggested-content\" class=\"" + dialogId + "-tab\"><ul><li><a href=\"http://www.liip.ch\">liip.ch</a></li><li><a href=\"http://www.20min.ch\">20min.ch</a></li></ul></div></div>");
+            dialog = jQuery("<div id=\"" + dialogId + "\"><div class=\"nav\"><ul class=\"tabs\"><li id=\"" + this.options.uuid + "-tab-insert\">Insert URL</li><li id=\"" + this.options.uuid + "-tab-suggested\">Suggested URLs</li></ul></div><div id=\"" + this.options.uuid + "-tab-insert-content\" class=\"" + dialogId + "-tab\"><form action=\"#\" method=\"post\" class=\"linkForm\"><input class=\"url\" type=\"text\" name=\"url\" value=\"" + this.options.defaultUrl + "\" /><input type=\"submit\" id=\"addlinkButton\" value=\"Insert\" /></form></div><div id=\"" + this.options.uuid + "-tab-suggested-content\" class=\"" + dialogId + "-tab\"><div class=\"scrollable\"><ul></ul></div></div></div>");
             urlInput = jQuery('input[name=url]', dialog).focus(function (e) {
                 return this.select();
             });
