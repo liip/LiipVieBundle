@@ -39,7 +39,7 @@
                 jQuery('#' + id + '-content').show();
                 //return jQuery("#" + widget.options.uuid + "-tab-activeIndicator").css("margin-left", jQuery(this).position().left + (jQuery(this).width() / 2));
             });
-            
+
             // Action when user clicks on a suggested link
             jQuery('#'+ this.options.uuid + '-tab-suggested-content li a').live('click', function (event) {
                 event.preventDefault();
@@ -47,7 +47,7 @@
                 dialog.find('form').trigger('submit');
                 jQuery('#link-dialog .nav li').first().trigger('click');
             });
-            
+
             // if user clicks on the suggestet links tab
             jQuery('#' + this.options.uuid + '-tab-suggested').live('click', function () {
                 var articleTags = [];
@@ -58,14 +58,14 @@
                 tmpArticleTags = tmpArticleTags.replace(/>/g, '');*/
                 // uri = uri.replace(/^</, '').replace(/>$/, '');
                 tmpArticleTags = tmpArticleTags.split(',');
-                
+
                 for(var i in tmpArticleTags) {
                     tagType = typeof tmpArticleTags[i];
                     if('string' === tagType) {
                         if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
                     }
                 }
-                
+
                 var vie = new VIE();
                 /*vie.use(new vie.StanbolService({
                     url: "http://localhost:9090",
@@ -78,7 +78,7 @@
                 //vie.use(new vie.DBPediaService({proxyUrl: 'http://cmf.lo/stanbol'}));
                 //vie.use(new vie.StanbolService, 'dbpedia');
                 jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").empty();
-                jQuery(articleTags).each(function () {  
+                jQuery(articleTags).each(function () {
                     vie.load({
                             entity: this + ""
                         }).
