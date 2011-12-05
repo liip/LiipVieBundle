@@ -79,3 +79,4 @@
 }
 
 .hallolink-dialog .scrollable { overflow-y: auto; overflow-x: hidden; height: 80px; font-size: 13px;}
+.hallolink-dialog .tab-activeIndicator { margin-left: 120px;}
