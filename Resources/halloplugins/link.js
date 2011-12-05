@@ -50,10 +50,10 @@
             
             // if user clicks on the suggestet links tab
             jQuery('#' + this.options.uuid + '-tab-suggested').live('click', function () {
-                var articleTags = new Array();
+                var articleTags = [];
                 var tmpArticleTags;
                 var tagType;
-                tmpArticleTags = jQuery('#articleTags').val();
+                tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
                 /*tmpArticleTags = tmpArticleTags.replace(/</g, '');
                 tmpArticleTags = tmpArticleTags.replace(/>/g, '');*/
                 // uri = uri.replace(/^</, '').replace(/>$/, '');
@@ -77,19 +77,22 @@
                 }));
                 //vie.use(new vie.DBPediaService({proxyUrl: 'http://cmf.lo/stanbol'}));
                 //vie.use(new vie.StanbolService, 'dbpedia');
-                vie.load({
-                        entity: articleTags[0]
-                    }).
-                    using('dbpedia').
-                    execute().
-                    done(function(entity) {
-                        //console.log("This is what we know of Salzburg");
-                        console.log(entity[0].collection);
-                        /*var tags = entities[0].attributes['<http://purl.org/dc/elements/1.1/subject>'].models;
-                        jQuery(tags).each(function (key, value) {
-                            $('#articleTags').addTag(value.id);
-                        });*/
-                    });
+                jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").empty();
+                jQuery(articleTags).each(function () {  
+                    vie.load({
+                            entity: this + ""
+                        }).
+                        using('dbpedia').
+                        execute().
+                        done(function(entity) {
+                            jQuery(entity).each(function () {
+                                if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
+                                    var url = this.id.substring(1, this.id.length - 1);
+                                    jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").append('<li><a href="' + url + '">' + url + '</a></li>');
+                                }
+                            });
+                        });
+                });
             });
 
             dialogSubmitCb = function () {
