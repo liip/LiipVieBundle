@@ -1,0 +1,77 @@
+/****************/
+/* Link Dialog */
+/****************/
+
+.hallolink-dialog .ui-dialog-content {
+    padding: 0;
+}
+
+.hallolink-dialog button {
+    cursor: pointer;
+}
+
+/* Nav/Tabs */
+.hallolink-dialog .nav {
+    height: 35px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.hallolink-dialog .tabs {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: white;
+    height: 30px;
+    line-height: 30px;
+    display: table;
+    width: 100%;
+}
+
+.hallolink-dialog .tabs li {
+    display: table-cell;
+    cursor: pointer;
+    background: #01add2 url('/bundles/liipvie/img/divider.png') no-repeat right;
+    padding: 3px 6px 0 5px;
+    text-align: center;
+}
+
+.hallolink-dialog .tabs li:hover {
+    background-color: #2EA0BE;
+}
+
+.hallolink-dialog .tabs li img {
+    position: relative;
+    top: 2px;
+    margin-right: 1px;
+}
+
+.hallolink-dialog .tabs li:last-of-type {
+    background-image: none;
+}
+
+.hallolink-dialog .tab-search,
+.hallolink-dialog .tab-upload {
+    display: none;
+}
+
+.hallolink-dialog .tab-activeIndicator {
+    vertical-align: top;
+    margin-left: 50px;
+}
+
+
+/* Content */
+.hallolink-dialog .dialogcontent {
+    text-align: center;
+    padding: 15px;
+}
+
+.hallolink-dialog .ui-dialog-content {
+    overflow: visible;
+}
+
+.hallolink-dialog .link-dialog-tab {
+    display: none;
+    padding: 15px;
+}
+
