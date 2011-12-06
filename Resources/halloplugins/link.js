@@ -89,17 +89,15 @@
                 return jQuery.ajax({
                     type: "GET",
                     url: "liip/vie/assets/related/",
-                    data: "page=1&length=8",
+                    data: "tags="+articleTags,
                     success: function(response) {
                         var container, items;
                         container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
                         items = [];
 
-                        items.push("<div class=\"pager-prev\" style=\"display:none\"></div>");
                         $.each(response.assets, function() {
                             return items.push('<li><a href="'+this+'">'+this+'</a></li>');
                         });
-                        items.push("<div class=\"pager-next\" style=\"display:none\"></div>");
 
                         container.html(items.join(''));
                     },
