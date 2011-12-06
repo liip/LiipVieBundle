@@ -95,4 +95,34 @@ class AssetsController
         $view = View::create($data);
         return $this->viewHandler->handle($view);
     }
+
+    public function showRelatedAction(Request $request)
+    {
+        $data = array(
+            "http://cmf.lo/app_dev.php",
+            "http://cmf.lo/app_dev.php/projects",
+            "http://cmf.lo/app_dev.php/company",
+            "http://cmf.lo/app_dev.php/company/more"
+        );
+
+        $page = (int)$request->query->get('page', 1);
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $length = (int)$request->query->get('length', 8);
+        if ($length < 1) {
+            $length = 8;
+        }
+
+        $data = array(
+            'page' => $page,
+            'length' => $length,
+            'total' => count($data),
+            'assets' => array_slice($data, ($page-1)*$length, $length)
+        );
+
+        $view = View::create($data);
+        return $this->viewHandler->handle($view);
+    }
 }

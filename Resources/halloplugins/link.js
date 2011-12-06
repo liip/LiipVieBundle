@@ -51,21 +51,7 @@
 
             // if user clicks on the suggestet links tab
             jQuery('#' + this.options.uuid + '-tab-suggested').live('click', function () {
-                var articleTags = [];
-                var tmpArticleTags;
-                var tagType;
-                tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
-                /*tmpArticleTags = tmpArticleTags.replace(/</g, '');
-                tmpArticleTags = tmpArticleTags.replace(/>/g, '');*/
-                // uri = uri.replace(/^</, '').replace(/>$/, '');
-                tmpArticleTags = tmpArticleTags.split(',');
-
-                for(var i in tmpArticleTags) {
-                    tagType = typeof tmpArticleTags[i];
-                    if('string' === tagType) {
-                        if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
-                    }
-                }
+                var articleTags = _this.prepareTags(_this.getReferenceByTags());
 
                 var vie = new VIE();
                 /*vie.use(new vie.StanbolService({
@@ -95,6 +81,34 @@
                         });
                 });
             });
+
+            // if user clicks on the related links tab
+            jQuery('#' + this.options.uuid + '-tab-related').live('click', function () {
+                var articleTags = _this.getReferenceByTags();
+
+                return jQuery.ajax({
+                    type: "GET",
+                    url: "liip/vie/assets/related/",
+                    data: "page=1&length=8",
+                    success: function(response) {
+                        var container, items;
+                        container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
+                        items = [];
+
+                        items.push("<div class=\"pager-prev\" style=\"display:none\"></div>");
+                        $.each(response.assets, function() {
+                            return items.push('<li><a href="'+this+'">'+this+'</a></li>');
+                        });
+                        items.push("<div class=\"pager-next\" style=\"display:none\"></div>");
+
+                        container.html(items.join(''));
+                    },
+                    failure: function(response) {
+                        console.log(response);
+                    },
+                });
+            });
+
 
             dialogSubmitCb = function () {
                 var link;
@@ -162,6 +176,33 @@
         _init: function () {
             var firstTab = jQuery('#link-dialog .nav li').first().attr("id");
             jQuery('#' + firstTab + '-content').show();
+        },
+
+        getReferenceByTags: function () {
+            var tmpArticleTags;
+
+            tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
+            /*tmpArticleTags = tmpArticleTags.replace(/</g, '');
+            tmpArticleTags = tmpArticleTags.replace(/>/g, '');*/
+            // uri = uri.replace(/^</, '').replace(/>$/, '');
+            tmpArticleTags = tmpArticleTags.split(',');
+
+            return tmpArticleTags;
+        },
+
+        prepareTags: function (tmpArticleTags) {
+            var articleTags = [];
+            var tagType;
+
+            for(var i in tmpArticleTags) {
+                tagType = typeof tmpArticleTags[i];
+                if('string' === tagType) {
+                    if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
+                }
+            }
+
+            return articleTags;
         }
+
     });
 })(jQuery);
