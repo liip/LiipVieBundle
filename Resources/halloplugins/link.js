@@ -42,7 +42,7 @@
             });
 
             // Action when user clicks on a suggested link
-            jQuery('#'+ this.options.uuid + '-tab-suggested-content li a').live('click', function (event) {
+            jQuery('#'+ this.options.uuid + '-tab-suggested-content li a, #'+ this.options.uuid + '-tab-related-content li a').live('click', function (event) {
                 event.preventDefault();
                 jQuery('input[name=url]', dialog).val(this.href);
                 dialog.find('form').trigger('submit');
