@@ -32,14 +32,14 @@ VieBundle.Model = function(bundle, element) {
 
     var that = this;
     this.element.find('.hiddenfieldsCloseCorner, .hiddenfieldsCloseButton').click(function(event) {
-        var context = $(this).closest('.hiddenfieldsContainer');
-        $('.hiddenfields', context).hide();
-        $('.hiddenfieldsToggle', context).show();
-        $('.hiddenfieldsCloseCorner', context).hide();
-        $('.hiddenfieldsCloseButton', context).hide();
+        that.closeTags();
+    });
 
-        // save on close
-        that.save();
+    $(document).click(function(e) {
+        if ($(e.target).closest('.hiddenfieldsContainer').size() > 0) {
+            return false;
+        }
+        that.closeTags();
     });
 
     // init tags
@@ -49,6 +49,17 @@ VieBundle.Model = function(bundle, element) {
     // init editor
     this.initEditable();
 };
+
+VieBundle.Model.prototype.closeTags = function () {
+    var context = $('.hiddenfieldsContainer');
+    $('.hiddenfields', context).hide();
+    $('.hiddenfieldsToggle', context).show();
+    $('.hiddenfieldsCloseCorner', context).hide();
+    $('.hiddenfieldsCloseButton', context).hide();
+
+    // save on close
+    this.save();
+}
 
 VieBundle.Model.prototype.tagLabel = function (value) {
 
