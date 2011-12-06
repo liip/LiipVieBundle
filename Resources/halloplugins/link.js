@@ -25,8 +25,12 @@
             var _this = this;
             widget = this;
             dialogId = "" + this.options.dialog + "-dialog";
-            dialog = jQuery("<div id=\"" + dialogId + "\"><div class=\"nav\"><ul class=\"tabs\"><li id=\"" + this.options.uuid + "-tab-insert\">Insert URL</li><li id=\"" + this.options.uuid + "-tab-suggested\">Suggested URLs</li><li id=\"" + this.options.uuid + "-tab-related\">Related URLs</li></ul><img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + dialogId + "-tab-activeIndicator\" class=\"tab-activeIndicator\" /></div><div id=\"" + this.options.uuid + "-tab-insert-content\" class=\"" + dialogId + "-tab\"><form action=\"#\" method=\"post\" class=\"linkForm\"><input class=\"url\" type=\"text\" name=\"url\" value=\"" + this.options.defaultUrl + "\" /><input type=\"submit\" id=\"addlinkButton\" value=\"Insert\" /></form></div><div id=\"" + this.options.uuid + "-tab-suggested-content\" class=\"" + dialogId + "-tab\"><div class=\"scrollable\"><ul></ul></div></div><div id=\"" + this.options.uuid + "-tab-related-content\" class=\"" + dialogId + "-tab\"><div class=\"scrollable\"><ul></ul></div></div></div>");
+            dialog = jQuery("<div id=\"" + dialogId + "\"><div class=\"nav\"><ul class=\"tabs\"><li id=\"" + this.options.uuid + "-tab-insert\">Insert URL</li><li id=\"" + this.options.uuid + "-tab-suggested\">Suggested URLs</li><li id=\"" + this.options.uuid + "-tab-related\">Related URLs</li></ul><img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + dialogId + "-tab-activeIndicator\" class=\"tab-activeIndicator\" /></div><div id=\"" + this.options.uuid + "-tab-insert-content\" class=\"" + dialogId + "-tab\"><form action=\"#\" method=\"post\" class=\"linkForm\"><input class=\"name\" type=\"text\" name=\"name\" value=\"Homepage Name\" /><input class=\"url\" type=\"text\" name=\"url\" value=\"" + this.options.defaultUrl + "\" /><input type=\"submit\" id=\"addlinkButton\" value=\"Insert\" /></form></div><div id=\"" + this.options.uuid + "-tab-suggested-content\" class=\"" + dialogId + "-tab\"><div class=\"scrollable\"><ul></ul></div></div><div id=\"" + this.options.uuid + "-tab-related-content\" class=\"" + dialogId + "-tab\"><div class=\"scrollable\"><ul></ul></div></div></div>");
             urlInput = jQuery('input[name=url]', dialog).focus(function (e) {
+                return this.select();
+            });
+
+            nameInput = jQuery('input[name=name]', dialog).blur(function(e) {
                 return this.select();
             });
 
@@ -107,10 +111,11 @@
                 });
             });
 
-
             dialogSubmitCb = function () {
-                var link;
+                var link, name;
                 link = urlInput.val();
+                name = nameInput.val();
+
                 widget.options.editable.restoreSelection(widget.lastSelection);
                 if (((new RegExp(/^\s*$/)).test(link)) || link === widget.options.defaultUrl) {
                     if (widget.lastSelection.collapsed) {
@@ -131,8 +136,7 @@
                 dialog.dialog('close');
                 return false;
             };
-            dialog.find("form").submit(dialogSubmitCb);
-            buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+
             buttonize = function (type) {
                 var button, id;
                 id = "" + _this.options.uuid + "-" + type;
@@ -164,6 +168,10 @@
                     }
                 });
             };
+
+            dialog.find("form").submit(dialogSubmitCb);
+            buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
+
             if (this.options.link) buttonize("A");
             if (this.options.link) {
                 buttonset.buttonset();

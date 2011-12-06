@@ -336,6 +336,11 @@
     margin: auto;
 }
 
+.hallolink-dialog form input[name=name] {
+    width: 330px;
+    margin-bottom: 7px;
+}
+
 .hallolink-dialog form input[name=url] {
     width: 330px;
 }
