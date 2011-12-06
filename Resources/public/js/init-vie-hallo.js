@@ -39,7 +39,10 @@ VieBundle.Model = function(bundle, element) {
         if ($(e.target).closest('.hiddenfieldsContainer').size() > 0) {
             return false;
         }
-        that.closeTags();
+        //Only close and save when it's actually open
+        if($('.hiddenfieldsCloseCorner:visible').length > 0){
+            that.closeTags();
+        }
     });
 
     // init tags
