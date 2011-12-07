@@ -30,7 +30,7 @@
                 return this.select();
             });
 
-            nameInput = jQuery('input[name=name]', dialog).blur(function(e) {
+            nameInput = jQuery('input[name=name]', dialog).focus(function(e) {
                 return this.select();
             });
 
@@ -111,10 +111,11 @@
                 });
             });
 
-            dialogSubmitCb = function () {
+            dialogSubmitCb = function (e) {
                 var link, name;
                 link = urlInput.val();
                 name = nameInput.val();
+                e. preventDefault();
 
                 widget.options.editable.restoreSelection(widget.lastSelection);
                 if (((new RegExp(/^\s*$/)).test(link)) || link === widget.options.defaultUrl) {
@@ -126,6 +127,21 @@
                     document.execCommand("unlink", null, "");
                 } else {
                     if (widget.lastSelection.startContainer.parentNode.href === void 0) {
+
+                        if (widget.lastSelection.toString() !== name) {
+                            var newSelection = window.getSelection();
+                            var range = newSelection.getRangeAt(0);
+
+                            newTextNode = document.createTextNode(name);
+                            range.extractContents();
+                            range.insertNode(newTextNode);
+                            range.setStartBefore(newTextNode);
+                            range.setEndAfter(newTextNode);
+                            newSelection.removeAllRanges();
+
+                            newSelection.addRange(range);
+                        }
+
                         document.execCommand("createLink", null, link);
                     } else {
                         widget.lastSelection.startContainer.parentNode.href = link;
@@ -142,17 +158,26 @@
                 id = "" + _this.options.uuid + "-" + type;
                 buttonset.append(jQuery("<input id=\"" + id + "\" type=\"checkbox\" /><label for=\"" + id + "\" class=\"anchor_button\" >" + type + "</label>").button());
                 button = jQuery("#" + id, buttonset);
+
                 button.bind("change", function (event) {
                     widget.lastSelection = widget.options.editable.getSelection();
                     urlInput = jQuery('input[name=url]', dialog);
+                    nameInput = jQuery('input[name=name]', dialog);
                     if (widget.lastSelection.startContainer.parentNode.href === void 0) {
                         urlInput.val(widget.options.defaultUrl);
+                        if (widget.lastSelection.toString() !== "") {
+                            nameInput.val(widget.lastSelection.toString());
+                        }
                     } else {
                         urlInput.val(jQuery(widget.lastSelection.startContainer.parentNode).attr('href'));
                         jQuery(urlInput[0].form).find('input[type=submit]').val('update');
+                        if (widget.lastSelection.toString() !== "") {
+                            nameInput.val(widget.lastSelection.toString());
+                        }
                     }
                     return dialog.dialog('open');
                 });
+
                 return _this.element.bind("keyup paste change mouseup", function (event) {
                     var nodeName, start;
                     start = jQuery(widget.options.editable.getSelection().startContainer);
