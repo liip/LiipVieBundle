@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 
+use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 /**
  * TODO this controller should eventually be removed
  * Or at most an example optional service using the FS could be offered
@@ -15,13 +18,22 @@ use FOS\RestBundle\View\ViewHandlerInterface,
  */
 class AssetsController
 {
+    private $dm;
+
+    private $mapper;
+    
+    private $generator;
+
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
      */
     private $viewHandler;
 
-    public function __construct(ViewHandlerInterface $viewHandler)
+    public function __construct($dm, PathMapperInterface $mapper, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
     {
+        $this->dm = $dm;
+        $this->mapper = $mapper;
+        $this->generator = $generator;
         $this->viewHandler = $viewHandler;
     }
 
@@ -119,12 +131,28 @@ class AssetsController
      * @retrun array with links to pages
     */
     public function getPagesByTags($tags){
-
-        return array(
-            "http://cmf.lo/app_dev.php",
-            "http://cmf.lo/app_dev.php/projects",
-            "http://cmf.lo/app_dev.php/company",
-            "http://cmf.lo/app_dev.php/company/more"
-        );
+        
+        $path = $this->mapper->getStorageId('');
+        $page = $this->dm->find(null, $path);
+        
+        
+        $sql = 'SELECT * FROM [nt:unstructured]
+                    WHERE ISDESCENDANTNODE('.$this->dm->quote($path).') OR ISSAMENODE('.$this->dm->quote($path).')';
+        
+        $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
+        $query->setLimit(-1);
+        
+        $pages = $this->dm->getDocumentsByQuery($query);
+        
+        $links = array();
+        foreach ($pages as $page) {
+            
+            $url = $this->generator->generate('navigation', array('url' => $this->mapper->getUrl($page->getPath())), true);
+            $label = $page->getLabel();
+            
+            $links[$url] = $label;
+        }
+        
+        return $links;
     }
 }

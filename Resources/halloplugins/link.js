@@ -99,8 +99,8 @@
                         container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
                         items = [];
 
-                        $.each(response.assets, function() {
-                            return items.push('<li><a href="'+this+'">'+this+'</a></li>');
+                        $.each(response.assets, function(key) {
+                            return items.push('<li><a href="'+key+'">'+this+'</a></li>');
                         });
 
                         container.html(items.join(''));
