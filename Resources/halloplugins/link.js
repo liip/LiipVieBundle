@@ -41,7 +41,6 @@
                 });
                 id = jQuery(this).attr('id');
                 jQuery('#' + id + '-content').show();
-                console.log(jQuery("#" + dialogId + "-tab-activeIndicator"));
                 return jQuery("#" + dialogId + "-tab-activeIndicator").css("margin-left", jQuery(this).position().left + (jQuery(this).width() / 2));
             });
 
