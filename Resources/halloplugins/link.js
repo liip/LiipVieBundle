@@ -47,6 +47,9 @@
             // Action when user clicks on a suggested link
             jQuery('#'+ this.options.uuid + '-tab-suggested-content li a, #'+ this.options.uuid + '-tab-related-content li a').live('click', function (event) {
                 event.preventDefault();
+                if (widget.lastSelection.toString() === '') {
+                    jQuery('input[name=name]', dialog).val(jQuery(this).text());
+                }
                 jQuery('input[name=url]', dialog).val(this.href);
                 dialog.find('form').trigger('submit');
                 jQuery('#link-dialog .nav li').first().trigger('click');
