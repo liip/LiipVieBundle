@@ -238,6 +238,9 @@
                     removeFeedbackElements: function () {
                         return $('.tmp, .tmpLine', editable).remove();
                     },
+                    removeCustomHelper: function () {
+                        return $('.customHelper').remove();
+                    },
                     showOverlay: function (position) {
                         var eHeight;
                         eHeight = editable.height() + parseFloat(editable.css('paddingTop')) + parseFloat(editable.css('paddingBottom'));
@@ -368,6 +371,7 @@
                         internalDrop = helper.checkOrigin(event);
                         position = helper.calcPosition(offset, event);
                         helper.removeFeedbackElements();
+                        helper.removeCustomHelper();
                         imageInsert = helper.createInsertElement(ui.draggable[0], false);
                         if (position === "middle") {
                             imageInsert.show();
