@@ -170,7 +170,7 @@
                         execute().
                         done(function(entity) {
                             jQuery(entity).each(function () {
-                                //hint: this.attributes['<http://xmlns.com/foaf/0.1/depiction>'] || 
+                                //hint: this.attributes['<http://xmlns.com/foaf/0.1/depiction>'] ||
                                 if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
                                     responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
                                     if(responseType === 'string') {
@@ -242,9 +242,6 @@
                     },
                     removeFeedbackElements: function () {
                         return $('.tmp, .tmpLine', editable).remove();
-                    },
-                    removeCustomHelper: function () {
-                        return $('.customHelper').remove();
                     },
                     showOverlay: function (position) {
                         var eHeight;
@@ -376,7 +373,6 @@
                         internalDrop = helper.checkOrigin(event);
                         position = helper.calcPosition(offset, event);
                         helper.removeFeedbackElements();
-                        helper.removeCustomHelper();
                         imageInsert = helper.createInsertElement(ui.draggable[0], false);
                         if (position === "middle") {
                             imageInsert.show();
