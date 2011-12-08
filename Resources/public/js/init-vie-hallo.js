@@ -112,9 +112,12 @@ VieBundle.Model.prototype.initTags = function () {
 
     // add suggested tag on click to tags
     this.element.find('.articleSuggestedTags .tag span').live('click', function(){
+        
         var tag = $(this).text();
         that.articleTags.addTag($(this).data('value'));
         that.suggestedTags.removeTag($.trim(tag));
+        
+        return false;
     });
 };
 
