@@ -70,6 +70,7 @@
                 //vie.use(new vie.StanbolService, 'dbpedia');
                 jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").empty();
                 jQuery(articleTags).each(function () {
+                    var that = this;
                     vie.load({
                             entity: this + ""
                         }).
@@ -79,7 +80,7 @@
                             jQuery(entity).each(function () {
                                 if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
                                     var url = this.id.substring(1, this.id.length - 1);
-                                    jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").append('<li><a href="' + url + '">' + url + '</a></li>');
+                                    jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").append('<li><a href="' + url + '" title="' + url + '">' + VieBundle.Model.prototype.tagLabel(that + "") + '</a></li>');
                                 }
                             });
                         });
@@ -100,7 +101,7 @@
                         items = [];
 
                         $.each(response.assets, function(key) {
-                            return items.push('<li><a href="'+key+'">'+this+'</a></li>');
+                            return items.push('<li><a href="'+key+'" title="'+key+'">'+this+'</a></li>');
                         });
 
                         container.html(items.join(''));
