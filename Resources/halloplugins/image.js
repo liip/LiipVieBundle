@@ -171,7 +171,6 @@
                         done(function(entity) {
                             jQuery(entity).each(function () {
                                 //hint: this.attributes['<http://xmlns.com/foaf/0.1/depiction>'] || 
-                                console.log('+++++++++++++++++');
                                 if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
                                     responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
                                     if(responseType === 'string') {
@@ -182,20 +181,6 @@
                                         var img = '';
                                         img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                     }
-                                    console.log('image: '+img);
-                                    console.log('------------------');
-                                    /*$.ajax({
-                                        url: img,
-                                        crossDomain: true,
-                                        type: 'HEAD',
-                                        dataType: 'jsonp',
-                                        statusCode: {
-                                            404: function() {
-                                                console.log(img + 'page not found');
-                                            }
-                                        }
-                                    });*/
-                                    
                                     jQuery('.imageThumbnailContainer ul').append('<li><img src="'+img+'" class="imageThumbnail"></li>');
                                 }
                             });
