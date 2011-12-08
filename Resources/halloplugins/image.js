@@ -216,7 +216,9 @@
                         }
                     },
                     createInsertElement: function (image, tmp) {
-                        var altText, imageInsert, tmpImg;
+                        var altText, imageInsert, tmpImg, width, height, maxWidth, maxHeight;
+                        maxWidth = 250;
+                        maxHeight = 250;
                         tmpImg = new Image();
                         tmpImg.src = image.src;
                         if (!tmp) {
@@ -228,10 +230,16 @@
                                 altText = jQuery(image).attr("alt");
                             }
                         }
+                        width = tmpImg.width;
+                        height = tmpImg.height;
+                        if (width > maxWidth || height > maxHeight) {
+                            width = (tmpImg.width/(tmpImg.width/maxWidth)).toFixed();
+                            height = (tmpImg.height/(tmpImg.height/maxHeight)).toFixed();
+                        }
                         imageInsert = $("<img>").attr({
                             src: tmpImg.src,
-                            width: tmpImg.width,
-                            height: tmpImg.height,
+                            width: width,
+                            height: height,
                             alt: altText,
                             "class": (tmp ? "tmp" : "")
                         }).show();
