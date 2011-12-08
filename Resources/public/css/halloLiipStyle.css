@@ -1,6 +1,5 @@
 /* Before editing */
 /******************/
-
 [contenteditable]:hover{
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
@@ -14,6 +13,15 @@
     border-left: 1px dotted #fff;
     border-right: 1px dotted #fff;
     overflow: hidden;
+}
+
+[contenteditable] a {
+    color: #00add2;
+}
+
+[contenteditable] li {
+    list-style-type: disc;
+    margin: 0 0 0 22px;
 }
 
 [contenteditable="false"]:hover, [contenteditable="false"]{
@@ -46,10 +54,8 @@
 }
 
 
-
 /* While editing */
 /*****************/
-
 [contenteditable].inEditMode{
     cursor: auto;
     outline: 3px solid black;
@@ -61,8 +67,9 @@
 
 /* Toolbar General */
 /*******************/
-
-.hallotoolbar .ui-state-default{ border: none; }
+.hallotoolbar .ui-state-default{
+    border: none;
+}
 
 .hallotoolbar .ui-button{
     margin: 0 0 0 1px;
@@ -95,11 +102,206 @@
     margin: 0;
 }
 
+/* Tagging */
+/***************/
+.hiddenfieldsContainer {
+    z-index: 100;
+    padding: 25px 38px 20px 20px;
+    position: absolute;
+    min-height: 30px;
+    right: 0;
+    margin-top: -15px;
+}
 
+.hiddenfieldsToggle {
+    background-image: url('/bundles/liipvie/img/cornersettings_small.png');
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 106px;
+    height: 92px;
+    cursor: pointer;
+}
+
+.hiddenfieldsToggle:hover {
+    background-image: url('/bundles/liipvie/img/cornersettings_large.png');
+    width: 157px;
+    height: 136px;
+}
+
+.hiddenfields {
+    background-color: black;
+    width: 100%;
+    display: none;
+    border-radius: 3px;
+    padding: 10px 10px 40px 10px;
+}
+
+.hiddenfields h2,
+.hiddenfields h3 {
+    color: #A0A0A0;
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+}
+
+.hiddenfields h2 {
+    background: url('/bundles/liipvie/img/settingsh2icon.png') no-repeat left center;
+    padding-left: 22px;
+    padding-bottom: 0;
+    font-size: 15px;
+}
+
+.hiddenfields h3 {
+    font-size: 13px;
+    margin: 10px 0 4px 0;
+}
+
+.hiddenfieldsCloseCorner {
+    background: url('/bundles/liipvie/img/cornerclose.png') no-repeat left bottom;
+    width: 106px;
+    height: 72px;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.hiddenfieldsCloseButton {
+    background: url('/bundles/liipvie/img/close_button.png');
+    display: none;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 15px;
+    right: 6px;
+    cursor: pointer;
+}
+
+#articleTagsWrapper {
+    width: 400px;
+    margin-top: 20px;
+}
+
+.tags_clear {
+    clear:both;
+    width:100%;
+    height:0;
+}
+
+div.tagsinput {
+    border: 0;
+    background: none;
+    width:300px;
+    height:auto;
+    overflow-y:auto;
+    padding:3px;
+}
+
+div.tagsinput div {
+    display: block;
+    float: left;
+}
+
+div.tagsinput span.tag {
+    border:1px solid #11a2bf;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    display:block;
+    float:left;
+    text-decoration:none;
+    background:#11accc;
+    color:#fff;
+    margin-right:5px;
+    margin-bottom:5px;
+    font-size:12px;
+    padding: 2px 4px;
+    cursor: pointer;
+}
+
+div.tagsinput span.tag a {
+    font-weight: bold;
+    color:#0b788e !important;
+    text-decoration:none;
+    font-size:13px;
+}
+
+div.tagsinput input,
+div.tagsinput input:focus {
+    width:80px;
+    font-size:12px;
+    border: 0 !important;
+    background:transparent !important;
+    color:#fff !important;
+    outline:0;
+    margin:0 5px 5px 0;
+    padding: 5px;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.articleSuggestedTags {
+    margin-bottom: 10px;
+}
+
+/** User Bar **/
+/**************/
+#userBar {
+    position: fixed;
+    width: 100%;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    color: #FFFFFF;
+    font-family: Helvetica;
+    font-size: 14px;
+    z-index: 550;
+    height: 25px;
+    line-height: 22px;
+    border-bottom: 1px solid #333;
+    display: none;
+
+    background: #969696; /* Old browsers */
+    background: -moz-linear-gradient(top, #969696 0%, #515151 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#969696), color-stop(100%,#515151)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #969696 0%,#515151 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #969696 0%,#515151 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #969696 0%,#515151 100%); /* IE10+ */
+    background: linear-gradient(top, #969696 0%,#515151 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#969696', endColorstr='#515151',GradientType=0 ); /* IE6-9 */
+}
+
+#userBar .saveButton {
+    cursor: pointer;
+    padding: 2px 4px;
+    margin-left: 2px;
+    border-radius: 3px;
+    border: none;
+    text-indent: 1000px;
+    overflow: hidden;
+    width: 70px;
+    height: 25px;
+    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 0;
+}
+
+#userBar .saveButtonSaving {
+    width: 100px;
+    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 -25px;
+}
+
+#userBar .saveButtonActive {
+    width: 95px;
+    line-height: 30px;
+    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 -50px;
+}
+
+#userBar .saveButtonActive:hover {
+    background-position: 0 -75px;
+}
 
 /* Button Rowa */
 /***************/
-
 .hallotoolbar .halloButtonrow {
     background-color: #000000;
 }
@@ -117,7 +319,6 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-
 
 .hallotoolbar .halloButtonrow-1:last-child {
     border-top-right-radius: 5px;
@@ -146,66 +347,75 @@
     width: 40px;
 }
 
-
 /* Buttons */
 /***********/
 
 /* Format */
 .hallotoolbar .ui-buttonset .bold_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -144px -35px; }
-
-.hallotoolbar .ui-buttonset .bold_button.ui-state-clicked, .hallotoolbar .ui-buttonset .bold_button.ui-state-hover { background-position: -144px -2px; }
+.hallotoolbar .ui-buttonset .bold_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .bold_button.ui-state-hover { background-position: -144px -2px; }
 
 .hallotoolbar .ui-buttonset .italic_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -171px -35px; }
-.hallotoolbar .ui-buttonset .italic_button.ui-state-clicked, .hallotoolbar .ui-buttonset .italic_button.ui-state-hover { background-position: -171px -2px; }
+.hallotoolbar .ui-buttonset .italic_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .italic_button.ui-state-hover { background-position: -171px -2px; }
 
 .hallotoolbar .ui-buttonset .underline_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -199px -35px; }
-.hallotoolbar .ui-buttonset .underline_button.ui-state-clicked, .hallotoolbar .ui-buttonset .underline_button.ui-state-hover { background-position: -199px -2px; }
+.hallotoolbar .ui-buttonset .underline_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .underline_button.ui-state-hover { background-position: -199px -2px; }
 
 /* Lists */
 .hallotoolbar .ui-buttonset .Unordered_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -254px -36px; }
-.hallotoolbar .ui-buttonset .Unordered_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Unordered_button.ui-state-hover { background-position: -254px -2px; }
+.hallotoolbar .ui-buttonset .Unordered_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .Unordered_button.ui-state-hover { background-position: -254px -2px; }
 
 /* Justify */
 .hallotoolbar .ui-buttonset .Left_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -298px -36px; }
-.hallotoolbar .ui-buttonset .Left_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Left_button.ui-state-hover { background-position: -298px -2px; }
+.hallotoolbar .ui-buttonset .Left_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .Left_button.ui-state-hover { background-position: -298px -2px; }
 
 .hallotoolbar .ui-buttonset .Center_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -327px -36px; }
-.hallotoolbar .ui-buttonset .Center_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Center_button.ui-state-hover { background-position: -327px -2px; }
+.hallotoolbar .ui-buttonset .Center_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .Center_button.ui-state-hover { background-position: -327px -2px; }
 
 .hallotoolbar .ui-buttonset .Right_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -357px -36px; }
-.hallotoolbar .ui-buttonset .Right_button.ui-state-clicked, .hallotoolbar .ui-buttonset .Right_button.ui-state-hover { background-position: -357px -2px; }
+.hallotoolbar .ui-buttonset .Right_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .Right_button.ui-state-hover { background-position: -357px -2px; }
 
 /* Undo/Redo */
 .hallotoolbar .ui-buttonset.halloreundo .ui-button { background: #000; }
 .hallotoolbar .ui-buttonset.halloreundo .ui-button-text .ui-button-text { text-indent: 0; }
-.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-clicked, .hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-hover {  }
+.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-clicked,
+.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-hover {  }
 
 /* Paragraph & Heading */
 .hallotoolbar .ui-buttonset .p_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -4px -35px; }
-.hallotoolbar .ui-buttonset .p_button.ui-state-clicked, .hallotoolbar .ui-buttonset .p_button.ui-state-hover { background-position: -4px -2px; }
+.hallotoolbar .ui-buttonset .p_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .p_button.ui-state-hover { background-position: -4px -2px; }
 
 .hallotoolbar .ui-buttonset .h1_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -31px -35px; }
-.hallotoolbar .ui-buttonset .h1_button.ui-state-clicked, .hallotoolbar .ui-buttonset .h1_button.ui-state-hover { background-position: -31px -2px; }
+.hallotoolbar .ui-buttonset .h1_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .h1_button.ui-state-hover { background-position: -31px -2px; }
 
 .hallotoolbar .ui-buttonset .h2_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -58px -35px; }
-.hallotoolbar .ui-buttonset .h2_button.ui-state-clicked, .hallotoolbar .ui-buttonset .h2_button.ui-state-hover { background-position: -58px -2px; }
+.hallotoolbar .ui-buttonset .h2_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .h2_button.ui-state-hover { background-position: -58px -2px; }
 
 .hallotoolbar .ui-buttonset .h3_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -85px -35px; }
-.hallotoolbar .ui-buttonset .h3_button.ui-state-clicked, .hallotoolbar .ui-buttonset .h3_button.ui-state-hover { background-position: -85px -2px; }
+.hallotoolbar .ui-buttonset .h3_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .h3_button.ui-state-hover { background-position: -85px -2px; }
 
 /* Link */
 .hallotoolbar .ui-buttonset .anchor_button { background: url('/bundles/liipvie/img/imagelink.png') no-repeat -91px -36px; }
-.hallotoolbar .ui-buttonset .anchor_button.ui-state-clicked, .hallotoolbar .ui-buttonset .anchor_button.ui-state-hover { background-position: -91px -1px; }
+.hallotoolbar .ui-buttonset .anchor_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .anchor_button.ui-state-hover { background-position: -91px -1px; }
 
 /* Image */
 .hallotoolbar .ui-buttonset .image_button{ background: url('/bundles/liipvie/img/imagelink.png') no-repeat -13px -36px; }
-.hallotoolbar .ui-buttonset .image_button.ui-state-clicked, .hallotoolbar .ui-buttonset .image_button.ui-state-hover { background-position: -13px -1px; }
-
-
+.hallotoolbar .ui-buttonset .image_button.ui-state-clicked,
+.hallotoolbar .ui-buttonset .image_button.ui-state-hover { background-position: -13px -1px; }
 
 /* Dialog styling */
 /******************/
-
 .ui-dialog {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -251,7 +461,6 @@
 }
 
 /* Drag n Drop */
-
 [contenteditable] .tmp {
     opacity: 0.3
 }
@@ -326,7 +535,6 @@
 }
 
 /** LINK DIALOG **/
-
 .hallolink-dialog .ui-dialog-content {
     padding-top: 1em;
 }
@@ -349,142 +557,4 @@
     position: relative;
     top: -1px;
     left: -1px;
-}
-
-
-/** LEFT OVERS FROM MAINBUNDLE **/
-.hiddenfieldsToggle {
-    background-image: url('/bundles/liipvie/img/cornersettings_small.png');
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 106px;
-    height: 92px;
-    cursor: pointer;
-}
-
-.hiddenfieldsToggle:hover {
-    background-image: url('/bundles/liipvie/img/cornersettings_large.png');
-    width: 157px;
-    height: 136px;
-}
-
-.hiddenfields {
-    background-color: black;
-    width: 100%;
-    display: none;
-    border-radius: 3px;
-    padding: 10px 10px 40px 10px;
-}
-
-.hiddenfields h2,
-.hiddenfields h3 {
-    color: #A0A0A0;
-    font-family: Helvetica, Arial;
-    font-weight: bold;
-}
-
-.hiddenfields h2 {
-    background: url('/bundles/liipvie/img/settingsh2icon.png') no-repeat left center;
-    padding-left: 22px;
-    padding-bottom: 0;
-    font-size: 15px;
-}
-
-.hiddenfields h3 {
-    font-size: 13px;
-    margin: 10px 0 4px 0;
-}
-
-.hiddenfieldsContainer {
-    z-index: 100;
-    padding: 25px 38px 20px 20px;
-    position: absolute;
-    min-height: 30px;
-    right: 0;
-    margin-top: -15px;
-}
-
-.hiddenfieldsCloseCorner {
-    background: url('/bundles/liipvie/img/cornerclose.png') no-repeat left bottom;
-    width: 106px;
-    height: 72px;
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    display: none;
-    cursor: pointer;
-}
-
-.hiddenfieldsCloseButton {
-    background: url('/bundles/liipvie/img/close_button.png');
-    display: none;
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 15px;
-    right: 6px;
-    cursor: pointer;
-}
-
-.articleSuggestedTags {
-    margin-bottom: 10px;
-}
-
-div.tagsinput {
-    border: 0;
-    background: none;
-    width:300px;
-    height:auto;
-    overflow-y:auto;
-    padding:3px;
-}
-
-div.tagsinput span.tag {
-    border:1px solid #11a2bf;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    display:block;
-    float:left;
-    text-decoration:none;
-    background:#11accc;
-    color:#fff;
-    margin-right:5px;
-    margin-bottom:5px;
-    font-size:12px;
-    padding: 2px 4px;
-    cursor: pointer;
-}
-
-div.tagsinput span.tag a {
-    font-weight: bold;
-    color:#0b788e !important;
-    text-decoration:none;
-    font-size:13px;
-}
-
-div.tagsinput input,
-div.tagsinput input:focus {
-    width:80px;
-    font-size:12px;
-    border: 0 !important;
-    background:transparent !important;
-    color:#fff !important;
-    outline:0;
-    margin:0 5px 5px 0;
-    padding: 5px;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-}
-
-div.tagsinput div {
-    display:block;
-    float:left;
-}
-
-.tags_clear {
-    clear:both;
-    width:100%;
-    height:0;
 }
