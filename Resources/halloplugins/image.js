@@ -9,7 +9,7 @@
                 dialogOpts: {
                     autoOpen: false,
                     width: 270,
-                    height: 500,
+                    height: 'auto',
                     title: "Insert Images",
                     modal: false,
                     resizable: false,
@@ -25,7 +25,7 @@
                 var button, buttonset, dialogId, id, insertImage, widget;
                 widget = this;
                 dialogId = "" + this.options.uuid + "-image-dialog";
-                this.options.dialog = jQuery("<div id=\"" + dialogId + "\">                        <div class=\"nav\">                                <ul class=\"tabs\">                                        <li id=\"" + this.options.uuid + "-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>                                        <li id=\"" + this.options.uuid + "-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>                                        <li id=\"" + this.options.uuid + "-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>                                </ul>                                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + this.options.uuid + "-tab-activeIndicator\" class=\"tab-activeIndicator\" />                        </div>                        <div class=\"dialogcontent\">                                <div id=\"" + this.options.uuid + "-tab-suggestions-content\" class=\"" + widget.widgetName + "-tab tab-suggestions\">                                        <div class=\"imageThumbnailContainer\">                                                <img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" />                                                <img src=\"http://www.ngkhai.net/cebupics/albums/userpics/10185/thumb_P1010613.JPG\" class=\"imageThumbnail\" />                                                <img src=\"http://idiotduck.com/wp-content/uploads/2011/03/amazing-nature-photography-waterfall-hdr-1024-768-14-150x200.jpg\" class=\"imageThumbnail\" />                                                <img src=\"http://photos.somd.com/data/14/thumbs/20080604_9-1.JPG\" class=\"imageThumbnail\" />                                                <img src=\"http://www.hotfrog.com.au/Uploads/PressReleases2/THAILAND-TRAVEL-PACKAGES-THAILAND-BEACH-TOURS-THAILAND-VACATION-SUNRISE-PHUKET-BEACH-TOUR-200614_image.jpg\" class=\"imageThumbnail\" />                                                <img src=\"http://photos.somd.com/data/14/thumbs/SunriseMyrtleBeach2008.jpg\" class=\"imageThumbnail\" />                                                <img src=\"http://www.zsqts.com.cn/product-photo/2009-07-17/a411bfd382731251ae26bfb311c30629/Buy-best-buy-fireworks-from-China-Liuyang-SKY-PIONEER-PYROTECHNICS-INC.jpg\" class=\"imageThumbnail\" />                                                <img src=\"http://www.costumeattic.com/images_product/preview/Rubies/885106.jpg\" class=\"imageThumbnail\" />                                        </div>                                        <div class=\"activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImage\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\">                                                <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-search-content\" class=\"" + widget.widgetName + "-tab tab-search\">                                        <form action=\"" + widget.options.searchUrl + "/?page=1&length=8\" type=\"get\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchForm\">                                                <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchButton\" class=\"button searchButton\" value=\"OK\"/>                                        </form>                                        <div class=\"searchResults imageThumbnailContainer\"></div>                                        <div id=\"" + this.options.uuid + "-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-search-activeImageBg\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-search-activeImage\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\">                                                <label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-upload-content\" class=\"" + widget.widgetName + "-tab tab-upload\">UPLOAD</div>                        </div></div>");
+                this.options.dialog = jQuery("<div id=\"" + dialogId + "\">                        <div class=\"nav\">                                <ul class=\"tabs\">                                        <li id=\"" + this.options.uuid + "-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>                                        <li id=\"" + this.options.uuid + "-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>                                        <li id=\"" + this.options.uuid + "-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>                                </ul>                                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + this.options.uuid + "-tab-activeIndicator\" class=\"tab-activeIndicator\" />                        </div>                        <div class=\"dialogcontent\">                                <div id=\"" + this.options.uuid + "-tab-suggestions-content\" class=\"" + widget.widgetName + "-tab tab-suggestions\">                                        <div class=\"imageThumbnailContainer fixed\"><ul><li><img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" /> </li></ul><br style=\"clear:both\"/>                                                                                                                                    </div>                                        <div class=\"activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImage\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\">                                                <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-search-content\" class=\"" + widget.widgetName + "-tab tab-search\">                                        <form action=\"" + widget.options.searchUrl + "/?page=1&length=8\" type=\"get\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchForm\">                                                <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchButton\" class=\"button searchButton\" value=\"OK\"/>                                        </form>                                        <div class=\"searchResults imageThumbnailContainer\"></div>                                        <div id=\"" + this.options.uuid + "-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-search-activeImageBg\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-search-activeImage\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\">                                                <label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-upload-content\" class=\"" + widget.widgetName + "-tab tab-upload\">UPLOAD</div>                        </div></div>");
                 jQuery(".tab-search form", this.options.dialog).submit(function (event) {
                     var search, showResults, that;
                     event.preventDefault();
@@ -68,6 +68,7 @@
                     };
                     return search();
                 });
+                
                 insertImage = function () {
                     var img, triggerModified;
                     try {
@@ -86,6 +87,7 @@
                     window.setTimeout(triggerModified, 100);
                     return widget._closeDialog();
                 };
+                
                 this.options.dialog.find(".halloimage-activeImage, #" + widget.options.uuid + "-" + widget.widgetName + "-addimage").click(insertImage);
                 buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
                 id = "" + this.options.uuid + "-image";
@@ -127,7 +129,8 @@
             },
             _init: function () {},
             _openDialog: function () {
-                var xposition, yposition;
+                var xposition, yposition, responseType;
+                
                 jQuery('.image_button').addClass('ui-state-clicked');
                 jQuery("#" + this.options.uuid + "-sugg-activeImage").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
                 jQuery("#" + this.options.uuid + "-sugg-activeImageBg").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
@@ -158,7 +161,7 @@
                     proxyDisabled: true
                 }));
 
-                jQuery('.imageThumbnailContainer').empty();
+                jQuery('.imageThumbnailContainer ul').empty();
                 jQuery(articleTags).each(function () {
                     vie.load({
                             entity: this + ""
@@ -168,15 +171,32 @@
                         done(function(entity) {
                             jQuery(entity).each(function () {
                                 //hint: this.attributes['<http://xmlns.com/foaf/0.1/depiction>'] || 
-                                if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {                                    
-                                    var img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'];
-                                    img = img.substring(1, img.length - 1);
-                                    if(typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']) == 'object') {
+                                console.log('+++++++++++++++++');
+                                if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
+                                    responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
+                                    if(responseType === 'string') {
+                                        var img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'];
+                                        img = img.substring(1, img.length - 1);
+                                    }
+                                    if(responseType === 'object') {
                                         var img = '';
                                         img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                     }
-                                    console.log(img);
-                                    jQuery('.imageThumbnailContainer').append('<img src="'+img+'" class="imageThumbnail">');
+                                    console.log('image: '+img);
+                                    console.log('------------------');
+                                    /*$.ajax({
+                                        url: img,
+                                        crossDomain: true,
+                                        type: 'HEAD',
+                                        dataType: 'jsonp',
+                                        statusCode: {
+                                            404: function() {
+                                                console.log(img + 'page not found');
+                                            }
+                                        }
+                                    });*/
+                                    
+                                    jQuery('.imageThumbnailContainer ul').append('<li><img src="'+img+'" class="imageThumbnail"></li>');
                                 }
                             });
                         });
