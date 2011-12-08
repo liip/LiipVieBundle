@@ -216,7 +216,7 @@
                         }
                     },
                     createInsertElement: function (image, tmp) {
-                        var altText, imageInsert, tmpImg, width, height, maxWidth, maxHeight;
+                        var altText, imageInsert, tmpImg, width, height, maxWidth, maxHeight, ratio;
                         maxWidth = 250;
                         maxHeight = 250;
                         tmpImg = new Image();
@@ -233,8 +233,13 @@
                         width = tmpImg.width;
                         height = tmpImg.height;
                         if (width > maxWidth || height > maxHeight) {
-                            width = (tmpImg.width/(tmpImg.width/maxWidth)).toFixed();
-                            height = (tmpImg.height/(tmpImg.height/maxHeight)).toFixed();
+                            if (width > height) {
+                                ratio = (tmpImg.width/maxWidth).toFixed();
+                            } else {
+                                ratio = (tmpImg.height/maxHeight).toFixed();
+                            }
+                            width = (tmpImg.width/ratio).toFixed();
+                            height = (tmpImg.height/ratio).toFixed();
                         }
                         imageInsert = $("<img>").attr({
                             src: tmpImg.src,
