@@ -116,9 +116,7 @@ class AssetsController
         $data = $this->getPagesByTags($tags);
 
         $data = array(
-            'tags' => $tags,
-            'total' => count($data),
-            'assets' => $data
+            'links' => $data,
         );
 
         $view = View::create($data);
@@ -150,7 +148,7 @@ class AssetsController
             $url = $this->generator->generate('navigation', array('url' => $this->mapper->getUrl($page->getPath())), true);
             $label = $page->getLabel();
             
-            $links[$url] = $label;
+            $links[] = array('url' => $url, 'label' => $label);
         }
         
         return $links;
