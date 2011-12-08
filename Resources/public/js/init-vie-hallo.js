@@ -36,11 +36,7 @@ VieBundle.Model = function(bundle, element) {
     });
 
     $(document).click(function(e) {
-        if ($(e.target).closest('.hiddenfieldsContainer').size() > 0) {
-            return false;
-        }
-        //Only close and save when it's actually open
-        if($('.hiddenfieldsCloseCorner:visible').length > 0){
+        if ($(e.target).closest('.hiddenfieldsContainer').size() == 0 && $('.hiddenfieldsCloseCorner:visible').length > 0){
             that.closeTags();
         }
     });
@@ -239,7 +235,6 @@ VieBundle.Hallo.prototype.initVIE = function () {
 VieBundle.Hallo.prototype.setPreventSave = function (value) {
     this.preventSave = value;
 };
-
 
 jQuery(document).ready(function ($) {
 
