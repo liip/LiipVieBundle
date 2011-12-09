@@ -163,6 +163,7 @@
                 }));
 
                 jQuery('.imageThumbnailContainer ul').empty();
+                var i = 0;
                 jQuery(articleTags).each(function () {
                     vie.load({
                             entity: this + ""
@@ -171,7 +172,6 @@
                         execute().
                         done(function(entity) {
                             jQuery(entity).each(function () {
-                                //hint: this.attributes['<http://xmlns.com/foaf/0.1/depiction>'] ||
                                 if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
                                     responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
                                     if(responseType === 'string') {
@@ -182,7 +182,12 @@
                                         var img = '';
                                         img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                     }
-                                    jQuery('.imageThumbnailContainer ul').append('<li><img src="'+img+'" class="imageThumbnail"></li>');
+                                    i++;
+                                    jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + i + '" src="' + img + '" class="imageThumbnail"></li>');
+                                    var simg = jQuery('#si-' + i);
+                                    if (jQuery('#si-' + i).width() === 0) {
+                                        jQuery(simg).parent('li').remove();
+                                    }
                                 }
                             });
                             jQuery('#activitySpinner').hide();
