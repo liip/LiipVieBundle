@@ -179,6 +179,9 @@ VieBundle.Model.prototype.initEditable = function () {
 
 VieBundle.Model.prototype.save = function () {
 
+    // move hover back behind
+    //$('.liipVieBundleContentEditableHover').css('z-index', '0');
+
     // don't save if blocked by dragged images
     if (this.bundle.preventSave) {
         setTimeout(this.save, 5000);
@@ -257,15 +260,35 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    // edit hover
+    var hover = $('<div class="liipVieBundleContentEditableHover" />');
+    hover.hide();
+    $('body').append(hover);
+
     // show edit button on hover
-    $('[contenteditable]').not('.inEditMode').hover(function(){
+    $('[contenteditable]').not('.inEditMode').hover(function () {
+        
         $(document).trigger('startPreventSave');
-        if(!$(this).hasClass('inEditMode')){
+
+        var $this = $(this);
+        
+        if(!$this.hasClass('inEditMode')){
             var editButton = $('<div>edit</div>').addClass('editButton');
-            $(this).before(editButton);
+            $this.before(editButton);
         }
-    }, function(){
+
+        var offset = $this.offset();
+        hover.css({top: offset.top - 10, left: offset.left - 10});
+        hover.width($this.width());
+        hover.height($this.height());
+        hover.show();
+
+    }, function () {
+
         $(document).trigger('stopPreventSave');
+
         $('.editButton').remove();
+
+        hover.hide();
     });
 });
