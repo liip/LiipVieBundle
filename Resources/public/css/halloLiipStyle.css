@@ -15,10 +15,6 @@
     overflow: hidden;
 }
 
-[contenteditable] a {
-    color: #00add2;
-}
-
 [contenteditable] li {
     list-style-type: disc;
     margin: 0 0 0 22px;
