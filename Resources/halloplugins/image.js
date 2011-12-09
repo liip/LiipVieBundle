@@ -130,7 +130,24 @@
             },
             _init: function () {},
             _openDialog: function () {
-                var xposition, yposition, responseType;
+                var xposition, yposition, responseType, cleanUp, thumbnails, thumbId, run, invalidThumbs;
+                
+                cleanUp = function () {
+                    thumbnails = jQuery('.imageThumbnail');
+                    invalidThumbs = [];
+                    jQuery(thumbnails).each(function () {
+                        invalidThumbs.push(this.id);
+                        jQuery('#' + this.id).load(function() {
+                            invalidThumbs.remove(this.id);
+                        });
+                    });
+                    
+                    window.setTimeout(function() {  
+                        jQuery.each(invalidThumbs, function (i,v) {
+                            jQuery('#' + v).parent('li').remove();
+                        }); 
+                    }, 1000);
+                }
 
                 jQuery('.image_button').addClass('ui-state-clicked');
                 jQuery("#" + this.options.uuid + "-sugg-activeImage").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
@@ -163,7 +180,10 @@
                 }));
 
                 jQuery('.imageThumbnailContainer ul').empty();
-                var i = 0;
+                thumbId = 1;
+                run = 1;
+                if ( articleTags.length === 0) jQuery('#activitySpinner').html('No images found.');
+
                 jQuery(articleTags).each(function () {
                     vie.load({
                             entity: this + ""
@@ -182,14 +202,16 @@
                                         var img = '';
                                         img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                     }
-                                    i++;
-                                    jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + i + '" src="' + img + '" class="imageThumbnail"></li>');
-                                    var simg = jQuery('#si-' + i);
-                                    if (jQuery('#si-' + i).width() === 0) {
-                                        jQuery(simg).parent('li').remove();
-                                    }
+                                    
+                                    jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + thumbId + '" src="' + img + '" class="imageThumbnail"></li>');
+                                    thumbId++;
                                 }
                             });
+                            
+                            if (run === articleTags.length) {
+                                cleanUp();
+                            }
+                            run++;
                             jQuery('#activitySpinner').hide();
                         });
                 });
