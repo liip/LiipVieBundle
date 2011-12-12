@@ -60,7 +60,7 @@ abstract class DoctrineController
     public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null, array $map = array())
     {
         $this->securityContext = $securityContext;
-        $this->viewHandle = $viewHandler;
+        $this->viewHandler = $viewHandler;
         $this->filter = $filter;
         $this->validator = $validator;
         $this->registry = $registry;
@@ -100,8 +100,8 @@ abstract class DoctrineController
         }
 
         $data = $request->request->all();
-
         $repository = $this->getRepository($data);
+
         $model = $repository->find($id);
         if (empty($model)) {
             throw new ResourceNotFoundException($id.' not found');
@@ -115,7 +115,9 @@ abstract class DoctrineController
         if ($this->filter) {
             $this->filter->filter($model);
         }
+
         $errors = $this->validator->validate($model);
+
         if (count($errors)) {
             // TODO ensure we are returning JSON-LD
             $view = View::create($errors, 400)->setFormat('json');
