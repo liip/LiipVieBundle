@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
                     'hallotoolbarlinebreak': {}
                 },
                 'default': {
-                    'halloimage': { 'searchUrl': 'liip/vie/assets/search/', 'vie': vie },
+                    'halloimage': { 'searchUrl': vie_halloimage_search_url, 'vie': vie },
                     'hallolink': {},
                     'halloheadings': {},
                     'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
