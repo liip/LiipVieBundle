@@ -112,11 +112,11 @@ VieBundle.Model.prototype.initTags = function () {
 
     // add suggested tag on click to tags
     this.element.find('.articleSuggestedTags .tag span').live('click', function(){
-        
+
         var tag = $(this).text();
         that.articleTags.addTag($(this).data('value'));
         that.suggestedTags.removeTag($.trim(tag));
-        
+
         return false;
     });
 };
@@ -267,11 +267,11 @@ jQuery(document).ready(function ($) {
 
     // show edit button on hover
     $('[contenteditable]').not('.inEditMode').hover(function () {
-        
+
         $(document).trigger('startPreventSave');
 
         var $this = $(this);
-        
+
         if(!$this.hasClass('inEditMode')){
             var editButton = $('<div>edit</div>').addClass('editButton');
             $this.before(editButton);
