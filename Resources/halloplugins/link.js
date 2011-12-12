@@ -81,6 +81,10 @@
                         }).
                         using('dbpedia').
                         execute().
+                        fail(function(e){
+                            alert("Test");
+                            console.log(e);
+                        }).
                         done(function(entity) {
                             container.empty();
                             jQuery(entity).each(function () {
@@ -91,6 +95,11 @@
                             });
                         });
                 });
+
+                if (container.children('li.loader').size() == 1) {
+                    container.empty();
+                    container.append('<li class="notice">No results found, please make sure you have some article tags set.</li>');
+                }
             });
 
             // if user clicks on the related links tab
@@ -102,17 +111,21 @@
                 return jQuery.ajax({
                     type: "GET",
                     url: _this.options.relatedUrl,
-                    data: "tags="+articleTags,
+                    data: "tags="+articleTags+"&page="+window.location,
                     success: function(response) {
                         var items;
                         container.empty();
                         items = [];
 
-                        $.each(response.links, function() {
-                            return items.push('<li><a href="'+this.url+'" title="'+this.url+'">'+this.label+'</a></li>');
-                        });
+                        if (response.links.length > 0) {
+                            $.each(response.links, function() {
+                                return items.push('<li><a href="'+this.url+'" title="'+this.url+'">'+this.label+'</a></li>');
+                            });
+                            container.html(items.join(''));
+                        } else {
+                            container.append('<li class="notice">No results found, please make sure you have some articles with the same tags set.</li>');
+                        }
 
-                        container.html(items.join(''));
                     },
                     failure: function(response) {
                         container.empty();

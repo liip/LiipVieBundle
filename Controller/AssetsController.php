@@ -21,7 +21,7 @@ class AssetsController
     private $dm;
 
     private $basePath;
-    
+
     private $generator;
 
     /**
@@ -111,9 +111,11 @@ class AssetsController
     public function showRelatedAction(Request $request)
     {
         $tags = $request->query->get('tags');
+        $page = $request->query->get('page');
+
         $tags = explode(',', $tags);
 
-        $data = $this->getPagesByTags($tags);
+        $data = $this->getPagesByTags($tags, $page);
 
         $data = array(
             'links' => $data,
@@ -128,7 +130,7 @@ class AssetsController
      * @params array with stanbol references
      * @retrun array with links to pages
     */
-    public function getPagesByTags($tags) {
+    public function getPagesByTags($tags, $currentUrl) {
 
         foreach ($tags as $i => $tag) {
             $tags[$i] = 'referring.tags = ' . $this->dm->quote($tag);
@@ -140,19 +142,22 @@ class AssetsController
         $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
         $query->setLimit(-1);
         $pages = $this->dm->getDocumentsByQuery($query);
-        
+
         $links = array();
         foreach ($pages as $page) {
 
             if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route) {
 
                 $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath) + 1)), true);
-                $label = $page->getReference()->title;
-                
-                $links[] = array('url' => $url, 'label' => $label);
+
+                if ($url !== $currentUrl) {
+                    $label = $page->getReference()->title;
+
+                    $links[] = array('url' => $url, 'label' => $label);
+                }
             }
         }
-        
+
         return $links;
     }
 }

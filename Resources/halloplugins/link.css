@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+.hallolink-dialog button {
+    cursor: pointer;
+}
+
 .hallolink-dialog .ui-dialog-content .loader {
     position: relative;
     list-style-type: none;
@@ -18,9 +22,13 @@
     margin-left: -8px;
 }
 
-.hallolink-dialog button {
-    cursor: pointer;
+.hallolink-dialog .ui-dialog-content .notice {
+    list-style-type: none;
+    padding: 5px;
+    border: 1px solid #8AB84B;
+    background: #deffcc;
 }
+
 
 /* Nav/Tabs */
 .hallolink-dialog .nav {
