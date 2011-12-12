@@ -20,7 +20,7 @@ class AssetsController
 {
     private $dm;
 
-    private $mapper;
+    private $basePath;
     
     private $generator;
 
@@ -29,10 +29,10 @@ class AssetsController
      */
     private $viewHandler;
 
-    public function __construct($dm, PathMapperInterface $mapper, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
+    public function __construct($dm, $basePath, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
     {
         $this->dm = $dm;
-        $this->mapper = $mapper;
+        $this->basePath = $basePath;
         $this->generator = $generator;
         $this->viewHandler = $viewHandler;
     }
@@ -128,27 +128,29 @@ class AssetsController
      * @params array with stanbol references
      * @retrun array with links to pages
     */
-    public function getPagesByTags($tags){
-        
-        $path = $this->mapper->getStorageId('');
-        $page = $this->dm->find(null, $path);
-        
-        
-        $sql = 'SELECT * FROM [nt:unstructured]
-                    WHERE ISDESCENDANTNODE('.$this->dm->quote($path).') OR ISSAMENODE('.$this->dm->quote($path).')';
-        
+    public function getPagesByTags($tags) {
+
+        foreach ($tags as $i => $tag) {
+            $tags[$i] = 'referring.tags = ' . $this->dm->quote($tag);
+        }
+
+        $sql = 'SELECT routes.* FROM [nt:unstructured] AS routes
+        			INNER JOIN [nt:unstructured] AS referring ON referring.[jcr:uuid] = routes.[reference]
+                    WHERE (ISDESCENDANTNODE(routes, ' . $this->dm->quote($this->basePath) . ') OR ISSAMENODE(routes, ' . $this->dm->quote($this->basePath) . ')) AND (' . implode(' OR ', $tags) . ')';
         $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
         $query->setLimit(-1);
-        
         $pages = $this->dm->getDocumentsByQuery($query);
         
         $links = array();
         foreach ($pages as $page) {
-            
-            $url = $this->generator->generate('navigation', array('url' => $this->mapper->getUrl($page->getPath())), true);
-            $label = $page->getLabel();
-            
-            $links[] = array('url' => $url, 'label' => $label);
+
+            if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route) {
+
+                $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath))), true);
+                $label = $page->getReference()->title;
+                
+                $links[] = array('url' => $url, 'label' => $label);
+            }
         }
         
         return $links;
