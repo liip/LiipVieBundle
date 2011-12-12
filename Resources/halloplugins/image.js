@@ -146,7 +146,7 @@
                         jQuery.each(invalidThumbs, function (i,v) {
                             jQuery('#' + v).parent('li').remove();
                         }); 
-                    }, 1000);
+                    }, 2000);
                 }
 
                 jQuery('.image_button').addClass('ui-state-clicked');
