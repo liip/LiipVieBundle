@@ -146,7 +146,7 @@ class AssetsController
 
             if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route) {
 
-                $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath))), true);
+                $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath) + 1)), true);
                 $label = $page->getReference()->title;
                 
                 $links[] = array('url' => $url, 'label' => $label);
