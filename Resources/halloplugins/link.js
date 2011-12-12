@@ -58,6 +58,9 @@
 
             // if user clicks on the suggestet links tab
             jQuery('#' + this.options.uuid + '-tab-suggested').live('click', function () {
+                var container = jQuery('#' + _this.options.uuid + "-tab-suggested-content ul");
+                container.empty().append('<li class="loader"><img src="/bundles/liipvie/img/ajax-loader.gif"/></li>');
+
                 var articleTags = _this.prepareTags(_this.getReferenceByTags());
 
                 var vie = new VIE();
@@ -71,7 +74,6 @@
                 }));
                 //vie.use(new vie.DBPediaService({proxyUrl: 'http://cmf.lo/stanbol'}));
                 //vie.use(new vie.StanbolService, 'dbpedia');
-                jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").empty();
                 jQuery(articleTags).each(function () {
                     var that = this;
                     vie.load({
@@ -80,10 +82,11 @@
                         using('dbpedia').
                         execute().
                         done(function(entity) {
+                            container.empty();
                             jQuery(entity).each(function () {
                                 if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
                                     var url = this.id.substring(1, this.id.length - 1);
-                                    jQuery('#' + _this.options.uuid + "-tab-suggested-content ul").append('<li><a href="' + url + '" title="' + url + '">' + VieBundle.Model.prototype.tagLabel(that + "") + '</a></li>');
+                                    container.append('<li><a href="' + url + '" title="' + url + '">' + VieBundle.Model.prototype.tagLabel(that + "") + '</a></li>');
                                 }
                             });
                         });
@@ -92,6 +95,8 @@
 
             // if user clicks on the related links tab
             jQuery('#' + this.options.uuid + '-tab-related').live('click', function () {
+                var container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
+                container.empty().append('<li class="loader"><img src="/bundles/liipvie/img/ajax-loader.gif"/></li>');
                 var articleTags = _this.getReferenceByTags();
 
                 return jQuery.ajax({
@@ -99,8 +104,8 @@
                     url: _this.options.relatedUrl,
                     data: "tags="+articleTags,
                     success: function(response) {
-                        var container, items;
-                        container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
+                        var items;
+                        container.empty();
                         items = [];
 
                         $.each(response.links, function() {
@@ -110,6 +115,8 @@
                         container.html(items.join(''));
                     },
                     failure: function(response) {
+                        container.empty();
+                        container.append('<li>An Error has occured</li>');
                         console.log(response);
                     },
                 });

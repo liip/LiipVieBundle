@@ -6,6 +6,18 @@
     padding: 0;
 }
 
+.hallolink-dialog .ui-dialog-content .loader {
+    position: relative;
+    list-style-type: none;
+}
+
+.hallolink-dialog .ui-dialog-content .loader img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+}
+
 .hallolink-dialog button {
     cursor: pointer;
 }
