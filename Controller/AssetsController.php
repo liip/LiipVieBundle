@@ -150,7 +150,7 @@ class AssetsController
 
                 $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath) + 1)), true);
 
-                if ($url !== $currentUrl) {
+                if (preg_replace('/^\/|\/$/', '', $url) !== preg_replace('/^\/|\/$/', '', $currentUrl)) {
                     $label = $page->getReference()->title;
 
                     $links[] = array('url' => $url, 'label' => $label);
