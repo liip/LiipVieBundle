@@ -6,6 +6,7 @@
             uuid: "link",
             link: true,
             image: true,
+            relatedUrl: false,
             defaultUrl: 'http://',
             dialog: 'link',
             dialogOpts: {
@@ -95,7 +96,7 @@
 
                 return jQuery.ajax({
                     type: "GET",
-                    url: "liip/vie/assets/related/",
+                    url: _this.options.relatedUrl,
                     data: "tags="+articleTags,
                     success: function(response) {
                         var container, items;
