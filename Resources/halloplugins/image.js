@@ -24,15 +24,15 @@
             },
             _create: function () {
                 var button, buttonset, dialogId, id, insertImage, widget;
-                
+
                 widget = this;
                 dialogId = "" + this.options.uuid + "-image-dialog";
                 this.options.dialog = jQuery("<div id=\"" + dialogId + "\">                        <div class=\"nav\">                                <ul class=\"tabs\">                                        <li id=\"" + this.options.uuid + "-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>                                        <li id=\"" + this.options.uuid + "-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>                                        <li id=\"" + this.options.uuid + "-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>                                </ul>                                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + this.options.uuid + "-tab-activeIndicator\" class=\"tab-activeIndicator\" />                        </div>                        <div class=\"dialogcontent\"><div id=\"" + this.options.uuid + "-tab-suggestions-content\" class=\"" + widget.widgetName + "-tab tab-suggestions\">                                        <div class=\"imageThumbnailContainer fixed\"><div id=\"activitySpinner\">Loading Images...</div><ul><li><img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" /> </li></ul><br style=\"clear:both\"/>                                                                                                                                    </div><div class=\"activeImageContainer\"><div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImage\" class=\"activeImage\" />                                                </div><img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\">                                                <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-search-content\" class=\"" + widget.widgetName + "-tab tab-search\">                                        <form action=\"" + widget.options.searchUrl + "/?page=1&length=8\" type=\"get\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchForm\">                                                <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchButton\" class=\"button searchButton\" value=\"OK\"/>                                        </form>                                        <div class=\"searchResults imageThumbnailContainer\"></div>                                        <div id=\"" + this.options.uuid + "-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\"><div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div><img src=\"\" id=\"" + this.options.uuid + "-search-activeImageBg\" class=\"activeImage\" />                                                </div><img src=\"\" id=\"" + this.options.uuid + "-search-activeImage\" class=\"activeImage activeImageBg\" /></div><div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\"><label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" /><!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>--></div></div><div id=\"" + this.options.uuid + "-tab-upload-content\" class=\"" + widget.widgetName + "-tab tab-upload\"><form id=\"" + this.options.uuid + "-" + widget.widgetName + "-uploadform\"><input id=\"" + this.options.uuid + "-" + widget.widgetName + "-file\" name=\"" + this.options.uuid + "-" + widget.widgetName + "-file\" type=\"file\" class=\"file\"><br /><input type=\"submit\" value=\"Upload\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-upload\"></form><div id=\"" + this.options.uuid + "-" + widget.widgetName +"-iframe\"></div></div></div></div></div>");
-                
+
                 // Search
                 jQuery(".tab-search form", this.options.dialog).submit(function (event) {
                     var search, showResults, that;
-                    
+
                     event.preventDefault();
                     that = this;
                     showResults = function (response) {
@@ -73,7 +73,7 @@
                     };
                     return search();
                 });
-                
+
                 // Upload Images
                 $('#' + this.options.uuid + '-' + widget.widgetName + '-upload').live('click', function(e) {
                     e.preventDefault()
@@ -101,7 +101,7 @@
                     );
                     return false;
                 });
-                
+
                 insertImage = function () {
                     var img, triggerModified;
                     try {
@@ -120,7 +120,7 @@
                     window.setTimeout(triggerModified, 100);
                     return widget._closeDialog();
                 };
-                
+
                 this.options.dialog.find(".halloimage-activeImage, #" + widget.options.uuid + "-" + widget.widgetName + "-addimage").click(insertImage);
                 buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
                 id = "" + this.options.uuid + "-image";
@@ -176,21 +176,21 @@
                             invalidThumbs.remove(this.id);
                         });
                     });
-                    
-                    window.setTimeout(function() {  
+
+                    window.setTimeout(function() {
                         jQuery.each(invalidThumbs, function (i,v) {
                             jQuery('#' + v).parent('li').remove();
-                        }); 
+                        });
                     }, 2000);
                 }
-                
+
                 // Get Images from repo
                 pushRepoFiles = function (tags) {
                     return jQuery.ajax({
                         type: "GET",
                         url: widget.options.listUrl,
                         data: "tags=" + tags,
-                        success: function (response) { 
+                        success: function (response) {
                             $.each(response.assets, function (key, val) {
                                 jQuery('.imageThumbnailContainer ul').append('<li><img src="' + val.url + '" class="imageThumbnail"></li>');
                             });
@@ -201,13 +201,13 @@
                 jQuery('.image_button').addClass('ui-state-clicked');
                 jQuery("#" + this.options.uuid + "-sugg-activeImage").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
                 jQuery("#" + this.options.uuid + "-sugg-activeImageBg").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
-                
+
                 this.lastSelection = this.options.editable.getSelection();
-                
+
                 xposition = jQuery(this.options.editable.element).offset().left + jQuery(this.options.editable.element).outerWidth() - 3;
                 yposition = jQuery(this.options.toolbar).offset().top - jQuery(document).scrollTop() - 29;
                 this.options.dialog.dialog("option", "position", [xposition, yposition]);
-                
+
                 var articleTags = [];
                 var tmpArticleTags, tagType;
                 jQuery('#activitySpinner').show();
@@ -221,10 +221,10 @@
                         if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
                     }
                 }
-                
+
                 jQuery('.imageThumbnailContainer ul').empty();
                 pushRepoFiles('foo,baz');
-                
+
                 var vie = new VIE();
 
                 vie.use(new vie.DBPediaService({
@@ -254,12 +254,12 @@
                                         var img = '';
                                         img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                     }
-                                    
+
                                     jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + thumbId + '" src="' + img + '" class="imageThumbnail"></li>');
                                     thumbId++;
                                 }
                             });
-                            
+
                             if (run === articleTags.length) {
                                 cleanUp();
                             }

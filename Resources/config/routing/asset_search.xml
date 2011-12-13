@@ -19,5 +19,4 @@
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
     </route>
-    
 </routes>

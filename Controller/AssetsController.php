@@ -107,8 +107,7 @@ class AssetsController
         $view = View::create($data);
         return $this->viewHandler->handle($view);
     }
-    
-    
+
     /**
      * List Images from Repo
      *
@@ -133,7 +132,6 @@ class AssetsController
         $view = View::create($data);
         return $this->viewHandler->handle($view);
     }
-    
 
     public function showRelatedAction(Request $request)
     {
