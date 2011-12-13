@@ -235,6 +235,14 @@
     position: relative;
 }
 
+.halloimage-dialog .tab-upload {
+    
+}
+.halloimage-dialog .tab-upload .file {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
 .halloimage-dialog .imageThumbnailContainer {
     min-height: 110px;
 }

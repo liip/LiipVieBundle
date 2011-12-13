@@ -6,6 +6,7 @@
                 toolbar: null,
                 uuid: "",
                 searchUrl: "",
+                listUrl: "/app_dev.php/liip/vie/assets/list/",
                 dialogOpts: {
                     autoOpen: false,
                     width: 270,
@@ -26,9 +27,12 @@
                 
                 widget = this;
                 dialogId = "" + this.options.uuid + "-image-dialog";
-                this.options.dialog = jQuery("<div id=\"" + dialogId + "\">                        <div class=\"nav\">                                <ul class=\"tabs\">                                        <li id=\"" + this.options.uuid + "-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>                                        <li id=\"" + this.options.uuid + "-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>                                        <li id=\"" + this.options.uuid + "-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>                                </ul>                                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + this.options.uuid + "-tab-activeIndicator\" class=\"tab-activeIndicator\" />                        </div>                        <div class=\"dialogcontent\">                                <div id=\"" + this.options.uuid + "-tab-suggestions-content\" class=\"" + widget.widgetName + "-tab tab-suggestions\">                                        <div class=\"imageThumbnailContainer fixed\"><div id=\"activitySpinner\">Loading Images...</div><ul><li><img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" /> </li></ul><br style=\"clear:both\"/>                                                                                                                                    </div>                                        <div class=\"activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImage\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\">                                                <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-search-content\" class=\"" + widget.widgetName + "-tab tab-search\">                                        <form action=\"" + widget.options.searchUrl + "/?page=1&length=8\" type=\"get\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchForm\">                                                <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchButton\" class=\"button searchButton\" value=\"OK\"/>                                        </form>                                        <div class=\"searchResults imageThumbnailContainer\"></div>                                        <div id=\"" + this.options.uuid + "-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\">                                                <div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-search-activeImageBg\" class=\"activeImage\" />                                                </div>                                                <img src=\"\" id=\"" + this.options.uuid + "-search-activeImage\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\">                                                <label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-upload-content\" class=\"" + widget.widgetName + "-tab tab-upload\">UPLOAD</div>                        </div></div>");
+                this.options.dialog = jQuery("<div id=\"" + dialogId + "\">                        <div class=\"nav\">                                <ul class=\"tabs\">                                        <li id=\"" + this.options.uuid + "-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>                                        <li id=\"" + this.options.uuid + "-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>                                        <li id=\"" + this.options.uuid + "-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>                                </ul>                                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"" + this.options.uuid + "-tab-activeIndicator\" class=\"tab-activeIndicator\" />                        </div>                        <div class=\"dialogcontent\"><div id=\"" + this.options.uuid + "-tab-suggestions-content\" class=\"" + widget.widgetName + "-tab tab-suggestions\">                                        <div class=\"imageThumbnailContainer fixed\"><div id=\"activitySpinner\">Loading Images...</div><ul><li><img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" /> </li></ul><br style=\"clear:both\"/>                                                                                                                                    </div><div class=\"activeImageContainer\"><div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div>                                                        <img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImage\" class=\"activeImage\" />                                                </div><img src=\"\" id=\"" + this.options.uuid + "-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />                                        </div>                                        <div class=\"metadata\">                                                <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />                                                <!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>-->                                        </div>                                </div>                                <div id=\"" + this.options.uuid + "-tab-search-content\" class=\"" + widget.widgetName + "-tab tab-search\">                                        <form action=\"" + widget.options.searchUrl + "/?page=1&length=8\" type=\"get\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchForm\">                                                <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-searchButton\" class=\"button searchButton\" value=\"OK\"/>                                        </form>                                        <div class=\"searchResults imageThumbnailContainer\"></div>                                        <div id=\"" + this.options.uuid + "-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\"><div class=\"rotationWrapper\">                                                        <div class=\"hintArrow\"></div><img src=\"\" id=\"" + this.options.uuid + "-search-activeImageBg\" class=\"activeImage\" />                                                </div><img src=\"\" id=\"" + this.options.uuid + "-search-activeImage\" class=\"activeImage activeImageBg\" /></div><div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\"><label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" /><!--<button id=\"" + this.options.uuid + "-" + widget.widgetName + "-addimage\">Add Image</button>--></div></div><div id=\"" + this.options.uuid + "-tab-upload-content\" class=\"" + widget.widgetName + "-tab tab-upload\"><form id=\"" + this.options.uuid + "-" + widget.widgetName + "-uploadform\"><input id=\"" + this.options.uuid + "-" + widget.widgetName + "-file\" name=\"" + this.options.uuid + "-" + widget.widgetName + "-file\" type=\"file\" class=\"file\"><br /><input type=\"submit\" value=\"Upload\" id=\"" + this.options.uuid + "-" + widget.widgetName + "-upload\"></form><div id=\"" + this.options.uuid + "-" + widget.widgetName +"-iframe\"></div></div></div></div></div>");
+                
+                // Search
                 jQuery(".tab-search form", this.options.dialog).submit(function (event) {
                     var search, showResults, that;
+                    
                     event.preventDefault();
                     that = this;
                     showResults = function (response) {
@@ -68,6 +72,34 @@
                         });
                     };
                     return search();
+                });
+                
+                // Upload Images
+                $('#' + this.options.uuid + '-' + widget.widgetName + '-upload').live('click', function(e) {
+                    e.preventDefault()
+                    var userFile = $('#' + widget.options.uuid + '-' + widget.widgetName + '-file').val();
+                    var iframe = $( '<iframe name="postframe" id="postframe" class="hidden" src="about:none" style="display:none" />' );
+                    $('#' + widget.options.uuid + '-' + widget.widgetName + '-iframe').append( iframe );
+
+                    var uploadFrom = $('#' + widget.options.uuid + '-' + widget.widgetName + '-uploadform');
+                    uploadFrom.attr( 'action', '/app_dev.php/image/upload' )
+                    uploadFrom.attr( 'method', 'post' )
+                    uploadFrom.attr( 'userfile', userFile )
+                    uploadFrom.attr( 'enctype', 'multipart/form-data' )
+                    uploadFrom.attr( 'encoding', 'multipart/form-data' )
+                    uploadFrom.attr( 'target', 'postframe' )
+                    uploadFrom.submit();
+
+                    $('#postframe').load(
+                        function(){
+                            var imageUrl = $('#postframe')[0].contentDocument.body.innerHTML;
+                            var imageID = 'si' + Math.floor(Math.random() * (400 - 300 + 1) + 400) + 'ab';
+                            jQuery('.imageThumbnailContainer ul').append('<li><img src="' + imageUrl + '" id="' + imageID + '" class="imageThumbnail"></li>');
+                            jQuery('#' + imageID).trigger('click');
+                            jQuery(widget.options.dialog).find(".nav li").first().trigger('click');
+                        }
+                    );
+                    return false;
                 });
                 
                 insertImage = function () {
@@ -130,8 +162,11 @@
             },
             _init: function () {},
             _openDialog: function () {
-                var xposition, yposition, responseType, cleanUp, thumbnails, thumbId, run, invalidThumbs;
-                
+                var xposition, yposition, responseType, cleanUp, pushRepoFiles, widget, thumbnails, thumbId, run, invalidThumbs;
+                widget = this;
+                var foo = function() {
+                    alert('foo');
+                }
                 cleanUp = function () {
                     thumbnails = jQuery('.imageThumbnail');
                     invalidThumbs = [];
@@ -148,6 +183,20 @@
                         }); 
                     }, 2000);
                 }
+                
+                // Get Images from repo
+                pushRepoFiles = function (tags) {
+                    return jQuery.ajax({
+                        type: "GET",
+                        url: widget.options.listUrl,
+                        data: "tags=" + tags,
+                        success: function (response) { 
+                            $.each(response.assets, function (key, val) {
+                                jQuery('.imageThumbnailContainer ul').append('<li><img src="' + val.url + '" class="imageThumbnail"></li>');
+                            });
+                        }
+                    });
+                };
 
                 jQuery('.image_button').addClass('ui-state-clicked');
                 jQuery("#" + this.options.uuid + "-sugg-activeImage").attr("src", jQuery("#" + this.options.uuid + "-tab-suggestions-content .imageThumbnailActive").first().attr("src"));
@@ -163,6 +212,7 @@
                 var tmpArticleTags, tagType;
                 jQuery('#activitySpinner').show();
                 tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
+                console.log(tmpArticleTags);
                 tmpArticleTags = tmpArticleTags.split(',');
 
                 for(var i in tmpArticleTags) {
@@ -171,7 +221,10 @@
                         if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
                     }
                 }
-
+                
+                jQuery('.imageThumbnailContainer ul').empty();
+                pushRepoFiles('foo,baz');
+                
                 var vie = new VIE();
 
                 vie.use(new vie.DBPediaService({
@@ -179,7 +232,6 @@
                     proxyDisabled: true
                 }));
 
-                jQuery('.imageThumbnailContainer ul').empty();
                 thumbId = 1;
                 run = 1;
                 if ( articleTags.length === 0) jQuery('#activitySpinner').html('No images found.');

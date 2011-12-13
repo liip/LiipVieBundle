@@ -107,6 +107,33 @@ class AssetsController
         $view = View::create($data);
         return $this->viewHandler->handle($view);
     }
+    
+    
+    /**
+     * List Images from Repo
+     *
+     * This function currently only returns some fixture data to try the editor
+     *
+     */
+    public function listAction(Request $request)
+    {
+        $data = array(
+            array(
+                'url' => 'http://dribbble.com/system/users/1528/screenshots/349076/basic.png?1323680492',
+                'alt' => 'Table'
+            ),
+            array(
+                'url' => 'http://dribbble.com/system/users/11041/screenshots/348963/list-preview3-alt-copy2.png?1323666781',
+                'alt' => 'Layout'
+            ),
+        );
+        $data = array(
+            'assets' => $data,
+        );
+        $view = View::create($data);
+        return $this->viewHandler->handle($view);
+    }
+    
 
     public function showRelatedAction(Request $request)
     {
