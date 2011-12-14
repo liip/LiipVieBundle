@@ -7,6 +7,7 @@
                 uuid: "",
                 searchUrl: "",
                 listUrl: "/app_dev.php/liip/vie/assets/list/",
+                loaded: null,
                 dialogOpts: {
                     autoOpen: false,
                     width: 270,
@@ -162,26 +163,20 @@
             },
             _init: function () {},
             _openDialog: function () {
-                var xposition, yposition, responseType, cleanUp, pushRepoFiles, widget, thumbnails, thumbId, run, invalidThumbs;
+                var xposition, yposition, responseType, cleanUp, pushRepoFiles, widget, thumbnails;
                 widget = this;
-                var foo = function() {
-                    alert('foo');
-                }
-                cleanUp = function () {
-                    thumbnails = jQuery('.imageThumbnail');
-                    invalidThumbs = [];
-                    jQuery(thumbnails).each(function () {
-                        invalidThumbs.push(this.id);
-                        jQuery('#' + this.id).load(function() {
-                            invalidThumbs.remove(this.id);
-                        });
-                    });
 
-                    window.setTimeout(function() {
-                        jQuery.each(invalidThumbs, function (i,v) {
-                            jQuery('#' + v).parent('li').remove();
-                        });
-                    }, 2000);
+                cleanUp = function () {
+                    window.setTimeout(function() {     
+                        thumbnails = jQuery('.imageThumbnail');
+                            jQuery(thumbnails).each(function () {
+                                var size = jQuery('#' + this.id).width();
+                                if(size <= 20) {
+                                    jQuery('#' + this.id).parent('li').remove();
+                                }
+                            });
+
+                    }, 15000); // cleanup after 15 sec
                 }
 
                 // Get Images from repo
@@ -207,67 +202,62 @@
                 xposition = jQuery(this.options.editable.element).offset().left + jQuery(this.options.editable.element).outerWidth() - 3;
                 yposition = jQuery(this.options.toolbar).offset().top - jQuery(document).scrollTop() - 29;
                 this.options.dialog.dialog("option", "position", [xposition, yposition]);
+       
+                if(widget.options.loaded === null) {
+                    var articleTags = [];
+                    var tmpArticleTags, tagType;
+                    jQuery('#activitySpinner').show();
+                    tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
+                    tmpArticleTags = tmpArticleTags.split(',');
 
-                var articleTags = [];
-                var tmpArticleTags, tagType;
-                jQuery('#activitySpinner').show();
-                tmpArticleTags = jQuery('.inEditMode').parent().find('.articleTags input').val();
-                console.log(tmpArticleTags);
-                tmpArticleTags = tmpArticleTags.split(',');
-
-                for(var i in tmpArticleTags) {
-                    tagType = typeof tmpArticleTags[i];
-                    if('string' === tagType) {
-                        if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
+                    for(var i in tmpArticleTags) {
+                        tagType = typeof tmpArticleTags[i];
+                        if('string' === tagType) {
+                            if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
+                        }
                     }
-                }
+  
+                    jQuery('.imageThumbnailContainer ul').empty();
+                    pushRepoFiles('foo,baz');
+                
+                    var vie = new VIE();
+                    vie.use(new vie.DBPediaService({
+                        url : "http://dev.iks-project.eu/stanbolfull",
+                        proxyDisabled: true
+                    }));
 
-                jQuery('.imageThumbnailContainer ul').empty();
-                pushRepoFiles('foo,baz');
+                    thumbId = 1;
+                    if ( articleTags.length === 0) jQuery('#activitySpinner').html('No images found.');
 
-                var vie = new VIE();
-
-                vie.use(new vie.DBPediaService({
-                    url : "http://dev.iks-project.eu/stanbolfull",
-                    proxyDisabled: true
-                }));
-
-                thumbId = 1;
-                run = 1;
-                if ( articleTags.length === 0) jQuery('#activitySpinner').html('No images found.');
-
-                jQuery(articleTags).each(function () {
-                    vie.load({
-                            entity: this + ""
-                        }).
-                        using('dbpedia').
-                        execute().
-                        done(function(entity) {
-                            jQuery(entity).each(function () {
-                                if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
-                                    responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
-                                    if(responseType === 'string') {
-                                        var img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'];
-                                        img = img.substring(1, img.length - 1);
+                    jQuery(articleTags).each(function () {
+                        vie.load({
+                                entity: this + ""
+                            }).
+                            using('dbpedia').
+                            execute().
+                            done(function(entity) {
+                                jQuery(entity).each(function () {
+                                    if (this.attributes['<http://dbpedia.org/ontology/thumbnail>']) {
+                                        responseType = typeof(this.attributes['<http://dbpedia.org/ontology/thumbnail>']);
+                                        if(responseType === 'string') {
+                                            var img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'];
+                                            img = img.substring(1, img.length - 1);
+                                        }
+                                        if(responseType === 'object') {
+                                            var img = '';
+                                            img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
+                                        }
+                                    
+                                        jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + thumbId + '" src="' + img + '" class="imageThumbnail"></li>');
+                                        thumbId++;
                                     }
-                                    if(responseType === 'object') {
-                                        var img = '';
-                                        img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
-                                    }
-
-                                    jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + thumbId + '" src="' + img + '" class="imageThumbnail"></li>');
-                                    thumbId++;
-                                }
+                                });
+                                jQuery('#activitySpinner').hide();
                             });
-
-                            if (run === articleTags.length) {
-                                cleanUp();
-                            }
-                            run++;
-                            jQuery('#activitySpinner').hide();
-                        });
-                });
-
+                    });
+                    cleanUp();
+                    widget.options.loaded = 1;
+                }
                 return this.options.dialog.dialog("open");
             },
             _closeDialog: function () {
