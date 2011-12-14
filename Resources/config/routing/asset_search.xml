@@ -14,7 +14,7 @@
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
     </route>
-    <route id="liip_vie_assets_search" pattern="/liip/vie/assets/list/">
+    <route id="liip_vie_assets_list" pattern="/liip/vie/assets/list/">
         <default key="_controller">liip_vie.controller.assets:listAction</default>
         <default key="_format">json</default>
         <requirement key="_method">GET</requirement>
