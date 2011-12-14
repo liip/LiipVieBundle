@@ -167,7 +167,7 @@
                 widget = this;
 
                 cleanUp = function () {
-                    window.setTimeout(function() {     
+                    window.setTimeout(function() {
                         thumbnails = jQuery('.imageThumbnail');
                             jQuery(thumbnails).each(function () {
                                 var size = jQuery('#' + this.id).width();
@@ -202,7 +202,7 @@
                 xposition = jQuery(this.options.editable.element).offset().left + jQuery(this.options.editable.element).outerWidth() - 3;
                 yposition = jQuery(this.options.toolbar).offset().top - jQuery(document).scrollTop() - 29;
                 this.options.dialog.dialog("option", "position", [xposition, yposition]);
-       
+
                 if(widget.options.loaded === null) {
                     var articleTags = [];
                     var tmpArticleTags, tagType;
@@ -216,10 +216,10 @@
                             if(tmpArticleTags[i].indexOf('http') !== -1) articleTags.push(tmpArticleTags[i]);
                         }
                     }
-  
+
                     jQuery('.imageThumbnailContainer ul').empty();
                     pushRepoFiles('foo,baz');
-                
+
                     var vie = new VIE();
                     vie.use(new vie.DBPediaService({
                         url : "http://dev.iks-project.eu/stanbolfull",
@@ -247,7 +247,7 @@
                                             var img = '';
                                             img = this.attributes['<http://dbpedia.org/ontology/thumbnail>'][0].value;
                                         }
-                                    
+
                                         jQuery('.imageThumbnailContainer ul').append('<li><img id="si-' + thumbId + '" src="' + img + '" class="imageThumbnail"></li>');
                                         thumbId++;
                                     }
