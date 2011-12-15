@@ -182,6 +182,7 @@
                 }
 
                 // Get Images from repo
+                var repoImagesFound = false;
                 pushRepoFiles = function (tags) {
                     return jQuery.ajax({
                         type: "GET",
@@ -190,7 +191,11 @@
                         success: function (response) {
                             $.each(response.assets, function (key, val) {
                                 jQuery('.imageThumbnailContainer ul').append('<li><img src="' + val.url + '" class="imageThumbnail"></li>');
+                                repoImagesFound = true;
                             });
+                            if (response.assets.length > 0) {
+                                jQuery('#activitySpinner').hide();
+                            }
                         }
                     });
                 };
@@ -220,7 +225,7 @@
                     }
 
                     jQuery('.imageThumbnailContainer ul').empty();
-                    pushRepoFiles('foo,baz');
+                    pushRepoFiles(jQuery('.inEditMode').parent().find('.articleTags input').val());
 
                     var vie = new VIE();
                     vie.use(new vie.DBPediaService({
@@ -229,7 +234,9 @@
                     }));
 
                     thumbId = 1;
-                    if ( articleTags.length === 0) jQuery('#activitySpinner').html('No images found.');
+                    if (articleTags.length === 0) {
+                        jQuery('#activitySpinner').html('No images found.');
+                    }
 
                     jQuery(articleTags).each(function () {
                         vie.load({

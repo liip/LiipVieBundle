@@ -159,7 +159,7 @@ VieBundle.Model.prototype.initEditable = function () {
             },
             'default': {
                 plugins: {
-                    'halloimage': { 'searchUrl': 'liip/vie/assets/search/', 'vie': this.vie },
+                    'halloimage': { 'searchUrl': vie_plugins_image_search, 'vie': this.vie },
                     'hallolink': { 'relatedUrl': vie_plugins_link_related_path },
                     'halloheadings': {},
                     'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},

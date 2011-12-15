@@ -24,15 +24,18 @@ class AssetsController
 
     private $generator;
 
+    private $cmsPath;
+
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
      */
     private $viewHandler;
 
-    public function __construct($dm, $basePath, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
+    public function __construct($dm, $basePath, $cmsPath, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
     {
         $this->dm = $dm;
         $this->basePath = $basePath;
+        $this->cmsPath = $cmsPath;
         $this->generator = $generator;
         $this->viewHandler = $viewHandler;
     }
@@ -61,10 +64,6 @@ class AssetsController
             array(
                 'url' => 'http://news.fullorissa.com/wp-content/uploads/2011/06/PuriBeach.jpg',
                 'alt' => 'New Dehli chatting'
-            ),
-            array(
-                'url' => 'http://www.ouramazingplanet.com/images/stories/pattaya-beach-110201-02.jpg',
-                'alt' => 'Amazing view from my plane'
             ),
             array(
                 'url' => 'http://www.hotelplan.ch/CMS/1/1823506/4/ferien_auf_den_malediven.jpg',
@@ -116,19 +115,34 @@ class AssetsController
      */
     public function listAction(Request $request)
     {
-        $data = array(
-            array(
-                'url' => 'http://dribbble.com/system/users/1528/screenshots/349076/basic.png?1323680492',
-                'alt' => 'Table'
-            ),
-            array(
-                'url' => 'http://dribbble.com/system/users/11041/screenshots/348963/list-preview3-alt-copy2.png?1323666781',
-                'alt' => 'Layout'
-            ),
-        );
+        $tags = $request->query->get('tags');
+        $tags = explode(',', $tags);
+
+        foreach ($tags as $i => $tag) {
+            $tags[$i] = 'images.tags = ' . $this->dm->quote($tag);
+        }
+
+        $sql = 'SELECT images.* FROM [nt:unstructured] AS images
+                    WHERE ISDESCENDANTNODE(images, ' . $this->dm->quote($this->cmsPath) . ') AND (' . implode(' OR ', $tags) . ')';
+        $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
+        $query->setLimit(-1);
+        $images = $this->dm->getDocumentsByQuery($query);
+
+        $data = array();
+
+        foreach ($images as $image) {
+
+            if ($image instanceof \Sandbox\MainBundle\Document\Image) {
+
+                $url = $this->generator->generate('image_display', array('id' => $image->name), true);
+                $data[] = array('url' => $url, 'alt' => $image->name);
+            }
+        }
+
         $data = array(
             'assets' => $data,
         );
+
         $view = View::create($data);
         return $this->viewHandler->handle($view);
     }
