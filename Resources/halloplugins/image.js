@@ -83,7 +83,7 @@
                     $('#' + widget.options.uuid + '-' + widget.widgetName + '-iframe').append( iframe );
 
                     var uploadFrom = $('#' + widget.options.uuid + '-' + widget.widgetName + '-uploadform');
-                    uploadFrom.attr( 'action', '/app_dev.php/image/upload' )
+                    uploadFrom.attr( 'action', '/app_dev.php/image/upload/' )
                     uploadFrom.attr( 'method', 'post' )
                     uploadFrom.attr( 'userfile', userFile )
                     uploadFrom.attr( 'enctype', 'multipart/form-data' )
