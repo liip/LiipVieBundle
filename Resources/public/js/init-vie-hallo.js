@@ -159,7 +159,29 @@ VieBundle.Model.prototype.initEditable = function () {
             },
             'default': {
                 plugins: {
-                    'halloimage': { 'searchUrl': vie_plugins_image_search, 'vie': this.vie },
+                    'halloimage': {
+                        search: function (query, limit, offset, successCallback) {
+                            limit = limit || 8;
+                            offset = offset || 0;
+                            jQuery.ajax({
+                                type: "GET",
+                                url: vie_plugins_image_search,
+                                data: "query="+query+"&offset="+offset+"&limit="+limit,
+                                success: successCallback
+                            });
+                        },
+                        suggestions: function(tags, limit, offset, successCallback) {
+                            limit = limit || 8;
+                            offset = offset || 0;
+                            return jQuery.ajax({
+                                type: "GET",
+                                url: "/app_dev.php/liip/vie/assets/list/",
+                                data: "tags=" + tags + "&offset=" + offset + "&limit=" + limit,
+                                success: successCallback
+                            });
+                        },
+                        'vie': this.vie
+                    },
                     'hallolink': { 'relatedUrl': vie_plugins_link_related_path },
                     'halloheadings': {},
                     'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},

@@ -19,15 +19,7 @@
             # offset: offset for the returned result
             # successCallback: function that will be called with the response json object
             #     the object has fields offset (the requested offset), total (total number of results) and assets (list of url and alt text for each image)
-            search: (query, limit, offset, successCallback) ->
-                limit = limit || 8
-                offset = offset || 0
-                jQuery.ajax({
-                    type: "GET",
-                    url: vie_plugins_image_search,
-                    data: "query=#{query}&offset=#{offset}&limit=#{limit}",
-                    success: successCallback
-                });
+            search: null
             # this function is responsible to fetch suggestions for images to insert
             # this could for example be based on tags of the entity or some semantic enhancement, ...
             #
@@ -36,15 +28,7 @@
             # offset: offset for the returned result
             # successCallback: function that will be called with the response json object
             #     the object has fields offset (the requested offset), total (total number of results) and assets (list of url and alt text for each image)
-            suggestions: (tags, limit, offset, successCallback) ->
-                limit = limit || 8
-                offset = offset || 0
-                jQuery.ajax({
-                    type: "GET",
-                    url: "/app_dev.php/liip/vie/assets/list/"
-                    data: "tags=#{tags}&offset=#{offset}&limit=#{limit}",
-                    success: successCallback
-                });
+            suggestions: null
             loaded: null
             dialogOpts:
                 autoOpen: false
@@ -65,21 +49,18 @@
             @options.dialog = jQuery "<div id=\"#{dialogId}\">
                 <div class=\"nav\">
                     <ul class=\"tabs\">
-                        <li id=\"#{@options.uuid}-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>
-                        <li id=\"#{@options.uuid}-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>
-                        <li id=\"#{@options.uuid}-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>
                     </ul>
-                    <img src=\"/bundles/liipvie/img/arrow.png\" id=\"#{@options.uuid}-tab-activeIndicator\" class=\"tab-activeIndicator\" />
+                    <div id=\"#{@options.uuid}-tab-activeIndicator\" class=\"tab-activeIndicator\" />
                 </div>
                 <div class=\"dialogcontent\">
             </div>"
 
             if widget.options.suggestions
-                @_addGuiTabSuggestions jQuery(".dialogcontent", @options.dialog)
+                @_addGuiTabSuggestions jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
             if widget.options.search
-                @_addGuiTabSearch jQuery(".dialogcontent", @options.dialog)
+                @_addGuiTabSearch jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
             if (true) #TODO: upload function
-                @_addGuiTabUpload jQuery(".dialogcontent", @options.dialog)
+                @_addGuiTabUpload jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
 
             buttonset = jQuery "<span class=\"#{widget.widgetName}\"></span>"
 
@@ -159,7 +140,7 @@
             yposition = jQuery(@options.toolbar).offset().top - jQuery(document).scrollTop() - 29
             @options.dialog.dialog("option", "position", [xposition, yposition])
 
-            if widget.options.loaded is null
+            if widget.options.loaded is null && widget.options.suggestions
                 articleTags = []
                 jQuery("#activitySpinner").show()
                 tmpArticleTags = jQuery(".inEditMode").parent().find(".articleTags input").val()
@@ -195,13 +176,15 @@
 
             cleanUp()
             widget.options.loaded = 1
+
             @options.dialog.dialog("open")
 
         _closeDialog: ->
             @options.dialog.dialog("close")
 
-        _addGuiTabSuggestions: (element) ->
+        _addGuiTabSuggestions: (tabs, element) ->
             widget = this
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-suggestions\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-suggestions\"><span>Suggestions</span></li>"
             element.append jQuery "<div id=\"#{@options.uuid}-tab-suggestions-content\" class=\"#{widget.widgetName}-tab tab-suggestions\">
                 <div class=\"imageThumbnailContainer fixed\"><div id=\"activitySpinner\">Loading Images...</div><ul><li>
                     <img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" />
@@ -216,13 +199,14 @@
                 </div>
                 <div class=\"metadata\">
                     <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />
-                    <!--<button id=\"#{@options.uuid}-#{widget.widgetName}-addimage\">Add Image</button>-->
                 </div>
             </div>"
 
-        _addGuiTabSearch: (element) ->
+        _addGuiTabSearch: (tabs, element) ->
             widget = this
             dialogId = "#{@options.uuid}-image-dialog"
+
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-search\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-search\"><span>Search</span></li>"
 
             element.append jQuery "<div id=\"#{@options.uuid}-tab-search-content\" class=\"#{widget.widgetName}-tab tab-search\">
                 <form type=\"get\" id=\"#{@options.uuid}-#{widget.widgetName}-searchForm\">
@@ -276,8 +260,9 @@
 
                 widget.options.search(null, widget.options.limit, 0, showResults)
 
-        _addGuiTabUpload: (element) ->
+        _addGuiTabUpload: (tabs, element) ->
             widget = this
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-upload\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-upload\"><span>Upload</span></li>"
             element.append jQuery "<div id=\"#{@options.uuid}-tab-upload-content\" class=\"#{widget.widgetName}-tab tab-upload\">
                 <form id=\"#{@options.uuid}-#{widget.widgetName}-uploadform\">
                     <input id=\"#{@options.uuid}-#{widget.widgetName}-file\" name=\"#{@options.uuid}-#{widget.widgetName}-file\" type=\"file\" class=\"file\">

@@ -38,7 +38,6 @@
     display: table-cell;
     cursor: pointer;
     background: #01add2 url('/bundles/liipvie/img/divider.png') no-repeat right;
-    padding: 3px 6px 0 5px;
     text-align: center;
 }
 
@@ -46,10 +45,19 @@
     background-color: #2EA0BE;
 }
 
-.halloimage-dialog .tabs li img {
+.halloimage-dialog .tabs li.halloimage-tabselector span {
     position: relative;
-    top: 2px;
+    padding: 4px 6px 0 18px;
     margin-right: 1px;
+}
+.halloimage-dialog .tabs li.halloimage-tab-suggestions span {
+    background: url('/bundles/liipvie/img/tabicon_suggestions.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-search span {
+    background: url('/bundles/liipvie/img/tabicon_search.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-upload span {
+    background: url('/bundles/liipvie/img/tabicon_upload.png') no-repeat left;
 }
 
 .halloimage-dialog .tabs li:last-of-type {
@@ -64,6 +72,10 @@
 .halloimage-dialog .tab-activeIndicator {
     vertical-align: top;
     margin-left: 50px;
+    width: 18px;
+    height: 8px;
+    display: relative;
+    background: url('/bundles/liipvie/img/arrow.png');
 }
 
 
@@ -91,7 +103,6 @@
     box-shadow: 2px 2px 3px #888;
     cursor: pointer;
     float: left;
-    /*margin: 0 3px 3px 0;*/
 }
 
 .imageThumbnailContainer li {
@@ -236,7 +247,7 @@
 }
 
 .halloimage-dialog .tab-upload {
-    
+
 }
 .halloimage-dialog .tab-upload .file {
     font-size: 11px;
