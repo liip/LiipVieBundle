@@ -86,21 +86,20 @@ class AssetsController
             )
         );
 
-        $page = (int)$request->query->get('page', 1);
-        if ($page < 1) {
-            $page = 1;
+        $offset = (int)$request->query->get('offset', 0);
+        if ($offset < 0) {
+            $offset = 0;
         }
 
-        $length = (int)$request->query->get('length', 8);
-        if ($length < 1) {
-            $length = 8;
+        $limit = (int)$request->query->get('limit', 8);
+        if ($limit < 1) {
+            $limit = 8;
         }
 
         $data = array(
-            'page' => $page,
-            'length' => $length,
+            'offset' => $offset,
             'total' => count($data),
-            'assets' => array_slice($data, ($page-1)*$length, $length)
+            'assets' => array_slice($data, $offset, $limit)
         );
 
         $view = View::create($data);
