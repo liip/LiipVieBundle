@@ -9,7 +9,7 @@
         <service id="liip_vie.phpcr.controller" class="Liip\VieBundle\Controller\PhpcrController">
             <argument type="service" id="security.context"/>
             <argument type="service" id="fos_rest.view_handler"/>
-            <argument type="service" id="doctrine_phpcr.odm"/>
+            <argument type="service" id="doctrine_phpcr"/>
             <argument>null</argument>
         </service>
 
