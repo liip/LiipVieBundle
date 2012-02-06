@@ -388,6 +388,7 @@
                 jQuery(event.target).prepend(dnd.createTmpFeedback(ui.draggable[0], 'middle'));
                 jQuery('.tmpLine', jQuery(event.target)).hide();
               }
+              editable.trigger('change');
               return helper.showOverlay(position);
             };
             return setTimeout(postPone, 5);
@@ -406,6 +407,7 @@
               tmpFeedbackMiddle.hide();
               tmpFeedbackLR.removeClass("inlineImage-left inlineImage-right").addClass("inlineImage-" + position).show();
             }
+            editable.trigger('change');
             return helper.showOverlay(position);
           },
           handleLeaveEvent: function(event, ui) {
@@ -414,6 +416,7 @@
               if (!jQuery('div.trashcan', ui.helper).length) {
                 jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'));
               }
+              editable.trigger('change');
               return jQuery('.bigOverlay, .smallOverlay').remove();
             };
             window.waitWithTrash = setTimeout(func, 200);

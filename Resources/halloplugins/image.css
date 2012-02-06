@@ -2,6 +2,14 @@
 /* Image Dialog */
 /****************/
 
+p.ui-droppable:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .halloimage-dialog .ui-dialog-content {
     padding: 0;
 }
