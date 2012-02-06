@@ -15,133 +15,8 @@ VieBundle.Model = function(bundle, element) {
     var subject = this.vie.service('rdfa').getElementSubject(element);
     this.entity = this.vie.entities.get(subject);
 
-    // insert settings pane
-    var id = subject.replace(/[^A-Za-z]/g, '-');
-    this.element.prepend('<div class="hiddenfieldsContainer"><div class="hiddenfieldsToggle"></div><div class="hiddenfields"><div class="hiddenfieldsCloseButton"></div><h2>Article settings</h2><div id="articleTagsWrapper"><form><div class="articleTags"><h3>Article tags</h3><input type="text" id="' + id + '-articleTags" class="tags" value="" /></div><div class="articleSuggestedTags"><h3>Suggested tags</h3><input type="text" id="' + id + '-suggestedTags" class="tags" value="" /></div></form></div></div><div class="hiddenfieldsCloseCorner"></div></div>');
-    this.articleTags = this.element.find('.articleTags input');
-    this.suggestedTags = this.element.find('.articleSuggestedTags input');
-
-    // bind toggle events for settings pane
-    this.element.find('.hiddenfieldsToggle').click(function(event) {
-        var context = $(this).closest('.hiddenfieldsContainer');
-        $('.hiddenfields', context).show();
-        $('.hiddenfieldsToggle', context).hide();
-        $('.hiddenfieldsCloseCorner', context).show();
-        $('.hiddenfieldsCloseButton', context).show();
-    });
-
-    var that = this;
-    this.element.find('.hiddenfieldsCloseCorner, .hiddenfieldsCloseButton').click(function(event) {
-        that.closeTags();
-    });
-
-    $(document).click(function(e) {
-        if ($(e.target).closest('.hiddenfieldsContainer').size() == 0 && $('.hiddenfieldsCloseCorner:visible').length > 0){
-            that.closeTags();
-        }
-    });
-
-    // init tags
-    this.initTags();
-    this.loadTags();
-
     // init editor
     this.initEditable();
-};
-
-VieBundle.Model.prototype.closeTags = function () {
-    var context = $('.hiddenfieldsContainer');
-    $('.hiddenfields', context).hide();
-    $('.hiddenfieldsToggle', context).show();
-    $('.hiddenfieldsCloseCorner', context).hide();
-    $('.hiddenfieldsCloseButton', context).hide();
-
-    // save on close
-    this.save();
-}
-
-VieBundle.Model.prototype.tagLabel = function (value) {
-
-    if (value.substring(0, 9) == '<urn:tag:') {
-        value = value.substring(9, value.length - 1);
-    }
-
-    if (value.substring(0, 8) == '<http://') {
-        value = value.substring(value.lastIndexOf('/') + 1, value.length - 1);
-        value = value.replace(/_/g, ' ');
-    }
-
-    return value;
-};
-
-VieBundle.Model.prototype.initTags = function () {
-
-    var that = this;
-
-    this.articleTags.tagsInput({
-        width:'auto',
-        height: 'auto',
-        onAddTag: function (tag) {
-
-            var entity = that.entity;
-
-            // convert to reference url
-            if (!entity.isReference(tag)) {
-                tag = 'urn:tag:' + tag;
-            }
-
-            // add tag to entity
-            entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].vie = that.vie;
-            entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].addOrUpdate({'@subject': tag});
-        },
-        onRemoveTag: function (tag) {
-
-            // remove tag from entity
-            that.entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].remove(tag);
-        },
-        label: this.tagLabel
-    });
-
-    this.suggestedTags.tagsInput({
-        width:'auto',
-        height: 'auto',
-        interactive: false,
-        label: this.tagLabel,
-        remove: false
-    });
-
-    // add suggested tag on click to tags
-    this.element.find('.articleSuggestedTags .tag span').live('click', function(){
-
-        var tag = $(this).text();
-        that.articleTags.addTag($(this).data('value'));
-        that.suggestedTags.removeTag($.trim(tag));
-
-        return false;
-    });
-};
-
-VieBundle.Model.prototype.loadTags = function () {
-
-    var that = this;
-
-    // load article tags
-    var tags = this.entity.attributes['<http://purl.org/dc/elements/1.1/subject>'].models;
-    jQuery(tags).each(function () {
-        that.articleTags.addTag(this.id);
-    });
-
-    // load suggested tags
-    var text = $(that.element).text();
-    that.vie.analyze({element: $(that.element)}).using(['stanbol']).execute().success(function(enhancements) {
-        return $(enhancements).each(function(i, e) {
-            if (e.attributes['<rdfschema:label>']) {
-                that.suggestedTags.addTag(e.id);
-            }
-        });
-    }).fail(function(xhr) {
-        console.log(xhr);
-    });
 };
 
 VieBundle.Model.prototype.initEditable = function () {
@@ -195,7 +70,14 @@ VieBundle.Model.prototype.initEditable = function () {
                 showAlways: true
             }
         },
-        deactivated: $.proxy(this.save, this)
+        deactivated: $.proxy(this.save, this),
+        enableEditor: function (options) {
+            if (options.property == 'dc:subject') {
+                return options.element.midgardTags(options);
+            } else {
+                return options.widget._enableHallo(options);
+            }
+        }
     });
 };
 
@@ -255,7 +137,7 @@ VieBundle.Hallo.prototype.initVIE = function () {
     this.vie.namespaces.add('dc', 'http://purl.org/dc/elements/1.1/');
 
     this.vie.use(new this.vie.StanbolService({
-        url: "http://cmf.lo/stanbol",
+        url: "http://dev.iks-project.eu:8080/",
         proxyDisabled: true
     }));
 };
@@ -314,3 +196,4 @@ jQuery(document).ready(function ($) {
         hover.hide();
     });
 });
+
