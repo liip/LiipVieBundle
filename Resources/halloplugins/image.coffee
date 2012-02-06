@@ -438,6 +438,7 @@
                             jQuery(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], 'middle')
                             jQuery('.tmpLine', jQuery(event.target)).hide()
 
+                        editable.trigger('change')
                         helper.showOverlay position
                     # we need to postpone the handleOverEvent execution of the function for a tiny bit to avoid
                     # the handleLeaveEvent to be fired after the handleOverEvent. Removing this timeout will break things
@@ -462,12 +463,14 @@
                         tmpFeedbackMiddle.hide()
                         tmpFeedbackLR.removeClass("inlineImage-left inlineImage-right").addClass("inlineImage-" + position).show()
 
+                    editable.trigger('change')
                     helper.showOverlay position
 
                 handleLeaveEvent: (event, ui) ->
                     func = ->
                         if not jQuery('div.trashcan', ui.helper).length
                             jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'))
+                        editable.trigger('change')
                         jQuery('.bigOverlay, .smallOverlay').remove()
                     # only remove the trash after being outside of an editable more than X milliseconds
                     window.waitWithTrash = setTimeout(func, 200)
