@@ -1,17 +1,39 @@
 #     Hallo - a rich text editing jQuery UI widget
 #     (c) 2011 Henri Bergius, IKS Consortium
 #     Hallo may be freely distributed under the MIT license
+#
+#     Image insertion plugin
+#     Liip AG: Colin Frei, Reto Ryter, David Buchmann, Fabian Vogler, Bartosz Podlewski
+#
 ((jQuery) ->
     jQuery.widget "Liip.halloimage",
         options:
             editable: null
             toolbar: null
             uuid: ""
-            searchUrl: ""
+            # number of thumbnails for paging in search results
+            limit: 8
+            # this function is responsible to fetch search results
+            # query: terms to search
+            # limit: how many results to show at max
+            # offset: offset for the returned result
+            # successCallback: function that will be called with the response json object
+            #     the object has fields offset (the requested offset), total (total number of results) and assets (list of url and alt text for each image)
+            search: null
+            # this function is responsible to fetch suggestions for images to insert
+            # this could for example be based on tags of the entity or some semantic enhancement, ...
+            #
+            # tags: tag information - TODO: do not expect that here but get it from context
+            # limit: how many results to show at max
+            # offset: offset for the returned result
+            # successCallback: function that will be called with the response json object
+            #     the object has fields offset (the requested offset), total (total number of results) and assets (list of url and alt text for each image)
+            suggestions: null
+            loaded: null
             dialogOpts:
                 autoOpen: false
                 width: 270
-                height: 500
+                height: "auto"
                 title: "Insert Images"
                 modal: false
                 resizable: false
@@ -23,124 +45,22 @@
 
         _create: ->
             widget = this
-
             dialogId = "#{@options.uuid}-image-dialog"
             @options.dialog = jQuery "<div id=\"#{dialogId}\">
-            <div class=\"nav\">
-                <ul class=\"tabs\">
-                    <li id=\"#{@options.uuid}-tab-suggestions\"><img src=\"/bundles/liipvie/img/tabicon_suggestions.png\" /> Suggestions</li>
-                    <li id=\"#{@options.uuid}-tab-search\"><img src=\"/bundles/liipvie/img/tabicon_search.png\" /> Search</li>
-                    <li id=\"#{@options.uuid}-tab-upload\"><img src=\"/bundles/liipvie/img/tabicon_upload.png\" /> Upload</li>
-                </ul>
-                <img src=\"/bundles/liipvie/img/arrow.png\" id=\"#{@options.uuid}-tab-activeIndicator\" class=\"tab-activeIndicator\" />
-            </div>
-            <div class=\"dialogcontent\">
-                <div id=\"#{@options.uuid}-tab-suggestions-content\" class=\"#{widget.widgetName}-tab tab-suggestions\">
-                    <div class=\"imageThumbnailContainer\">
-                        <img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" />
-                        <img src=\"http://www.ngkhai.net/cebupics/albums/userpics/10185/thumb_P1010613.JPG\" class=\"imageThumbnail\" />
-                        <img src=\"http://idiotduck.com/wp-content/uploads/2011/03/amazing-nature-photography-waterfall-hdr-1024-768-14-150x200.jpg\" class=\"imageThumbnail\" />
-                        <img src=\"http://photos.somd.com/data/14/thumbs/20080604_9-1.JPG\" class=\"imageThumbnail\" />
-                        <img src=\"http://www.hotfrog.com.au/Uploads/PressReleases2/THAILAND-TRAVEL-PACKAGES-THAILAND-BEACH-TOURS-THAILAND-VACATION-SUNRISE-PHUKET-BEACH-TOUR-200614_image.jpg\" class=\"imageThumbnail\" />
-                        <img src=\"http://photos.somd.com/data/14/thumbs/SunriseMyrtleBeach2008.jpg\" class=\"imageThumbnail\" />
-                        <img src=\"http://www.zsqts.com.cn/product-photo/2009-07-17/a411bfd382731251ae26bfb311c30629/Buy-best-buy-fireworks-from-China-Liuyang-SKY-PIONEER-PYROTECHNICS-INC.jpg\" class=\"imageThumbnail\" />
-                        <img src=\"http://www.costumeattic.com/images_product/preview/Rubies/885106.jpg\" class=\"imageThumbnail\" />
-                    </div>
-                    <div class=\"activeImageContainer\">
-                        <div class=\"rotationWrapper\">
-                            <div class=\"hintArrow\"></div>
-                            <img src=\"\" id=\"#{@options.uuid}-sugg-activeImage\" class=\"activeImage\" />
-                        </div>
-                        <img src=\"\" id=\"#{@options.uuid}-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />
-                    </div>
-                    <div class=\"metadata\">
-                        <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />
-                        <!--<button id=\"#{@options.uuid}-#{widget.widgetName}-addimage\">Add Image</button>-->
-                    </div>
+                <div class=\"nav\">
+                    <ul class=\"tabs\">
+                    </ul>
+                    <div id=\"#{@options.uuid}-tab-activeIndicator\" class=\"tab-activeIndicator\" />
                 </div>
-                <div id=\"#{@options.uuid}-tab-search-content\" class=\"#{widget.widgetName}-tab tab-search\">
-                    <form action=\"#{widget.options.searchUrl}/?page=1&length=8\" type=\"get\" id=\"#{@options.uuid}-#{widget.widgetName}-searchForm\">
-                        <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"#{@options.uuid}-#{widget.widgetName}-searchButton\" class=\"button searchButton\" value=\"OK\"/>
-                    </form>
-                    <div class=\"searchResults imageThumbnailContainer\"></div>
-                    <div id=\"#{@options.uuid}-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\">
-                        <div class=\"rotationWrapper\">
-                            <div class=\"hintArrow\"></div>
-                            <img src=\"\" id=\"#{@options.uuid}-search-activeImageBg\" class=\"activeImage\" />
-                        </div>
-                        <img src=\"\" id=\"#{@options.uuid}-search-activeImage\" class=\"activeImage activeImageBg\" />
-                    </div>
-                    <div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\">
-                        <label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" />
-                        <!--<button id=\"#{@options.uuid}-#{widget.widgetName}-addimage\">Add Image</button>-->
-                    </div>
-                </div>
-                <div id=\"#{@options.uuid}-tab-upload-content\" class=\"#{widget.widgetName}-tab tab-upload\">UPLOAD</div>
-            </div></div>"
+                <div class=\"dialogcontent\">
+            </div>"
 
-            jQuery(".tab-search form", @options.dialog).submit (event) ->
-                event.preventDefault()
-                that = this
-
-                showResults = (response) ->
-                    items = []
-                    items.push("<div class=\"pager-prev\" style=\"display:none\"></div>");
-                    $.each response.assets, (key, val) ->
-                        items.push("<img src=\"#{val.url}\" class=\"imageThumbnail #{widget.widgetName}-search-imageThumbnail\" /> ");
-                    items.push("<div class=\"pager-next\" style=\"display:none\"></div>");
-
-                    container = jQuery("##{dialogId} .tab-search .searchResults")
-                    container.html(items.join(''))
-
-                    # handle pagers
-                    if response.page > 1
-                        jQuery('.pager-prev', container).show()
-                    if response.page < Math.ceil(response.total/response.length)
-                        jQuery('.pager-next', container).show()
-
-                    jQuery('.pager-prev', container).click (event) ->
-                        search(response.page - 1)
-                    jQuery('.pager-next', container).click (event) ->
-                        search(response.page + 1)
-
-                    # Add action to image thumbnails
-                    jQuery("##{widget.options.uuid}-search-activeImageContainer").show()
-                    firstimage = jQuery(".#{widget.widgetName}-search-imageThumbnail").first().addClass "imageThumbnailActive"
-                    jQuery("##{widget.options.uuid}-search-activeImage, ##{widget.options.uuid}-search-activeImageBg").attr "src", firstimage.attr "src"
-
-                    jQuery("#metadata-search").show()
-
-                search = (page) ->
-                    page = page || 1
-                    jQuery.ajax({
-                        type: "GET",
-                        url: widget.options.searchUrl,
-                        data: "page=#{page}&length=8",
-                        success: showResults
-                    })
-
-                search()
-
-            insertImage = () ->
-                #This may need to insert an image that does not have the same URL as the preview image, since it may be a different size
-
-                # Check if we have a selection and fall back to @lastSelection otherwise
-                try
-                    if not widget.options.editable.getSelection()
-                        throw new Error "SelectionNotSet"
-                catch error
-                    widget.options.editable.restoreSelection(widget.lastSelection)
-
-                document.execCommand "insertImage", null, $(this).attr('src')
-                img = document.getSelection().anchorNode.firstChild
-                jQuery(img).attr "alt", jQuery(".caption").value
-
-                triggerModified = () ->
-                    widget.element.trigger "hallomodified"
-                window.setTimeout triggerModified, 100
-                widget._closeDialog()
-
-            @options.dialog.find(".halloimage-activeImage, ##{widget.options.uuid}-#{widget.widgetName}-addimage").click insertImage
+            if widget.options.suggestions
+                @_addGuiTabSuggestions jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
+            if widget.options.search
+                @_addGuiTabSearch jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
+            if (true) #TODO: upload function
+                @_addGuiTabUpload jQuery(".tabs", @options.dialog), jQuery(".dialogcontent", @options.dialog)
 
             buttonset = jQuery "<span class=\"#{widget.widgetName}\"></span>"
 
@@ -185,6 +105,26 @@
         _init: ->
 
         _openDialog: ->
+            widget = this
+            cleanUp = ->
+                window.setTimeout (->
+                    thumbnails = jQuery(".imageThumbnail")
+                    jQuery(thumbnails).each ->
+                        size = jQuery("#" + @id).width()
+                        if size <= 20
+                            jQuery("#" + @id).parent("li").remove()
+                ), 15000  # cleanup after 15 sec
+
+            repoImagesFound = false
+
+            showResults = (response) ->
+                # TODO: paging
+                jQuery.each response.assets, (key, val) ->
+                    jQuery(".imageThumbnailContainer ul").append "<li><img src=\"" + val.url + "\" class=\"imageThumbnail\"></li>"
+                    repoImagesFound = true
+                if response.assets.length > 0
+                    jQuery("#activitySpinner").hide()
+
             # Update state of button in toolbar
             jQuery('.image_button').addClass('ui-state-clicked')
 
@@ -200,11 +140,184 @@
             yposition = jQuery(@options.toolbar).offset().top - jQuery(document).scrollTop() - 29
             @options.dialog.dialog("option", "position", [xposition, yposition])
 
-            # Show Dialog
+            if widget.options.loaded is null && widget.options.suggestions
+                articleTags = []
+                jQuery("#activitySpinner").show()
+                tmpArticleTags = jQuery(".inEditMode").parent().find(".articleTags input").val()
+                tmpArticleTags = tmpArticleTags.split(",")
+                for i of tmpArticleTags
+                    tagType = typeof tmpArticleTags[i]
+                    if "string" == tagType && tmpArticleTags[i].indexOf("http") != -1
+                        articleTags.push tmpArticleTags[i]
+                jQuery(".imageThumbnailContainer ul").empty()
+                widget.options.suggestions(jQuery(".inEditMode").parent().find(".articleTags input").val(), widget.options.limit, 0, showResults)
+                vie = new VIE()
+                vie.use new vie.DBPediaService(
+                    url: "http://dev.iks-project.eu/stanbolfull"
+                    proxyDisabled: true
+                )
+                thumbId = 1
+                if articleTags.length is 0
+                    jQuery("#activitySpinner").html "No images found."
+                jQuery(articleTags).each ->
+                    vie.load(entity: this + "").using("dbpedia").execute().done (entity) ->
+                        jQuery(entity).each ->
+                            if @attributes["<http://dbpedia.org/ontology/thumbnail>"]
+                                responseType = typeof (@attributes["<http://dbpedia.org/ontology/thumbnail>"])
+                                if responseType is "string"
+                                    img = @attributes["<http://dbpedia.org/ontology/thumbnail>"]
+                                    img = img.substring(1, img.length - 1)
+                                if responseType is "object"
+                                    img = ""
+                                    img = @attributes["<http://dbpedia.org/ontology/thumbnail>"][0].value
+                                jQuery(".imageThumbnailContainer ul").append "<li><img id=\"si-#{thumbId}\" src=\"#{img}\" class=\"imageThumbnail\"></li>"
+                                thumbId++
+                        jQuery("#activitySpinner").hide()
+
+            cleanUp()
+            widget.options.loaded = 1
+
             @options.dialog.dialog("open")
 
         _closeDialog: ->
             @options.dialog.dialog("close")
+
+        _addGuiTabSuggestions: (tabs, element) ->
+            widget = this
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-suggestions\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-suggestions\"><span>Suggestions</span></li>"
+            element.append jQuery "<div id=\"#{@options.uuid}-tab-suggestions-content\" class=\"#{widget.widgetName}-tab tab-suggestions\">
+                <div class=\"imageThumbnailContainer fixed\"><div id=\"activitySpinner\">Loading Images...</div><ul><li>
+                    <img src=\"http://imagesus.homeaway.com/mda01/badf2e69babf2f6a0e4b680fc373c041c705b891\" class=\"imageThumbnail imageThumbnailActive\" />
+                  </li></ul><br style=\"clear:both\"/>
+                </div>
+                <div class=\"activeImageContainer\">
+                    <div class=\"rotationWrapper\">
+                        <div class=\"hintArrow\"></div>
+                        <img src=\"\" id=\"#{@options.uuid}-sugg-activeImage\" class=\"activeImage\" />
+                    </div>
+                    <img src=\"\" id=\"#{@options.uuid}-sugg-activeImageBg\" class=\"activeImage activeImageBg\" />
+                </div>
+                <div class=\"metadata\">
+                    <label for=\"caption-sugg\">Caption</label><input type=\"text\" id=\"caption-sugg\" />
+                </div>
+            </div>"
+
+        _addGuiTabSearch: (tabs, element) ->
+            widget = this
+            dialogId = "#{@options.uuid}-image-dialog"
+
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-search\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-search\"><span>Search</span></li>"
+
+            element.append jQuery "<div id=\"#{@options.uuid}-tab-search-content\" class=\"#{widget.widgetName}-tab tab-search\">
+                <form type=\"get\" id=\"#{@options.uuid}-#{widget.widgetName}-searchForm\">
+                    <input type=\"text\" class=\"searchInput\" /><input type=\"submit\" id=\"#{@options.uuid}-#{widget.widgetName}-searchButton\" class=\"button searchButton\" value=\"OK\"/>
+                </form>
+                <div class=\"searchResults imageThumbnailContainer\"></div>
+                <div id=\"#{@options.uuid}-search-activeImageContainer\" class=\"search-activeImageContainer activeImageContainer\">
+                    <div class=\"rotationWrapper\">
+                        <div class=\"hintArrow\"></div>
+                        <img src=\"\" id=\"#{@options.uuid}-search-activeImageBg\" class=\"activeImage\" />
+                    </div>
+                    <img src=\"\" id=\"#{@options.uuid}-search-activeImage\" class=\"activeImage activeImageBg\" />
+                </div>
+                <div class=\"metadata\" id=\"metadata-search\" style=\"display: none;\">
+                    <label for=\"caption-search\">Caption</label><input type=\"text\" id=\"caption-search\" />
+                    <!--<button id=\"#{@options.uuid}-#{widget.widgetName}-addimage\">Add Image</button>-->
+                </div>
+            </div>"
+
+            jQuery(".tab-search form", element).submit (event) ->
+                event.preventDefault()
+                that = this
+
+                showResults = (response) ->
+                    items = []
+                    items.push("<div class=\"pager-prev\" style=\"display:none\"></div>");
+                    jQuery.each response.assets, (key, val) ->
+                        items.push("<img src=\"#{val.url}\" class=\"imageThumbnail #{widget.widgetName}-search-imageThumbnail\" /> ");
+                    items.push("<div class=\"pager-next\" style=\"display:none\"></div>");
+
+                    container = jQuery("##{dialogId} .tab-search .searchResults")
+                    container.html items.join("")
+
+                    # handle pagers
+                    if response.offset > 0
+                        jQuery('.pager-prev', container).show()
+                    if response.offset < response.total
+                        jQuery('.pager-next', container).show()
+
+                    jQuery('.pager-prev', container).click (event) ->
+                        widget.options.search(null, widget.options.limit, response.offset - widget.options.limit, showResults)
+                    jQuery('.pager-next', container).click (event) ->
+                        widget.options.search(null, widget.options.limit, response.offset + widget.options.limit, showResults)
+
+                    # Add action to image thumbnails
+                    jQuery("##{widget.options.uuid}-search-activeImageContainer").show()
+                    firstimage = jQuery(".#{widget.widgetName}-search-imageThumbnail").first().addClass "imageThumbnailActive"
+                    jQuery("##{widget.options.uuid}-search-activeImage, ##{widget.options.uuid}-search-activeImageBg").attr "src", firstimage.attr "src"
+
+                    jQuery("#metadata-search").show()
+
+                widget.options.search(null, widget.options.limit, 0, showResults)
+
+        _addGuiTabUpload: (tabs, element) ->
+            widget = this
+            tabs.append jQuery "<li id=\"#{@options.uuid}-tab-upload\" class=\"#{widget.widgetName}-tabselector #{widget.widgetName}-tab-upload\"><span>Upload</span></li>"
+            element.append jQuery "<div id=\"#{@options.uuid}-tab-upload-content\" class=\"#{widget.widgetName}-tab tab-upload\">
+                <form id=\"#{@options.uuid}-#{widget.widgetName}-uploadform\">
+                    <input id=\"#{@options.uuid}-#{widget.widgetName}-file\" name=\"#{@options.uuid}-#{widget.widgetName}-file\" type=\"file\" class=\"file\">
+                    <input id=\"#{@options.uuid}-#{widget.widgetName}-tags\" name=\"tags\" type=\"hidden\" />
+                    <br />
+                    <input type=\"submit\" value=\"Upload\" id=\"#{@options.uuid}-#{widget.widgetName}-upload\">
+                </form>
+                <div id=\"#{@options.uuid}-#{widget.widgetName}-iframe\"></div>
+            </div>"
+
+            iframe = jQuery("<iframe name=\"postframe\" id=\"postframe\" class=\"hidden\" src=\"about:none\" style=\"display:none\" />")
+
+            jQuery("##{widget.options.uuid}-#{widget.widgetName}-upload").live "click", (e) ->
+                  e.preventDefault()
+                  userFile = jQuery("##{widget.options.uuid}-#{widget.widgetName}-file").val()
+                  jQuery("##{widget.options.uuid}-#{widget.widgetName}-iframe").append iframe
+                  jQuery("##{widget.options.uuid}-#{widget.widgetName}-tags").val jQuery(".inEditMode").parent().find(".articleTags input").val()
+                  uploadFrom = jQuery("##{widget.options.uuid}-#{widget.widgetName}-uploadform")
+                  uploadFrom.attr "action", "/app_dev.php/image/upload/"
+                  uploadFrom.attr "method", "post"
+                  uploadFrom.attr "userfile", userFile
+                  uploadFrom.attr "enctype", "multipart/form-data"
+                  uploadFrom.attr "encoding", "multipart/form-data"
+                  uploadFrom.attr "target", "postframe"
+                  uploadFrom.submit()
+                  jQuery("#postframe").load ->
+                      src = jQuery("#postframe")[0].contentWindow.location.href
+                      imageID = "si" + Math.floor(Math.random() * (400 - 300 + 1) + 400) + "ab"
+                      jQuery(".imageThumbnailContainer ul").append "<li><img src=\"#{src}\" id=\"#{imageID}\" class=\"imageThumbnail\"></li>"
+                      jQuery("#" + imageID).trigger "click"
+                      jQuery(widget.options.dialog).find(".nav li").first().trigger "click"
+
+                  return false;
+
+            insertImage = () ->
+                #This may need to insert an image that does not have the same URL as the preview image, since it may be a different size
+
+                # Check if we have a selection and fall back to @lastSelection otherwise
+                try
+                    if not widget.options.editable.getSelection()
+                        throw new Error "SelectionNotSet"
+                catch error
+                    widget.options.editable.restoreSelection(widget.lastSelection)
+
+                document.execCommand "insertImage", null, jQuery(this).attr('src')
+                img = document.getSelection().anchorNode.firstChild
+                jQuery(img).attr "alt", jQuery(".caption").value
+
+                triggerModified = () ->
+                    widget.element.trigger "hallomodified"
+                window.setTimeout triggerModified, 100
+                widget._closeDialog()
+
+            @options.dialog.find(".halloimage-activeImage, ##{widget.options.uuid}-#{widget.widgetName}-addimage").click insertImage
+
 
         _addDragnDrop: ->
             helper =
@@ -220,10 +333,13 @@
                         "middle"
                     else if event.pageX < position
                         "left"
-                    else "right"  if event.pageX > (offset.left + third * 2)
+                    else if event.pageX > (offset.left + third * 2)
+                        "right"
 
                 # create image to be inserted
                 createInsertElement: (image, tmp) ->
+                    maxWidth = 250
+                    maxHeight = 250
                     tmpImg = new Image()
                     tmpImg.src = image.src
                     if not tmp
@@ -233,21 +349,32 @@
                             altText = jQuery("#caption-search").val()
                         else
                             altText = jQuery(image).attr("alt")
-
-                    imageInsert = $("<img>").attr(
+                    width = tmpImg.width
+                    height = tmpImg.height
+                    if width > maxWidth or height > maxHeight
+                        if width > height
+                            ratio = (tmpImg.width / maxWidth).toFixed()
+                        else
+                            ratio = (tmpImg.height / maxHeight).toFixed()
+                        width = (tmpImg.width / ratio).toFixed()
+                        height = (tmpImg.height / ratio).toFixed()
+                    imageInsert = jQuery("<img>").attr(
                         src: tmpImg.src
-                        width: tmpImg.width
-                        height: tmpImg.height
+                        width: width
+                        height: height
                         alt: altText
                         class: (if tmp then "tmp" else "")
                     ).show()
                     imageInsert
 
                 createLineFeedbackElement: ->
-                    $("<div/>").addClass "tmpLine"
+                    jQuery("<div/>").addClass "tmpLine"
 
                 removeFeedbackElements: ->
-                    $('.tmp, .tmpLine', editable).remove()
+                    jQuery('.tmp, .tmpLine', editable).remove()
+
+                removeCustomHelper: ->
+                    jQuery(".customHelper").remove()
 
                 showOverlay: (position) ->
                     eHeight = editable.height() + parseFloat(editable.css('paddingTop')) + parseFloat(editable.css('paddingBottom'))
@@ -274,7 +401,7 @@
 
                 # check if the element was dragged into or within a contenteditable
                 checkOrigin: (event) ->
-                    unless $(event.target).parents("[contenteditable]").length is 0
+                    unless jQuery(event.target).parents("[contenteditable]").length is 0
                         true
                     else
                         false
@@ -294,22 +421,22 @@
                         window.waitWithTrash = clearTimeout(window.waitWithTrash)
                         position = helper.calcPosition(offset, event)
 
-                        $('.trashcan', ui.helper).remove()
+                        jQuery('.trashcan', ui.helper).remove()
 
                         editable.append overlay.big
                         editable.append overlay.left
                         editable.append overlay.right
 
                         helper.removeFeedbackElements()
-                        $(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], position)
+                        jQuery(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], position)
 
                         # already create the other feedback elements here, because we have a reference to the droppable
                         if position is "middle"
-                            $(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], 'right')
-                            $('.tmp', $(event.target)).hide()
+                            jQuery(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], 'right')
+                            jQuery('.tmp', jQuery(event.target)).hide()
                         else
-                            $(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], 'middle')
-                            $('.tmpLine', $(event.target)).hide()
+                            jQuery(event.target).prepend(dnd.createTmpFeedback ui.draggable[0], 'middle')
+                            jQuery('.tmpLine', jQuery(event.target)).hide()
 
                         helper.showOverlay position
                     # we need to postpone the handleOverEvent execution of the function for a tiny bit to avoid
@@ -325,8 +452,8 @@
 
                     dnd.lastPositionDrag = position
 
-                    tmpFeedbackLR = $('.tmp', editable)
-                    tmpFeedbackMiddle = $('.tmpLine', editable)
+                    tmpFeedbackLR = jQuery('.tmp', editable)
+                    tmpFeedbackMiddle = jQuery('.tmpLine', editable)
 
                     if position is "middle"
                         tmpFeedbackMiddle.show()
@@ -339,9 +466,9 @@
 
                 handleLeaveEvent: (event, ui) ->
                     func = ->
-                        if not $('div.trashcan', ui.helper).length
-                            $(ui.helper).append($('<div class="trashcan"></div>'))
-                        $('.bigOverlay, .smallOverlay').remove()
+                        if not jQuery('div.trashcan', ui.helper).length
+                            jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'))
+                        jQuery('.bigOverlay, .smallOverlay').remove()
                     # only remove the trash after being outside of an editable more than X milliseconds
                     window.waitWithTrash = setTimeout(func, 200)
                     helper.removeFeedbackElements()
@@ -349,7 +476,7 @@
                 handleStartEvent: (event, ui) ->
                     internalDrop = helper.checkOrigin(event)
                     if internalDrop
-                        $(event.target).remove()
+                        jQuery(event.target).remove()
 
                     jQuery(document).trigger('startPreventSave')
                     helper.startPlace = jQuery(event.target)
@@ -357,7 +484,7 @@
                 handleStopEvent: (event, ui) ->
                     internalDrop = helper.checkOrigin(event)
                     if internalDrop
-                        $(event.target).remove()
+                        jQuery(event.target).remove()
                     else
                         editable.trigger('change')
 
@@ -365,13 +492,14 @@
                     overlay.left.hide()
                     overlay.right.hide()
 
-                    $(document).trigger('stopPreventSave');
+                    jQuery(document).trigger('stopPreventSave');
 
                 handleDropEvent: (event, ui) ->
                     # check whether it is an internal drop or not
                     internalDrop = helper.checkOrigin(event)
                     position = helper.calcPosition(offset, event)
                     helper.removeFeedbackElements()
+                    helper.removeCustomHelper()
                     imageInsert = helper.createInsertElement(ui.draggable[0], false)
 
                     if position is "middle"
@@ -379,10 +507,10 @@
                         imageInsert.removeClass("inlineImage-middle inlineImage-left inlineImage-right").addClass("inlineImage-" + position).css
                           position: "relative"
                           left: ((editable.width() + parseFloat(editable.css('paddingLeft')) + parseFloat(editable.css('paddingRight'))) - imageInsert.attr('width')) / 2
-                        imageInsert.insertBefore $(event.target)
+                        imageInsert.insertBefore jQuery(event.target)
                     else
                         imageInsert.removeClass("inlineImage-middle inlineImage-left inlineImage-right").addClass("inlineImage-" + position).css "display", "block"
-                        $(event.target).prepend imageInsert
+                        jQuery(event.target).prepend imageInsert
 
                     overlay.big.hide()
                     overlay.left.hide()
@@ -393,8 +521,8 @@
                     dnd.init(editable)
 
                 createHelper: (event) ->
-                    $('<div>').css({
-                        backgroundImage: "url(" + $(event.currentTarget).attr('src') + ")"
+                    jQuery('<div>').css({
+                        backgroundImage: "url(" + jQuery(event.currentTarget).attr('src') + ")"
                     }).addClass('customHelper').appendTo('body');
 
                 # initialize draggable and droppable elements in the page
@@ -405,7 +533,7 @@
                     initDraggable = (elem) ->
                         if not elem.jquery_draggable_initialized
                             elem.jquery_draggable_initialized = true
-                            $(elem).draggable
+                            jQuery(elem).draggable
                                 cursor: "move"
                                 helper: dnd.createHelper
                                 drag: dnd.handleDragEvent
@@ -415,17 +543,18 @@
                                 cursorAt: {top: 50, left: 50}
                         draggables.push elem
 
-                    $(".rotationWrapper img", widgetOptions.dialog).each (index, elem) ->
+                    jQuery(".rotationWrapper img", widgetOptions.dialog).each (index, elem) ->
                         initDraggable(elem) if not elem.jquery_draggable_initialized
 
-                    $("img", editable).each (index, elem) ->
+                    jQuery("img", editable).each (index, elem) ->
                         elem.contentEditable = false
-                        initDraggable(elem) if not elem.jquery_draggable_initialized
+                        if not elem.jquery_draggable_initialized
+                            initDraggable(elem)
 
-                    $("p", editable).each (index, elem) ->
+                    jQuery("p", editable).each (index, elem) ->
                         if not elem.jquery_droppable_initialized
                             elem.jquery_droppable_initialized = true
-                            $('p', editable).droppable
+                            jQuery('p', editable).droppable
                                 tolerance: "pointer"
                                 drop: dnd.handleDropEvent
                                 over: dnd.handleOverEvent
@@ -440,7 +569,7 @@
                         jQuery(d).draggable('option', 'disabled', true)
 
             draggables = []
-            editable = $(@options.editable.element)
+            editable = jQuery(@options.editable.element)
             # keep a reference of options for context changes
             widgetOptions = @options
 
@@ -451,12 +580,12 @@
                 height: editable.height()
 
             overlay =
-                big: $("<div/>").addClass("bigOverlay").css(
+                big: jQuery("<div/>").addClass("bigOverlay").css(
                   width: third * 2
                   height: editable.height()
                 )
-                left: $("<div/>").addClass("smallOverlay smallOverlayLeft").css(overlayMiddleConfig)
-                right: $("<div/>").addClass("smallOverlay smallOverlayRight").css(overlayMiddleConfig).css("left", third * 2)
+                left: jQuery("<div/>").addClass("smallOverlay smallOverlayLeft").css(overlayMiddleConfig)
+                right: jQuery("<div/>").addClass("smallOverlay smallOverlayRight").css(overlayMiddleConfig).css("left", third * 2)
 
             dnd.init()
 

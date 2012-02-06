@@ -11,9 +11,15 @@
 #}
 
 {% javascripts output="js/vie1.js"
-                '@LiipVieBundle/vendor/vie/lib/underscoreJS/underscore.min.js'
-                '@LiipVieBundle/vendor/vie/lib/jquery/1.6/jquery-1.6.1.min.js'
-                '@LiipVieBundle/vendor/vie/lib/backboneJS/backbone.js'
+                '@LiipVieBundle/vendor/create/deps/underscore-min.js'
+                '@LiipVieBundle/vendor/create/deps/jquery-1.6.4.min.js'
+                '@LiipVieBundle/vendor/create/deps/backbone-min.js'
+                '@LiipVieBundle/vendor/create/deps/vie-min.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{#
                 '@LiipVieBundle/vendor/vie/lib/rdfquery/latest/jquery.rdfquery.debug.js'
 
                 '@LiipVieBundle/vendor/vie/src/VIE.js'
@@ -27,6 +33,5 @@
                 '@LiipVieBundle/vendor/vie/src/Classic.js'
                 '@LiipVieBundle/vendor/vie/src/service/*.js'
                 '@LiipVieBundle/vendor/vie/src/view/*.js'
-%}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+
+#}
