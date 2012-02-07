@@ -9,4 +9,4 @@
 	url = https://github.com/liip/create.git
 [submodule "vendor/jquery-tags-input"]
 	path = vendor/jquery-tags-input
-	url = git@github.com:liip/jQuery-Tags-Input.git
+	url = https://github.com/liip/jQuery-Tags-Input.git
