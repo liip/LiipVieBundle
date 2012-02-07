@@ -428,7 +428,7 @@
             internalDrop = helper.checkOrigin(event);
             if (internalDrop) jQuery(event.target).remove();
             jQuery(document).trigger('startPreventSave');
-            dnd.initDroppables;
+            dnd.initDroppables();
             return helper.startPlace = jQuery(event.target);
           },
           handleStopEvent: function(event, ui) {
@@ -442,7 +442,7 @@
             overlay.big.hide();
             overlay.left.hide();
             overlay.right.hide();
-            dnd.destroyDroppables;
+            dnd.destroyDroppables();
             return jQuery(document).trigger('stopPreventSave');
           },
           handleDropEvent: function(event, ui) {

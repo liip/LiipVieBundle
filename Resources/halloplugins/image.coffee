@@ -487,7 +487,7 @@
 
                     jQuery(document).trigger('startPreventSave')
 
-                    dnd.initDroppables
+                    dnd.initDroppables()
                     helper.startPlace = jQuery(event.target)
 
                 handleStopEvent: (event, ui) ->
@@ -500,7 +500,7 @@
                     overlay.big.hide()
                     overlay.left.hide()
                     overlay.right.hide()
-                    dnd.destroyDroppables
+                    dnd.destroyDroppables()
 
                     jQuery(document).trigger('stopPreventSave');
 
