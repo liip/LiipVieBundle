@@ -535,8 +535,6 @@
                 # initialize draggable and droppable elements in the page
                 # Safe to be called multiple times
                 init: () ->
-                    draggable = []
-
                     initDraggable = (elem) ->
                         if not elem.jquery_draggable_initialized
                             elem.jquery_draggable_initialized = true
