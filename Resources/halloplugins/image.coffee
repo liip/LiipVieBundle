@@ -3,7 +3,7 @@
 #     Hallo may be freely distributed under the MIT license
 #
 #     Image insertion plugin
-#     Liip AG: Colin Frei, Reto Ryter, David Buchmann, Fabian Vogler, Bartosz Podlewski
+#     Liip AG: Colin Frei, Reto Ryter, David Buchmann, Fabian Vogler, Bartosz Podlewski, Roland Schilter
 #
 ((jQuery) ->
     jQuery.widget "Liip.halloimage",
@@ -486,6 +486,8 @@
                         jQuery(event.target).remove()
 
                     jQuery(document).trigger('startPreventSave')
+
+                    dnd.initDroppables
                     helper.startPlace = jQuery(event.target)
 
                 handleStopEvent: (event, ui) ->
@@ -498,6 +500,7 @@
                     overlay.big.hide()
                     overlay.left.hide()
                     overlay.right.hide()
+                    dnd.destroyDroppables
 
                     jQuery(document).trigger('stopPreventSave');
 
@@ -556,15 +559,6 @@
                         if not elem.jquery_draggable_initialized
                             initDraggable(elem)
 
-                    jQuery("p", editable).each (index, elem) ->
-                        if not elem.jquery_droppable_initialized
-                            elem.jquery_droppable_initialized = true
-                            jQuery('p', editable).droppable
-                                tolerance: "pointer"
-                                drop: dnd.handleDropEvent
-                                over: dnd.handleOverEvent
-                                out: dnd.handleLeaveEvent
-
                 enableDragging: () ->
                     jQuery.each draggables, (index, d) ->
                         jQuery(d).draggable('option', 'disabled', false)
@@ -572,6 +566,16 @@
                 disableDragging: () ->
                     jQuery.each draggables, (index, d) ->
                         jQuery(d).draggable('option', 'disabled', true)
+
+                initDroppables: () ->
+                    jQuery('p', editable).droppable
+                        tolerance: "pointer"
+                        drop: dnd.handleDropEvent
+                        over: dnd.handleOverEvent
+                        out: dnd.handleLeaveEvent
+
+                destroyDroppables: () ->
+                    jQuery('p', editable).droppable 'destroy'
 
             draggables = []
             editable = jQuery(@options.editable.element)
