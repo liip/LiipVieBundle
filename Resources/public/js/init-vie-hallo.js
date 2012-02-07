@@ -88,7 +88,7 @@ VieBundle.Model.prototype.save = function () {
 
     // don't save if blocked by dragged images
     if (this.bundle.preventSave) {
-        setTimeout(this.save, 5000);
+        setTimeout($.proxy(this.save, this), 5000);
         return;
     }
 
