@@ -495,8 +495,8 @@
                     left: 50
                   }
                 });
+                draggables.push(elem);
               }
-              return draggables.push(elem);
             };
             jQuery(".rotationWrapper img", widgetOptions.dialog).each(function(index, elem) {
               if (!elem.jquery_draggable_initialized) return initDraggable(elem);
