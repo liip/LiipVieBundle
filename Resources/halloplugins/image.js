@@ -478,8 +478,7 @@
             }).addClass('customHelper').appendTo('body');
           },
           init: function() {
-            var draggable, initDraggable;
-            draggable = [];
+            var initDraggable;
             initDraggable = function(elem) {
               if (!elem.jquery_draggable_initialized) {
                 elem.jquery_draggable_initialized = true;
