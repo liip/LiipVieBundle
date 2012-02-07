@@ -371,6 +371,9 @@
           },
           handleOverEvent: function(event, ui) {
             var postPone;
+            if (ui.draggable[0].tagName != 'IMG') {
+                return;
+            }
             postPone = function() {
               var position;
               window.waitWithTrash = clearTimeout(window.waitWithTrash);
@@ -412,6 +415,9 @@
           },
           handleLeaveEvent: function(event, ui) {
             var func;
+            if (ui.draggable[0].tagName != 'IMG') {
+                return;
+            }
             func = function() {
               if (!jQuery('div.trashcan', ui.helper).length) {
                 jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'));
