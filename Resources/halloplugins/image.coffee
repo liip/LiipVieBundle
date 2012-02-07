@@ -417,6 +417,8 @@
                         el.addClass("inlineImage-" + position)
 
                 handleOverEvent: (event, ui) ->
+                    if ui.draggable[0].tagName != 'IMG'
+                        return
                     postPone = ->
                         window.waitWithTrash = clearTimeout(window.waitWithTrash)
                         position = helper.calcPosition(offset, event)
@@ -467,6 +469,8 @@
                     helper.showOverlay position
 
                 handleLeaveEvent: (event, ui) ->
+                    if ui.draggable[0].tagName != 'IMG'
+                        return
                     func = ->
                         if not jQuery('div.trashcan', ui.helper).length
                             jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'))
