@@ -548,7 +548,7 @@
                                 stop: dnd.handleStopEvent
                                 disabled: not editable.hasClass('inEditMode')
                                 cursorAt: {top: 50, left: 50}
-                        draggables.push elem
+                            draggables.push elem
 
                     jQuery(".rotationWrapper img", widgetOptions.dialog).each (index, elem) ->
                         initDraggable(elem) if not elem.jquery_draggable_initialized
