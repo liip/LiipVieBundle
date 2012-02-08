@@ -8,7 +8,7 @@ use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 
 use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * TODO this controller should eventually be removed
@@ -22,7 +22,7 @@ class AssetsController
 
     private $basePath;
 
-    private $generator;
+    private $router;
 
     private $cmsPath;
 
@@ -31,12 +31,12 @@ class AssetsController
      */
     private $viewHandler;
 
-    public function __construct($dm, $basePath, $cmsPath, UrlGeneratorInterface $generator, ViewHandlerInterface $viewHandler)
+    public function __construct($dm, $basePath, $cmsPath, RouterInterface $router, ViewHandlerInterface $viewHandler)
     {
         $this->dm = $dm;
         $this->basePath = $basePath;
         $this->cmsPath = $cmsPath;
-        $this->generator = $generator;
+        $this->router = $router;
         $this->viewHandler = $viewHandler;
     }
 
@@ -133,7 +133,7 @@ class AssetsController
 
             if ($image instanceof \Sandbox\MainBundle\Document\Image) {
 
-                $url = $this->generator->generate('image_display', array('id' => $image->name), true);
+                $url = $this->router->generate('image_display', array('id' => $image->name), true);
                 $data[] = array('url' => $url, 'alt' => $image->name);
             }
         }
@@ -153,8 +153,9 @@ class AssetsController
 
         $tags = explode(',', $tags);
 
-        $data = $this->getPagesByTags($tags, $page);
+        $lang = $request->getLocale();
 
+        $data = $this->getPagesByTags($tags, $page, $lang);
         $data = array(
             'links' => $data,
         );
@@ -165,18 +166,23 @@ class AssetsController
 
     /**
      * Connect to Jackrabbit, and filter pages by tags
-     * @params array with stanbol references
+     * @params $tags array with stanbol references
+     * @params $currentUrl string current url
+     * @params $lang string language
      * @retrun array with links to pages
     */
-    public function getPagesByTags($tags, $currentUrl) {
+    protected function getPagesByTags($tags, $currentUrl, $lang) {
+
+        $this->basePath = $this->basePath.'/'.$lang;
 
         foreach ($tags as $i => $tag) {
             $tags[$i] = 'referring.tags = ' . $this->dm->quote($tag);
         }
 
-        $sql = 'SELECT routes.* FROM [nt:unstructured] AS routes
-        			INNER JOIN [nt:unstructured] AS referring ON referring.[jcr:uuid] = routes.[reference]
-                    WHERE (ISDESCENDANTNODE(routes, ' . $this->dm->quote($this->basePath) . ') OR ISSAMENODE(routes, ' . $this->dm->quote($this->basePath) . ')) AND (' . implode(' OR ', $tags) . ')';
+        $sql = 'SELECT routes.* FROM [nt:unstructured] AS routes';
+        $sql .= ' INNER JOIN [nt:unstructured] AS referring ON referring.[jcr:uuid] = routes.[routeContent]';
+        $sql .= ' WHERE (ISDESCENDANTNODE(routes, ' . $this->dm->quote($this->basePath) . ') OR ISSAMENODE(routes, ' . $this->dm->quote($this->basePath) . '))';
+        $sql .= ' AND (' . implode(' OR ', $tags) . ')';
         $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
         $query->setLimit(-1);
         $pages = $this->dm->getDocumentsByQuery($query);
@@ -184,12 +190,13 @@ class AssetsController
         $links = array();
         foreach ($pages as $page) {
 
-            if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route) {
+            if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route && $page->getRouteContent()) {
 
-                $url = $this->generator->generate('navigation', array('url' => substr($page->getPath(), strlen($this->basePath) + 1)), true);
+                $url = $this->router->generate('', array('_locale' => $lang, 'content' => $page->getRouteContent()), true);
 
                 if (preg_replace('/^\/|\/$/', '', $url) !== preg_replace('/^\/|\/$/', '', $currentUrl)) {
-                    $label = $page->getReference()->title;
+
+                    $label = $page->getRouteContent()->title;
 
                     $links[] = array('url' => $url, 'label' => $label);
                 }
