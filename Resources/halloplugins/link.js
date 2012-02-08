@@ -62,7 +62,7 @@
                 container.empty().append('<li class="loader"><img src="/bundles/liipvie/img/ajax-loader.gif"/></li>');
 
                 var articleTags = _this.prepareTags(_this.getReferenceByTags());
-                
+
                 if(articleTags.length > 0) {
                     var vie = new VIE();
                     vie.use(new vie.DBPediaService({
@@ -83,12 +83,20 @@
                                 }).
                                 done(function(entity) {
                                     jQuery(entity).each(function () {
-                                        if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
+                                        if (this.attributes) {
+                                            if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
+                                                if (container.children('li.loader').size() == 1) {
+                                                    container.empty();
+                                                }
+                                                var url = this.id.substring(1, this.id.length - 1);
+                                                container.append('<li><a href="' + url + '" title="' + url + '">' + _this.tagLabel(that + "") + '</a></li>');
+                                            }
+                                        } else {
+                                            var url = this['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this['<http://xmlns.com/foaf/0.1/homepage>'];
                                             if (container.children('li.loader').size() == 1) {
                                                 container.empty();
                                             }
-                                            var url = this.id.substring(1, this.id.length - 1);
-                                            container.append('<li><a href="' + url + '" title="' + url + '">' + VieBundle.Model.prototype.tagLabel(that + "") + '</a></li>');
+                                            container.append('<li><a href="' + url + '" title="' + url + '">' + _this.tagLabel(that + "") + '</a></li>');
                                         }
                                     });
                                 });
@@ -105,7 +113,7 @@
                 var container = jQuery('#' + _this.options.uuid + "-tab-related-content ul");
                 container.empty().append('<li class="loader"><img src="/bundles/liipvie/img/ajax-loader.gif"/></li>');
                 var articleTags = _this.getReferenceByTags();
-                
+
                 return jQuery.ajax({
                     type: "GET",
                     url: _this.options.relatedUrl,
@@ -254,6 +262,20 @@
             }
 
             return articleTags;
+        },
+
+        tagLabel: function (value) {
+
+            if (value.substring(0, 9) == '<urn:tag:') {
+                value = value.substring(9, value.length - 1);
+            }
+
+            if (value.substring(0, 8) == '<http://') {
+                value = value.substring(value.lastIndexOf('/') + 1, value.length - 1);
+                value = value.replace(/_/g, ' ');
+            }
+
+            return value;
         }
 
     });
