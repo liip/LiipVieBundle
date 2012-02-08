@@ -159,6 +159,7 @@
                     }
                     jQuery(".imageThumbnailContainer ul").append("<li><img id=\"si-" + thumbId + "\" src=\"" + img + "\" class=\"imageThumbnail\"></li>");
                     return thumbId++;
+                  }
               });
               return jQuery("#activitySpinner").hide();
             });
