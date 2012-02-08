@@ -135,7 +135,7 @@
             }).using("dbpedia").execute().done(function(entity) {
               jQuery(entity).each(function() {
                 var img, responseType;
-                if (this.attributes["<http://dbpedia.org/ontology/thumbnail>"]) {
+                if (this.attributes && this.attributes["<http://dbpedia.org/ontology/thumbnail>"]) {
                   responseType = typeof this.attributes["<http://dbpedia.org/ontology/thumbnail>"];
                   if (responseType === "string") {
                     img = this.attributes["<http://dbpedia.org/ontology/thumbnail>"];
@@ -147,7 +147,18 @@
                   }
                   jQuery(".imageThumbnailContainer ul").append("<li><img id=\"si-" + thumbId + "\" src=\"" + img + "\" class=\"imageThumbnail\"></li>");
                   return thumbId++;
-                }
+                } else {
+                    responseType = typeof this["<http://dbpedia.org/ontology/thumbnail>"];
+                    if (responseType === "string") {
+                        img = this["<http://dbpedia.org/ontology/thumbnail>"];
+                        img = img.substring(1, img.length - 1);
+                    }
+                    if (responseType === "object") {
+                        img = "";
+                        img = this["<http://dbpedia.org/ontology/thumbnail>"][0].value;
+                    }
+                    jQuery(".imageThumbnailContainer ul").append("<li><img id=\"si-" + thumbId + "\" src=\"" + img + "\" class=\"imageThumbnail\"></li>");
+                    return thumbId++;
               });
               return jQuery("#activitySpinner").hide();
             });
