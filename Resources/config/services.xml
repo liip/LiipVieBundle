@@ -17,7 +17,7 @@
 
         <service id="liip_vie.controller.assets" class="%liip_vie.controller.assets.class%" public="true">
             <argument type="service" id="doctrine_phpcr.odm.default_document_manager" />
-            <argument>%symfony_cmf_core.routing_basepath%</argument>
+            <argument>%symfony_cmf_chain_routing.routing_repositoryroot%</argument>
             <argument>%symfony_cmf_content.static_basepath%</argument>
             <argument type="service" id="router" />
             <argument type="service" id="fos_rest.view_handler" />
