@@ -165,8 +165,10 @@ class AssetsController
 
     /**
      * Connect to Jackrabbit, and filter pages by tags
-     * @params array with stanbol references
-     * @retrun array with links to pages
+     *
+     * @param array with stanbol references
+     *
+     * @return array with links to pages
     */
     public function getPagesByTags($tags, $currentUrl) {
 
