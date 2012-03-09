@@ -73,7 +73,12 @@ VieBundle.Model.prototype.initEditable = function () {
         deactivated: $.proxy(this.save, this),
         enableEditor: function (options) {
             if (options.property == 'dc:subject') {
-                return options.element.midgardTags(options);
+                var defaultOptions = {
+                    vie: options.widget.vie,
+                    entityElement: options.widget.element
+                };
+                jQuery.extend(defaultOptions, options);
+                return options.element.midgardTags(defaultOptions);
             } else {
                 return options.widget._enableHallo(options);
             }

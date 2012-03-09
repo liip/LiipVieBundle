@@ -1,4 +1,3 @@
-/** this is a generated file. do not touch! the original is image.coffee */
 (function() {
 
   (function(jQuery) {
@@ -136,7 +135,7 @@
             }).using("dbpedia").execute().done(function(entity) {
               jQuery(entity).each(function() {
                 var img, responseType;
-                if (this.attributes["<http://dbpedia.org/ontology/thumbnail>"]) {
+                if (this.attributes && this.attributes["<http://dbpedia.org/ontology/thumbnail>"]) {
                   responseType = typeof this.attributes["<http://dbpedia.org/ontology/thumbnail>"];
                   if (responseType === "string") {
                     img = this.attributes["<http://dbpedia.org/ontology/thumbnail>"];
@@ -148,7 +147,19 @@
                   }
                   jQuery(".imageThumbnailContainer ul").append("<li><img id=\"si-" + thumbId + "\" src=\"" + img + "\" class=\"imageThumbnail\"></li>");
                   return thumbId++;
-                }
+                } else {
+                    responseType = typeof this["<http://dbpedia.org/ontology/thumbnail>"];
+                    if (responseType === "string") {
+                        img = this["<http://dbpedia.org/ontology/thumbnail>"];
+                        img = img.substring(1, img.length - 1);
+                    }
+                    if (responseType === "object") {
+                        img = "";
+                        img = this["<http://dbpedia.org/ontology/thumbnail>"][0].value;
+                    }
+                    jQuery(".imageThumbnailContainer ul").append("<li><img id=\"si-" + thumbId + "\" src=\"" + img + "\" class=\"imageThumbnail\"></li>");
+                    return thumbId++;
+                  }
               });
               return jQuery("#activitySpinner").hide();
             });
@@ -371,9 +382,7 @@
           },
           handleOverEvent: function(event, ui) {
             var postPone;
-            if (ui.draggable[0].tagName != 'IMG') {
-                return;
-            }
+            if (ui.draggable[0].tagName !== 'IMG') return;
             postPone = function() {
               var position;
               window.waitWithTrash = clearTimeout(window.waitWithTrash);
@@ -415,9 +424,7 @@
           },
           handleLeaveEvent: function(event, ui) {
             var func;
-            if (ui.draggable[0].tagName != 'IMG') {
-                return;
-            }
+            if (ui.draggable[0].tagName !== 'IMG') return;
             func = function() {
               if (!jQuery('div.trashcan', ui.helper).length) {
                 jQuery(ui.helper).append(jQuery('<div class="trashcan"></div>'));
@@ -433,6 +440,7 @@
             internalDrop = helper.checkOrigin(event);
             if (internalDrop) jQuery(event.target).remove();
             jQuery(document).trigger('startPreventSave');
+            dnd.initDroppables();
             return helper.startPlace = jQuery(event.target);
           },
           handleStopEvent: function(event, ui) {
@@ -446,6 +454,7 @@
             overlay.big.hide();
             overlay.left.hide();
             overlay.right.hide();
+            dnd.destroyDroppables();
             return jQuery(document).trigger('stopPreventSave');
           },
           handleDropEvent: function(event, ui) {
@@ -494,26 +503,15 @@
                     left: 50
                   }
                 });
-                draggables.push(elem);
+                return draggables.push(elem);
               }
             };
             jQuery(".rotationWrapper img", widgetOptions.dialog).each(function(index, elem) {
               if (!elem.jquery_draggable_initialized) return initDraggable(elem);
             });
-            jQuery("img", editable).each(function(index, elem) {
+            return jQuery("img", editable).each(function(index, elem) {
               elem.contentEditable = false;
               if (!elem.jquery_draggable_initialized) return initDraggable(elem);
-            });
-            return jQuery("p", editable).each(function(index, elem) {
-              if (!elem.jquery_droppable_initialized) {
-                elem.jquery_droppable_initialized = true;
-                return jQuery('p', editable).droppable({
-                  tolerance: "pointer",
-                  drop: dnd.handleDropEvent,
-                  over: dnd.handleOverEvent,
-                  out: dnd.handleLeaveEvent
-                });
-              }
             });
           },
           enableDragging: function() {
@@ -525,6 +523,17 @@
             return jQuery.each(draggables, function(index, d) {
               return jQuery(d).draggable('option', 'disabled', true);
             });
+          },
+          initDroppables: function() {
+            return jQuery('p', editable).droppable({
+              tolerance: "pointer",
+              drop: dnd.handleDropEvent,
+              over: dnd.handleOverEvent,
+              out: dnd.handleLeaveEvent
+            });
+          },
+          destroyDroppables: function() {
+            return jQuery('p', editable).droppable('destroy');
           }
         };
         draggables = [];
