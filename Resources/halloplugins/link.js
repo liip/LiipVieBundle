@@ -83,16 +83,13 @@
                                 }).
                                 done(function(entity) {
                                     jQuery(entity).each(function () {
+                                        var data = this;
                                         if (this.attributes) {
-                                            if (this.attributes['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this.attributes['http://xmlns.com/foaf/0.1/homepage']) {
-                                                if (container.children('li.loader').size() == 1) {
-                                                    container.empty();
-                                                }
-                                                var url = this.id.substring(1, this.id.length - 1);
-                                                container.append('<li><a href="' + url + '" title="' + url + '">' + _this.tagLabel(that + "") + '</a></li>');
-                                            }
-                                        } else {
-                                            var url = this['<http://xmlns.com/foaf/0.1/primaryTopic>'] || this['<http://xmlns.com/foaf/0.1/homepage>'];
+                                            data = this.attributes; // different Stanbol version
+                                        }
+                                        var url = data['<http://xmlns.com/foaf/0.1/primaryTopic>'] || data['<http://xmlns.com/foaf/0.1/homepage>'] || data['<http://xmlns.com/foaf/0.1/page>'] || null;
+                                        if (url) {
+                                            url = url.substring(1, url.length - 1);
                                             if (container.children('li.loader').size() == 1) {
                                                 container.empty();
                                             }
