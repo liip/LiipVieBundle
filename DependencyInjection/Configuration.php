@@ -31,6 +31,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('orm')->defaultFalse()->end()
                 ->scalarNode('use_coffee')->defaultFalse()->end()
                 ->scalarNode('filter')->defaultFalse()->end()
+                ->scalarNode('base_path')->defaultValue('/')->end()
+                ->scalarNode('cms_path')->defaultValue('/')->end()
             ->end()
         ;
 

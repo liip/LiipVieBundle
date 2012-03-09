@@ -50,6 +50,9 @@ class LiipVieExtension extends Extension
         $container->setParameter($this->getAlias().'.map', $config['map']);
         $container->setParameter($this->getAlias().'.use_coffee', $config['use_coffee']);
 
+        $container->setParameter($this->getAlias().'.base_path', $config['base_path']);
+        $container->setParameter($this->getAlias().'.cms_path', $config['cms_path']);
+
         if (!empty($config['filter'])) {
             $loader->load('filter.xml');
         }

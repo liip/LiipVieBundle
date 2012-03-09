@@ -7,8 +7,16 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View;
 
-use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface,
+    Symfony\Component\Routing\RouterInterface;
+
+use Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route;
+
+use Doctrine\ODM\PHPCR\DocumentManager;
+
+use PHPCR\Query\QueryInterface;
+
+use Sandbox\MainBundle\Document\Image;
 
 /**
  * TODO this controller should eventually be removed
@@ -18,26 +26,32 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class AssetsController
 {
+    /**
+     * @var \Doctrine\ODM\PHPCR\DocumentManager
+     */
     private $dm;
 
-    private $basePath;
-
+    /**
+     * @var \Symfony\Component\Routing\RouterInterface
+     */
     private $router;
-
-    private $cmsPath;
 
     /**
      * @var FOS\RestBundle\View\ViewHandlerInterface
      */
     private $viewHandler;
 
-    public function __construct($dm, $basePath, $cmsPath, RouterInterface $router, ViewHandlerInterface $viewHandler)
+    private $basePath;
+
+    private $cmsPath;
+
+    public function __construct(DocumentManager $dm, RouterInterface $router, ViewHandlerInterface $viewHandler, $basePath = '/', $cmsPath = '/')
     {
         $this->dm = $dm;
-        $this->basePath = $basePath;
-        $this->cmsPath = $cmsPath;
         $this->router = $router;
         $this->viewHandler = $viewHandler;
+        $this->basePath = $basePath;
+        $this->cmsPath = $cmsPath;
     }
 
     /**
@@ -123,15 +137,14 @@ class AssetsController
 
         $sql = 'SELECT images.* FROM [nt:unstructured] AS images
                     WHERE ISDESCENDANTNODE(images, ' . $this->dm->quote($this->cmsPath) . ') AND (' . implode(' OR ', $tags) . ')';
-        $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
+        $query = $this->dm->createQuery($sql, QueryInterface::JCR_SQL2);
         $query->setLimit(-1);
         $images = $this->dm->getDocumentsByQuery($query);
 
         $data = array();
 
         foreach ($images as $image) {
-
-            if ($image instanceof \Sandbox\MainBundle\Document\Image) {
+            if ($image instanceof Image) {
 
                 $url = $this->router->generate('image_display', array('id' => $image->name), true);
                 $data[] = array('url' => $url, 'alt' => $image->name);
@@ -173,8 +186,8 @@ class AssetsController
      *
      * @return array with links to pages
     */
-    protected function getPagesByTags($tags, $currentUrl, $lang) {
-
+    protected function getPagesByTags($tags, $currentUrl, $lang)
+    {
         $this->basePath = $this->basePath.'/'.$lang;
 
         foreach ($tags as $i => $tag) {
@@ -185,21 +198,17 @@ class AssetsController
         $sql .= ' INNER JOIN [nt:unstructured] AS referring ON referring.[jcr:uuid] = routes.[routeContent]';
         $sql .= ' WHERE (ISDESCENDANTNODE(routes, ' . $this->dm->quote($this->basePath) . ') OR ISSAMENODE(routes, ' . $this->dm->quote($this->basePath) . '))';
         $sql .= ' AND (' . implode(' OR ', $tags) . ')';
-        $query = $this->dm->createQuery($sql, \PHPCR\Query\QueryInterface::JCR_SQL2);
+        $query = $this->dm->createQuery($sql, QueryInterface::JCR_SQL2);
         $query->setLimit(-1);
         $pages = $this->dm->getDocumentsByQuery($query);
 
         $links = array();
         foreach ($pages as $page) {
-
-            if ($page instanceof \Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route && $page->getRouteContent()) {
-
+            if ($page instanceof Route && $page->getRouteContent()) {
                 $url = $this->router->generate('', array('_locale' => $lang, 'content' => $page->getRouteContent()), true);
 
                 if (preg_replace('/^\/|\/$/', '', $url) !== preg_replace('/^\/|\/$/', '', $currentUrl)) {
-
                     $label = $page->getRouteContent()->title;
-
                     $links[] = array('url' => $url, 'label' => $label);
                 }
             }
