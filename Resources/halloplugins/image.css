@@ -103,6 +103,9 @@
     box-shadow: 2px 2px 3px #888;
     cursor: pointer;
     float: left;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .imageThumbnailContainer li {
