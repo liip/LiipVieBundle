@@ -48,6 +48,8 @@ Installation
             #orm: my_document_manager
             map:
                 '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
+            base_path: /cms/routes
+            cms_path: /cms/content/static
 
     7. Finally add the relevant routing to your configuration
 
