@@ -78,7 +78,6 @@
                                 using('dbpedia').
                                 execute().
                                 fail(function(e){
-                                    alert("Test");
                                     console.log(e);
                                 }).
                                 done(function(entity) {
