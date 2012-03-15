@@ -62,7 +62,6 @@ VieBundle.Model.prototype.initEditable = function () {
                     'halloformat': {'formattings': {'strikeThrough': false, 'underline': false}},
                     'hallolists': {'lists': {'ordered': false}},
                     'hallojustify': {},
-                    'halloreundo': {},
                     'hallotoolbarlinebreak': { 'breakAfter': ['hallolink'] },
                     'hallooverlay': {}
                 },
