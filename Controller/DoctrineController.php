@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request,
 
 use FOS\RestBundle\View\ViewHandlerInterface,
     FOS\RestBundle\View\View,
-    FOS\RestBundle\Response\Codes;
+    FOS\Rest\Util\Codes;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
