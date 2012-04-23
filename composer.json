@@ -1,0 +1,13 @@
+{
+    "name": "liip/vie-bundle",
+    "type": "symfony-bundle",
+    "description": "VIE is a way to make any site using RDFa editable.",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.2",
+    },
+    "autoload": {
+        "psr-0": { "Liip\\VieBundle": "" }
+    },
+    "target-dir": "Liip/VieBundle"
+}
