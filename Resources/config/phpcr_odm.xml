@@ -13,7 +13,6 @@
             <argument type="service" id="doctrine_phpcr"/>
             <argument type="service" id="liip_vie.filter" on-invalid="ignore" />
             <argument>null</argument>
-            <argument>%liip_vie.map%</argument>
         </service>
 
     </services>
