@@ -52,12 +52,7 @@ abstract class DoctrineController
      */
     protected $name;
 
-    /**
-     * @var array
-     */
-    protected $map;
-
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null, array $map = array())
+    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null)
     {
         $this->securityContext = $securityContext;
         $this->viewHandler = $viewHandler;
@@ -65,7 +60,6 @@ abstract class DoctrineController
         $this->validator = $validator;
         $this->registry = $registry;
         $this->name = $name;
-        $this->map = $map;
     }
 
     /**
@@ -74,20 +68,6 @@ abstract class DoctrineController
     protected function getManager()
     {
         return $this->registry->getManager($this->name);
-    }
-
-    /**
-     * @throws \Symfony\Component\Routing\Exception\ResourceNotFoundException
-     * @param array $data
-     * @return object a repository instance
-     */
-    protected function getRepository($data)
-    {
-        if (empty($this->map[$data['@type']])) {
-            throw new ResourceNotFoundException($data['@type'].' is not mapped to a class');
-        }
-
-        return $this->getManager()->getRepository($this->map[$data['@type']]);
     }
 
     /**
@@ -100,9 +80,8 @@ abstract class DoctrineController
         }
 
         $data = $request->request->all();
-        $repository = $this->getRepository($data);
+        $model = $this->getManager()->find(null, $id);
 
-        $model = $repository->find($id);
         if (empty($model)) {
             throw new ResourceNotFoundException($id.' not found');
         }
