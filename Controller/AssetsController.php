@@ -10,7 +10,7 @@ use FOS\RestBundle\View\ViewHandlerInterface,
 use Symfony\Cmf\Bundle\CoreBundle\Helper\PathMapperInterface,
     Symfony\Component\Routing\RouterInterface;
 
-use Symfony\Cmf\Bundle\ChainRoutingBundle\Document\Route;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 use Doctrine\ODM\PHPCR\DocumentManager;
 
@@ -204,7 +204,7 @@ class AssetsController
 
         $links = array();
         foreach ($pages as $page) {
-            if ($page instanceof Route && $page->getRouteContent()) {
+            if ($page instanceof RouteObjectInterface && $page->getRouteContent()) {
                 $url = $this->router->generate('', array('_locale' => $lang, 'content' => $page->getRouteContent()), true);
 
                 if (preg_replace('/^\/|\/$/', '', $url) !== preg_replace('/^\/|\/$/', '', $currentUrl)) {
