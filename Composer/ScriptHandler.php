@@ -17,6 +17,6 @@ class ScriptHandler
 {
     public static function initSubmodules($event)
     {
-        exec('cd '.__DIR__.DIRECTORY_SEPARATOR.'..; git submodule update --init --recursive') or die('failed to run git submodule update');
+        exec('cd '.__DIR__.DIRECTORY_SEPARATOR.'..; /usr/bin/git submodule update --init --recursive') or die('failed to run git submodule update');
     }
 }
