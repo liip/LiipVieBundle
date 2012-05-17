@@ -8,19 +8,23 @@ For more information see http://wiki.iks-project.eu/index.php/Semantic_Editor
 Installation
 ============
 
-    1. Add this bundle to your project as Git submodules:
+This bundle is best included using Composer.
 
-        $ git submodule add git://github.com/liip/LiipVieBundle.git vendor/bundles/Liip/VieBundle
+Edit your project composer file to add a new require for liip/vie-bundle.
+Then create a scripts section or add to the existing one:
 
-    2. Add the Liip namespace to your autoloader:
+    "scripts": {
+        "post-install-cmd": [
+            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            ...
+        ],
+        "post-update-cmd": [
+            "Liip\\VieBundle\\Composer\\ScriptHandler::initSubmodules",
+            ...
+        ]
+    },
 
-        // app/autoload.php
-        $loader->registerNamespaces(array(
-            'Liip' => __DIR__.'/../vendor/bundles',
-            // your other namespaces
-        ));
-
-    3. Add this bundle to your application's kernel:
+Add this bundle to your application's kernel:
 
     // application/ApplicationKernel.php
     public function registerBundles()
@@ -32,16 +36,7 @@ Installation
         );
     }
 
-    4. Initialize the vie submodule
-
-        $ git submodule init
-        $ git submodule update --recursive
-
-    5. It is required to also install FOSRestBundle
-
-        see https://github.com/FriendsOfSymfony/FOSRestBundle
-
-    6. Add a mapping to the `config.yml` and enable a controller
+Add a mapping to the `config.yml` and enable a controller
 
         liip_vie:
             phpcr_odm: true
@@ -51,14 +46,14 @@ Installation
             base_path: /cms/routes
             cms_path: /cms/content/static
 
-    7. Finally add the relevant routing to your configuration
+Finally add the relevant routing to your configuration
 
         <import resource="liip_vie.phpcr.controller" type="rest" />
 
         vie:
             resource: "@LiipVieBundle/Resources/config/routing/phpcr_odm.xml"
 
-    8. Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
+Optional: Aloha Editor (this bundle comes with the hallo editor, but if you prefer you can also use aloha)
 
         To use the Aloha editor with this bundle, download the files here: https://github.com/alohaeditor/Aloha-Editor/downloads/aloha-0.9.3.zip
         Unzip the contents of the "aloha" subfolder of this zip as folder vendor/bundles/Liip/VieBundle/vendor/aloha
