@@ -168,7 +168,7 @@
     background-color: #272727;
     text-align: right;
     width: auto;
-    margin-left: 640px;
+    float: right;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -289,6 +289,15 @@
     font-weight: normal;
     text-shadow: none;
 }
+
+.halloimage-dialog .tabs {
+    margin-left: 0;
+}
+
+.halloimage-dialog .tabs li {
+    line-height: 30px;
+}
+
 
 /* Close button */
 .ui-dialog .ui-dialog-titlebar-close {
