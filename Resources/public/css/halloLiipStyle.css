@@ -290,11 +290,12 @@
     text-shadow: none;
 }
 
-.halloimage-dialog .tabs {
+.ui-dialog .tabs {
     margin-left: 0;
+    margin-bottom: 0;
 }
 
-.halloimage-dialog .tabs li {
+.ui-dialog .tabs li {
     line-height: 30px;
 }
 
