@@ -1,14 +1,8 @@
-{% include "LiipVieBundle::includejsfiles-vie.html.twig" %}
+{% include "LiipVieBundle::includejsfiles-create.html.twig" %}
 
-{% javascripts output="js/hallo.js"
-                '@LiipVieBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.16.custom.min.js'
-                '@LiipVieBundle/Resources/public/js/init-vie-hallo.js'
-                '@LiipVieBundle/Resources/public/vendor/create/deps/hallo/*.js'
-                '@LiipVieBundle/Resources/public/vendor/create/deps/jquery-tags-input/jquery.tagsinput.js'
-                '@LiipVieBundle/Resources/public/vendor/create/src/jquery.Midgard.midgardEditable.js'
-                '@LiipVieBundle/Resources/public/vendor/create/src/jquery.Midgard.midgardTags.js'
-                '@LiipVieBundle/Resources/halloplugins/image.js'
-                '@LiipVieBundle/Resources/halloplugins/link.js'
+{# hallo.js is already included in the create deps #}
+{% javascripts output="js/hallo-extra.js"
+    '@LiipVieBundle/Resources/public/js/init-create-hallo.js'
 %}
-    <script src="{{ asset_url }}"></script>
+<script src="{{ asset_url }}"></script>
 {% endjavascripts %}

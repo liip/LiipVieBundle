@@ -1,0 +1,49 @@
+{# basic js files needed for vie #}
+
+<script type="text/javascript">
+    var vie_phpcr_path = '{{ path('liip_vie_phpcr_odm_put_document', {'id': ''}) }}';
+    var vie_plugins_image_search = '{{ path('liip_vie_assets_search') }}';
+    var vie_plugins_link_related_path = '{{ path('liip_vie_assets_related') }}';
+</script>
+
+{% javascripts output="js/create.js"
+    '@LiipVieBundle/Resources/public/vendor/create/deps/jquery-1.7.1.min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/jquery-ui-1.8.18.custom.min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/modernizr.custom.80485.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/underscore-min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/backbone-min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/vie-min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/jquery.rdfquery.min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/jquery.tagsinput.min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/annotate-min.js'
+    '@LiipVieBundle/Resources/public/vendor/create/deps/hallo.js'
+    '@LiipVieBundle/Resources/public/vendor/create/examples/create-min.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{#
+to develop create use this instead of create-min
+    '@LiipVieBundle/Resources/public/vendor/create/src/*.js'
+
+to develop on vie, clone the vie bundle into vendor and add the following instead of vie-min.js
+(explicitly listed as the order is relevant)
+    '@LiipVieBundle/Resources/public/vendor/vie/lib/rdfquery/latest/jquery.rdfquery.debug.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/VIE.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Able.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Util.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Entity.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Collection.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Type.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Attribute.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Namespace.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/Classic.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/service/*.js'
+    '@LiipVieBundle/Resources/public/vendor/vie/src/view/*.js'
+
+to develop on hallo, clone the hallo bundle into vendor and add the following instead of hallo.js
+and set up assetic to handle coffee script files
+    '@LiipVieBundle/Resources/public/js/init-vie-hallo.js'
+    '@LiipVieBundle/Resources/public/vendor/hallo/hallo.coffee'
+    '@LiipVieBundle/Resources/public/vendor/hallo/plugins/*.coffee'
+#}

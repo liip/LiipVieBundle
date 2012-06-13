@@ -1,11 +1,22 @@
-{% include "LiipVieBundle::includejsfiles-vie.html.twig" %}
+{% include "LiipVieBundle::includejsfiles-create.html.twig" %}
 
 {% javascripts output="/js/aloha.js"
+                '@LiipVieBundle/Resources/public/vendor/deps/aloha/lib/aloha.js'
                 '@LiipVieBundle/Resources/public/js/init-vie-aloha.js'
-                '@LiipVieBundle/Resources/public/vendor/aloha/aloha.js'
-                '@LiipVieBundle/Resources/public/vendor/aloha/plugins/com.gentics.aloha.plugins.Format/plugin.js'
-                '@LiipVieBundle/Resources/public/vendor/aloha/plugins/com.gentics.aloha.plugins.HighlightEditables/plugin.js'
-                '@LiipVieBundle/Resources/public/vendor/vie/vie-aloha.js'
 %}
-    <script src="{{ asset_url }}"></script>
+    <script src="{{ asset_url }}"
+        data-aloha-plugins="common/format,
+                                common/table,
+                                common/list,
+                                common/link,
+                                common/block,
+                                common/undo,
+                                common/contenthandler,
+                                common/paste,
+                                common/commands,
+                                common/abbr,
+                                extra/browser,
+                                extra/linkbrowser"
+    >
+    </script>
 {% endjavascripts %}
