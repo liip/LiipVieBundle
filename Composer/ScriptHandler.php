@@ -19,7 +19,10 @@ class ScriptHandler
     {
         $status = null;
         $output = array();
-        exec('cd '.__DIR__.DIRECTORY_SEPARATOR.'..; git submodule update --init --recursive', $output, $status);
+        $dir = getcwd();
+        chdir(__DIR__.DIRECTORY_SEPARATOR.'..');
+        exec('git submodule update --init --recursive', $output, $status);
+        chdir($dir);
         if ($status) {
             die("Running git submodule --init --recursive failed with $status\n");
         }
