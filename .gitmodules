@@ -1,12 +1,12 @@
 [submodule "Resources/public/vendor/vie"]
 	path = Resources/public/vendor/vie
-	url = https://github.com/liip-forks/VIE.git
+	url = https://github.com/bergie/VIE.git
 [submodule "Resources/public/vendor/hallo"]
 	path = Resources/public/vendor/hallo
-	url = https://github.com/liip-forks/hallo.git
+	url = https://github.com/bergie/hallo.git
 [submodule "Resources/public/vendor/create"]
 	path = Resources/public/vendor/create
-	url = https://github.com/liip-forks/create.git
+	url = https://github.com/bergie/create.git
 [submodule "Resources/public/vendor/jquery-tags-input"]
 	path = Resources/public/vendor/jquery-tags-input
-	url = https://github.com/liip-forks/jQuery-Tags-Input.git
+	url = https://github.com/xoxco/jQuery-Tags-Input.git
