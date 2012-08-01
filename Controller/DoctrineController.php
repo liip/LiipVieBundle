@@ -52,7 +52,7 @@ abstract class DoctrineController
      */
     protected $name;
 
-    public function __construct(SecurityContextInterface $securityContext, ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, FilterInterface $filter = null, $name = null)
+    public function __construct(ViewHandlerInterface $viewHandler, ValidatorInterface $validator, ManagerRegistry $registry, SecurityContextInterface $securityContext = null, FilterInterface $filter = null, $name = null)
     {
         $this->securityContext = $securityContext;
         $this->viewHandler = $viewHandler;
@@ -75,7 +75,7 @@ abstract class DoctrineController
      */
     public function putDocumentAction(Request $request, $id)
     {
-        if (false === $this->securityContext->isGranted("IS_AUTHENTICATED_ANONYMOUSLY")) {
+        if ($this->securityContext && false === $this->securityContext->isGranted("IS_AUTHENTICATED_ANONYMOUSLY")) {
             throw new AccessDeniedException();
         }
 

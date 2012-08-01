@@ -7,10 +7,10 @@
     <services>
 
         <service id="liip_vie.phpcr_odm.controller" class="Liip\VieBundle\Controller\PhpcrOdmController">
-            <argument type="service" id="security.context"/>
             <argument type="service" id="fos_rest.view_handler"/>
             <argument type="service" id="validator"/>
             <argument type="service" id="doctrine_phpcr"/>
+            <argument type="service" id="security.context" on-invalid="ignore"/>
             <argument type="service" id="liip_vie.filter" on-invalid="ignore" />
             <argument>null</argument>
         </service>
