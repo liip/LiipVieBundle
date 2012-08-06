@@ -18,7 +18,7 @@
         "symfony/symfony": "2.*",
         "symfony/assetic-bundle": ">= 2.0",
         "friendsofsymfony/rest-bundle":"*",
-        "flack/createphp": "dev-master"
+        "midgard/createphp": "dev-master"
     },
     "suggest": {
         "dms/dms-filter": "if you want to filter content on your fields"

@@ -42,7 +42,9 @@ Add a mapping to the `config.yml` and enable a controller
             phpcr_odm: true
             #orm: my_document_manager
             map:
-                '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
+                'http://rdfs.org/sioc/ns#Post': 'Liip\HelloBundle\Document\Article'
+            rdf_config_dirs:
+                - app/Resources/rdf-mappings
             base_path: /cms/routes
             cms_path: /cms/content/static
 
@@ -67,9 +69,28 @@ Adjust your template to load the editor js files if the current session is allow
 
     {% render "liip_vie.controller.vie:includeJSFilesAction" %}
 
-The other thing you have to do is adjusting your templates to include semantic RDFa annotations so VIE knows what content is editable.
-For an example RDFa annotation, see the cmf sandbox template:
-https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/views/EditableStaticContent/index.html.twig
+The other thing you have to do is provide RDFa mappings for your model classes
+and adjust your templates to render with createphp so that create.js knows what
+content is editable.
+
+Create xml files in the paths you configured in rdf_config_dirs named after the
+full classname of your model classes with ``\\`` replaced by ``.``. For an
+example mapping see the files in the cmf-sandbox.
+
+To render your model, use the createphp tag:
+
+    {% createphp page as="rdf" %}
+    {{ rdf|raw }}
+    {% endcreatephp %}
+
+Or if you need more control over the generated HTML
+
+    {% createphp page as="rdf" %}
+    <div {{ createphp_attributes(rdf) }}>
+        <h1 class="my-title" {{ createphp_attributes( rdf.title ) }}>{{ createphp_content( rdf.title ) }}</h1>
+        <div {{ createphp_attributes( rdf.body ) }}>{{ createphp_content( rdf.body ) }}</div>
+    </div>
+    {% endcreatephp %}
 
 
 What is this?
@@ -83,35 +104,20 @@ as RDFa inside HTML, as well as map them back from JSON-LD for processing.
 The bundle currently provides:
 * A REST handler to save JSON-LD data into ORM/ODM Entities resp. Documents.
 * The VIE library and the hallo editor, and support for integration the aloha editor
-* TODO: Think if we can help with outputting Entity/Documents with RDFa somehow (annotations on Document + twig extension?)
-
 
 
 Dependencies
 ============
 
-This bundle includes vie and the hallo editor as submodules.
-Your symfony must have two bundles activated:
+This bundle includes vie and the hallo editor as submodules and createphp
+through composer. The required bundles are also mentioned in composer.json,
+but you have to make sure they are enabled in your symfony project:
 * FOSRestBundle to handle the requests (see installation instructions above)
-* AsseticBundle to be able to provide the javascript files. (part of symfony-standard, just make sure you did not disable it)
+* AsseticBundle to be able to provide the javascript files. (part of
+  symfony-standard, just make sure you did not disable it)
 
 Furthermore there is an optional dependency in DMS\Filter:
 https://github.com/rdohms/DMS-Filter
-
-Add the following to your deps file:
-
-```
-[DMS-Filter]
-   git=http://github.com/rdohms/DMS-Filter.git
-```
-
-And the following to your autoload.php
-
-```
-$loader->registerNamespaces(array(
-    'DMS\Filter'       => __DIR__.'/vendor/DMS-Filter',
-));
-```
 
 And finally enable the filter service:
 
