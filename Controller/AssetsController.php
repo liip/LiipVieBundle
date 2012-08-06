@@ -178,7 +178,7 @@ class AssetsController
     }
 
     /**
-     * Connect to Jackrabbit, and filter pages by tags
+     * Connect to Jackrabbit, and search pages by tags
      *
      * @param $tags array with stanbol references
      * @param $currentUrl string current url

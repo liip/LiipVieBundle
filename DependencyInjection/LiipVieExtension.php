@@ -48,10 +48,13 @@ class LiipVieExtension extends Extension
         }
 
         $container->setParameter($this->getAlias().'.map', $config['map']);
+        $container->setParameter($this->getAlias().'.role', $config['role']);
         $container->setParameter($this->getAlias().'.use_coffee', $config['use_coffee']);
 
         $container->setParameter($this->getAlias().'.base_path', $config['base_path']);
         $container->setParameter($this->getAlias().'.cms_path', $config['cms_path']);
+
+        $container->setParameter($this->getAlias().'.rdf_config_dirs', $config['rdf_config_dirs']);
 
         if (!empty($config['filter'])) {
             $loader->load('filter.xml');

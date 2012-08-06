@@ -15,6 +15,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Liip\VieBundle\FromJsonLdInterface,
     Liip\VieBundle\ToJsonLdInterface;
 
+/**
+ * TODO: built a PhpcrMapper from this
+ */
 class PhpcrController
 {
     /**

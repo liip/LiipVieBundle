@@ -7,6 +7,8 @@
     <parameters>
         <parameter key="liip_vie.controller.vie.class">Liip\VieBundle\Controller\VieController</parameter>
         <parameter key="liip_vie.controller.assets.class">Liip\VieBundle\Controller\AssetsController</parameter>
+        <parameter key="liip_vie.rdf_type_factory_class">Midgard\CreatePHP\Metadata\RdfTypeFactory</parameter>
+        <parameter key="liip_vie.rest_handler_class">Midgard\CreatePHP\RestService</parameter>
     </parameters>
 
     <services>
@@ -16,12 +18,43 @@
         </service>
 
         <service id="liip_vie.controller.assets" class="%liip_vie.controller.assets.class%" public="true">
+            <!-- TODO: this depends on doctrine phpcr-odm -->
             <argument type="service" id="doctrine_phpcr.odm.default_document_manager" />
             <argument type="service" id="router"/>
             <argument type="service" id="fos_rest.view_handler"/>
             <argument>%liip_vie.base_path%</argument>
             <argument>%liip_vie.cms_path%</argument>
         </service>
+
+        <service id="liip_vie.controller.rest" class="Liip\VieBundle\Controller\RestController">
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="validator"/>
+            <argument type="service" id="liip_vie.object_mapper"/>
+            <argument type="service" id="liip_vie.rdf_type_factory"/>
+            <argument type="service" id="liip_vie.rest_handler"/>
+            <argument>%liip_vie.role%</argument>
+            <argument type="service" id="security.context"/>
+            <argument type="service" id="liip_vie.filter" on-invalid="ignore" />
+        </service>
+
+        <service id="liip_vie.twig_extension" class="Midgard\CreatePHP\Extension\Twig\CreatephpExtension">
+            <argument type="service" id="liip_vie.rdf_type_factory"/>
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="liip_vie.rdf_driver" class="Midgard\CreatePHP\Metadata\RdfDriverXml">
+            <argument>%liip_vie.rdf_config_dirs%</argument>
+        </service>
+
+        <service id="liip_vie.rdf_type_factory" class="%liip_vie.rdf_type_factory_class%" public="true">
+            <argument type="service" id="liip_vie.object_mapper"/>
+            <argument type="service" id="liip_vie.rdf_driver"/>
+        </service>
+
+        <service id="liip_vie.rest_handler" class="%liip_vie.rest_handler_class%" public="true">
+            <argument type="service" id="liip_vie.object_mapper"/>
+        </service>
+
     </services>
 
 </container>

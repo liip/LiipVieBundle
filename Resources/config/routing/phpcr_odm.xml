@@ -4,10 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="liip_vie_phpcr_odm_put_document" pattern="/{_locale}/liip/vie/phpcr_odm/documents/{id}">
-        <default key="_controller">liip_vie.phpcr_odm.controller:putDocumentAction</default>
+    <route id="liip_vie_phpcr_odm_put_document" pattern="/{_locale}/liip/vie/phpcr_odm/documents/{subject}">
+        <default key="_controller">liip_vie.controller.rest:putDocumentAction</default>
         <default key="_format">json</default>
-        <requirement key="id">.+</requirement>
+        <requirement key="subject">.+</requirement>
     </route>
 
 </routes>

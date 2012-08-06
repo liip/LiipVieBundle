@@ -17,9 +17,12 @@
         "php": ">=5.3.2",
         "symfony/symfony": "2.*",
         "symfony/assetic-bundle": ">= 2.0",
-        "friendsofsymfony/rest-bundle":"*"
+        "friendsofsymfony/rest-bundle":"*",
+        "midgard/createphp": "dev-master"
     },
-
+    "suggest": {
+        "dms/dms-filter": "if you want to filter content on your fields"
+    },
     "autoload": {
         "psr-0": { "Liip\\VieBundle": "" }
     },

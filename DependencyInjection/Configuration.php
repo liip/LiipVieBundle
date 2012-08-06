@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('role')->defaultValue('IS_AUTHENTICATED_ANONYMOUSLY')->end()
                 ->scalarNode('phpcr')->defaultFalse()->end()
                 ->scalarNode('phpcr_odm')->defaultFalse()->end()
                 ->scalarNode('orm')->defaultFalse()->end()
@@ -33,6 +34,10 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('filter')->defaultFalse()->end()
                 ->scalarNode('base_path')->defaultValue('/')->end()
                 ->scalarNode('cms_path')->defaultValue('/')->end()
+                ->arrayNode('rdf_config_dirs')
+                    ->useAttributeAsKey('dir')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end()
         ;
 
