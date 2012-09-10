@@ -1,38 +1,3 @@
-/* Before editing */
-/******************/
-[contenteditable]:hover{
-    cursor: pointer;
-}
-
-a.create-ui-toggle {
-    // TODO find symfony logo
-//    background-image: url("symfony-logo.png");
-}
-
-[contenteditable] {
-    outline: none;
-    position: relative;
-    z-index: 1;
-}
-
-[contenteditable] li {
-    list-style-type: disc;
-    margin: 0 0 0 22px;
-}
-
-[contenteditable="false"]:hover, [contenteditable="false"]{
-    border: none;
-    padding: 0;
-}
-
-/* While editing */
-/*****************/
-[contenteditable].inEditMode{
-    cursor: auto;
-    outline: 3px solid black;
-    outline-offset: 10px;
-}
-
 .hallotoolbar {
     z-index: 500;
 }

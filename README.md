@@ -67,6 +67,8 @@ Adjust your template to load the editor js files if the current session is allow
 
     {% render "liip_vie.controller.vie:includeJSFilesAction" %}
 
+Plus include the css files from Resources/public/css.
+
 The other thing you have to do is adjusting your templates to include semantic RDFa annotations so VIE knows what content is editable.
 For an example RDFa annotation, see the cmf sandbox template:
 https://github.com/symfony-cmf/cmf-sandbox/blob/master/src/Sandbox/MainBundle/Resources/views/EditableStaticContent/index.html.twig
