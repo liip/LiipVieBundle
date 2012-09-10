@@ -34,15 +34,18 @@ jQuery(document).ready(function() {
                         success: successCallback
                     });
                 },
-                suggestions: function(tags, limit, offset, successCallback) {
-                    limit = limit || 8;
-                    offset = offset || 0;
-                    return jQuery.ajax({
-                        type: "GET",
-                        url: "/app_dev.php/liip/vie/assets/list/",
-                        data: "tags=" + tags + "&offset=" + offset + "&limit=" + limit,
-                        success: successCallback
-                    });
+                // suggestions: function(tags, limit, offset, successCallback) {
+                //     limit = limit || 8;
+                //     offset = offset || 0;
+                //     return jQuery.ajax({
+                //         type: "GET",
+                //         url: "/app_dev.php/liip/vie/assets/list/",
+                //         data: "tags=" + tags + "&offset=" + offset + "&limit=" + limit,
+                //         success: successCallback
+                //     });
+                // },
+                upload: function() {
+                    return '';
                 },
                 'vie': this.vie
             },
