@@ -1,5 +1,7 @@
-.hallotoolbar {
+body > .hallotoolbar {
     z-index: 500;
+    margin-left: -13px;
+    background: #000000;
 }
 
 /* Toolbar General */
@@ -74,7 +76,7 @@
 }
 
 /* Dialog styling */
-/******************
+/*******************/
 .ui-dialog {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -82,6 +84,7 @@
     border: 3px solid black;
     border-radius: 5px;
     overflow: visible;
+    background: #FFFFFF;
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -103,6 +106,25 @@
 
 .ui-dialog .tabs li {
     line-height: 30px;
+}
+
+/* Image dialog */
+.halloimage-dialog .tabs li {
+    background: #01add2 url('/bundles/liipvie/img/divider.png') no-repeat right;
+}
+
+.halloimage-dialog .tabs li.halloimage-tab-suggestions span {
+    background-image: url('/bundles/liipvie/img/tabicon_suggestions.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-search span {
+    background: url('/bundles/liipvie/img/tabicon_search.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-upload span {
+    background: url('/bundles/liipvie/img/tabicon_upload.png') no-repeat left;
+}
+
+.halloimage-dialog .tab-activeIndicator {
+    background: url('/bundles/liipvie/img/arrow.png');
 }
 
 /* Close button
