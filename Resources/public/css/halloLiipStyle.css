@@ -227,3 +227,9 @@
     top: -1px;
     left: -1px;
 }
+
+/* Misc */
+div.halloEditIndicator {
+    z-index: 3;
+    opacity: 1 !important;
+}
