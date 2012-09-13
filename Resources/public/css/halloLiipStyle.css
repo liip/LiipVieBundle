@@ -5,7 +5,13 @@ body > .hallotoolbar {
 }
 
 /* Toolbar General */
-/*******************
+/*******************/
+
+.ui-state-active {
+    background-color: #01ADD2;
+}
+
+/*
 .hallotoolbar .ui-state-default{
     border: none;
 }

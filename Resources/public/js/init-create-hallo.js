@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
             }
             return vie_phpcr_path;
         },
-        stanbolUrl: 'http://dev.iks-project.eu:8081',
+        stanbolUrl: vie_stanbol_url,
         tags: true
     });
 
@@ -44,9 +44,7 @@ jQuery(document).ready(function() {
                 //         success: successCallback
                 //     });
                 // },
-                upload: function() {
-                    return '';
-                },
+                uploadUrl: hallo_image_upload,
                 'vie': this.vie
             },
             'hallolink': { 'relatedUrl': vie_plugins_link_related_path },

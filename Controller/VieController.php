@@ -13,6 +13,11 @@ class VieController
     private $viewHandler;
 
     /**
+     * @var string
+     */
+    private $stanbolUrl;
+
+    /**
      * @var Boolean
      */
     private $coffee;
@@ -25,11 +30,13 @@ class VieController
      * When developing hallo, make sure to use the coffee filter.
      *
      * @param ViewHandlerInterface $viewHandler view handler
+     * @param string $stanbolUrl the url to use for the semantic enhancer stanbol
      * @param Boolean $useCoffee whether assetic is set up to use coffee script
      */
-    public function __construct(ViewHandlerInterface $viewHandler, $useCoffee = false)
+    public function __construct(ViewHandlerInterface $viewHandler, $stanbolUrl, $useCoffee = false)
     {
         $this->viewHandler = $viewHandler;
+        $this->stanbolUrl = $stanbolUrl;
         $this->coffee = $useCoffee;
     }
 
@@ -63,6 +70,7 @@ class VieController
             default:
                 throw new \InvalidArgumentException("Unknown editor '$editor' requested");
         }
+        $view->setData(array('vie_stanbol_url' => $this->stanbolUrl));
 
         return $this->viewHandler->handle($view);
     }
