@@ -34,6 +34,7 @@ jQuery(document).ready(function() {
                         success: successCallback
                     });
                 },
+                // TODO: this only brings an empty suggestions tab instead of calling the function
                 // suggestions: function(tags, limit, offset, successCallback) {
                 //     limit = limit || 8;
                 //     offset = offset || 0;
