@@ -21,6 +21,10 @@ class ScriptHandler
         $output = array();
         $dir = getcwd();
         chdir(__DIR__.DIRECTORY_SEPARATOR.'..');
+        exec('git submodule sync', $output, $status);
+        if ($status) {
+            die("Running git submodule sync failed with $status\n");
+        }
         exec('git submodule update --init --recursive', $output, $status);
         chdir($dir);
         if ($status) {

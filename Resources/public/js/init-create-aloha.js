@@ -1,5 +1,6 @@
 GENTICS_Aloha_base = 'http://aloha-editor.org/aloha-0.9.3/aloha/';
 jQuery(document).ready(function() {
+    alert("TODO: update this to resemble init-create-hallo.js");
     GENTICS.Aloha.settings = {
         "plugins": {
             "com.gentics.aloha.plugins.Format": {

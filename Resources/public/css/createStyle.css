@@ -1,0 +1,35 @@
+/* Create toolbar */
+/******************/
+a.create-ui-toggle {
+    background-image: url("/bundles/liipvie/img/createbundle.png");
+}
+
+/* General contenteditable before editing */
+/*******************************************/
+[contenteditable]:hover{
+    cursor: pointer;
+}
+
+[contenteditable] {
+    outline: 1px solid lightgreen;
+    position: relative;
+    z-index: 1;
+}
+
+[contenteditable] li {
+    list-style-type: disc;
+    margin: 0 0 0 22px;
+}
+
+[contenteditable="false"]:hover, [contenteditable="false"]{
+    border: none;
+    padding: 0;
+}
+
+/* General contenteditable While editing */
+/*****************************************/
+[contenteditable].inEditMode{
+    cursor: auto;
+    outline: 3px solid black;
+    outline-offset: 10px;
+}

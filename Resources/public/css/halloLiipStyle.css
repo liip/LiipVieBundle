@@ -1,68 +1,17 @@
-/* Before editing */
-/******************/
-[contenteditable]:hover{
-    cursor: pointer;
-}
-
-[contenteditable] {
-    outline: none;
-    position: relative;
-    z-index: 1;
-}
-
-[contenteditable] li {
-    list-style-type: disc;
-    margin: 0 0 0 22px;
-}
-
-[contenteditable="false"]:hover, [contenteditable="false"]{
-    border: none;
-    padding: 0;
-}
-
-.editButton{
-    outline: none;
-    position: absolute;
-    left: 0;
-    padding: 3px 25px 2px 10px;
-    color: #fff;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 1.6;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.8) url('/bundles/liipvie/img/editIcon.png') no-repeat 36px 3px;
-    z-index: 999;
-}
-
-.inEditMode .editButton{
-    display: none;
-}
-
-.liipVieBundleContentEditableHover {
-    background-color: #f9f8e9;
-    position: absolute;
-    padding: 10px;
-    opacity: 0.8;
-    z-index: 0;
-}
-
-
-/* While editing */
-/*****************/
-[contenteditable].inEditMode{
-    cursor: auto;
-    outline: 3px solid black;
-    outline-offset: 10px;
-}
-
-.hallotoolbar {
+body > .hallotoolbar {
     z-index: 500;
+    margin-left: -13px;
+    background: #000000;
 }
 
 /* Toolbar General */
 /*******************/
+
+.ui-state-active {
+    background-color: #01ADD2;
+}
+
+/*
 .hallotoolbar .ui-state-default{
     border: none;
 }
@@ -98,63 +47,8 @@
     margin: 0;
 }
 
-/** User Bar **/
-/**************/
-#userBar {
-    position: fixed;
-    width: 100%;
-    padding: 5px;
-    top: 0;
-    left: 0;
-    color: #FFFFFF;
-    font-family: Helvetica;
-    font-size: 14px;
-    z-index: 550;
-    height: 25px;
-    line-height: 22px;
-    border-bottom: 1px solid #333;
-    display: none;
-
-    background: #969696; /* Old browsers */
-    background: -moz-linear-gradient(top, #969696 0%, #515151 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#969696), color-stop(100%,#515151)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #969696 0%,#515151 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #969696 0%,#515151 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #969696 0%,#515151 100%); /* IE10+ */
-    background: linear-gradient(top, #969696 0%,#515151 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#969696', endColorstr='#515151',GradientType=0 ); /* IE6-9 */
-}
-
-#userBar .saveButton {
-    cursor: pointer;
-    padding: 2px 4px;
-    margin-left: 2px;
-    border-radius: 3px;
-    border: none;
-    text-indent: 1000px;
-    overflow: hidden;
-    width: 70px;
-    height: 25px;
-    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 0;
-}
-
-#userBar .saveButtonSaving {
-    width: 100px;
-    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 -25px;
-}
-
-#userBar .saveButtonActive {
-    width: 95px;
-    line-height: 30px;
-    background: transparent url("/bundles/liipvie/img/saveButton.png") no-repeat 0 -50px;
-}
-
-#userBar .saveButtonActive:hover {
-    background-position: 0 -75px;
-}
-
-/* Button Rowa */
-/***************/
+/* Button Rows */
+/**************
 .hallotoolbar .halloButtonrow {
     background-color: #000000;
 }
@@ -164,6 +58,7 @@
 }
 
 /* Only apply this block if there is another line in the toolbar */
+/* TODO: decide on the multirow thing */
 .hallotoolbar .halloButtonrow-1:not(:last-child) {
     background-color: #272727;
     text-align: right;
@@ -186,89 +81,8 @@
     padding: 0 6px 0 5px;
 }
 
-.hallotoolbar .ui-buttonset:last-child{
-    border-right: 0;
-    background: none;
-}
-
-.hallotoolbar .ui-buttonset.halloreundo label,
-.hallotoolbar .ui-buttonset.halloreundo label span{
-    width: 40px;
-}
-
-.hallotoolbar .ui-buttonset.halloreundo label span span{
-    width: 40px;
-}
-
-/* Buttons */
-/***********/
-
-/* Format */
-.hallotoolbar .ui-buttonset .bold_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -144px -35px; }
-.hallotoolbar .ui-buttonset .bold_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .bold_button.ui-state-hover { background-position: -144px -2px; }
-
-.hallotoolbar .ui-buttonset .italic_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -171px -35px; }
-.hallotoolbar .ui-buttonset .italic_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .italic_button.ui-state-hover { background-position: -171px -2px; }
-
-.hallotoolbar .ui-buttonset .underline_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -199px -35px; }
-.hallotoolbar .ui-buttonset .underline_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .underline_button.ui-state-hover { background-position: -199px -2px; }
-
-/* Lists */
-.hallotoolbar .ui-buttonset .Unordered_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -254px -36px; }
-.hallotoolbar .ui-buttonset .Unordered_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .Unordered_button.ui-state-hover { background-position: -254px -2px; }
-
-/* Justify */
-.hallotoolbar .ui-buttonset .Left_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -298px -36px; }
-.hallotoolbar .ui-buttonset .Left_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .Left_button.ui-state-hover { background-position: -298px -2px; }
-
-.hallotoolbar .ui-buttonset .Center_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -327px -36px; }
-.hallotoolbar .ui-buttonset .Center_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .Center_button.ui-state-hover { background-position: -327px -2px; }
-
-.hallotoolbar .ui-buttonset .Right_button { background: url('/bundles/liipvie/img/buttons.png') no-repeat -357px -36px; }
-.hallotoolbar .ui-buttonset .Right_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .Right_button.ui-state-hover { background-position: -357px -2px; }
-
-/* Undo/Redo */
-.hallotoolbar .ui-buttonset.halloreundo .ui-button { background: #000; }
-.hallotoolbar .ui-buttonset.halloreundo .ui-button-text .ui-button-text { text-indent: 0; }
-.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-clicked,
-.hallotoolbar .ui-buttonset.halloreundo .ui-button.ui-state-hover {  }
-
-/* Paragraph & Heading */
-.hallotoolbar .ui-buttonset .p_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -4px -35px; }
-.hallotoolbar .ui-buttonset .p_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .p_button.ui-state-hover { background-position: -4px -2px; }
-
-.hallotoolbar .ui-buttonset .h1_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -31px -35px; }
-.hallotoolbar .ui-buttonset .h1_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .h1_button.ui-state-hover { background-position: -31px -2px; }
-
-.hallotoolbar .ui-buttonset .h2_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -58px -35px; }
-.hallotoolbar .ui-buttonset .h2_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .h2_button.ui-state-hover { background-position: -58px -2px; }
-
-.hallotoolbar .ui-buttonset .h3_button { background: url('/bundles/liipvie/img/headings.png') no-repeat -85px -35px; }
-.hallotoolbar .ui-buttonset .h3_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .h3_button.ui-state-hover { background-position: -85px -2px; }
-
-/* Link */
-.hallotoolbar .ui-buttonset .anchor_button { background: url('/bundles/liipvie/img/imagelink.png') no-repeat -91px -36px; }
-.hallotoolbar .ui-buttonset .anchor_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .anchor_button.ui-state-hover { background-position: -91px -1px; }
-
-/* Image */
-.hallotoolbar .ui-buttonset .image_button{ background: url('/bundles/liipvie/img/imagelink.png') no-repeat -13px -36px; }
-.hallotoolbar .ui-buttonset .image_button.ui-state-clicked,
-.hallotoolbar .ui-buttonset .image_button.ui-state-hover { background-position: -13px -1px; }
-
 /* Dialog styling */
-/******************/
+/*******************/
 .ui-dialog {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -276,6 +90,7 @@
     border: 3px solid black;
     border-radius: 5px;
     overflow: visible;
+    background: #FFFFFF;
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -299,8 +114,26 @@
     line-height: 30px;
 }
 
+/* Image dialog */
+.halloimage-dialog .tabs li {
+    background: #01add2 url('/bundles/liipvie/img/divider.png') no-repeat right;
+}
 
-/* Close button */
+.halloimage-dialog .tabs li.halloimage-tab-suggestions span {
+    background-image: url('/bundles/liipvie/img/tabicon_suggestions.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-search span {
+    background: url('/bundles/liipvie/img/tabicon_search.png') no-repeat left;
+}
+.halloimage-dialog .tabs li.halloimage-tab-upload span {
+    background: url('/bundles/liipvie/img/tabicon_upload.png') no-repeat left;
+}
+
+.halloimage-dialog .tab-activeIndicator {
+    background: url('/bundles/liipvie/img/arrow.png');
+}
+
+/* Close button
 .ui-dialog .ui-dialog-titlebar-close {
     background: url('/bundles/liipvie/img/close_button.png') no-repeat 0 -25px;
     top: -2px;
@@ -421,4 +254,10 @@
     position: relative;
     top: -1px;
     left: -1px;
+}
+
+/* Misc */
+div.halloEditIndicator {
+    z-index: 3;
+    opacity: 1 !important;
 }

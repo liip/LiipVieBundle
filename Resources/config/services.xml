@@ -12,6 +12,7 @@
     <services>
         <service id="liip_vie.controller.vie" class="%liip_vie.controller.vie.class%" public="true">
             <argument type="service" id="fos_rest.view_handler" />
+            <argument>%liip_vie.stanbol_url%</argument>
             <argument>%liip_vie.use_coffee%</argument>
         </service>
 

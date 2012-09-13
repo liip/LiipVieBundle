@@ -45,6 +45,10 @@ Add a mapping to the `config.yml` and enable a controller
                 '<sioc:Post>': 'Liip\HelloBundle\Document\Article'
             base_path: /cms/routes
             cms_path: /cms/content/static
+            # stanbol_url: custom stanbol url, otherwise defaults to the demo install
+
+Currently you need to provide a route called hallo_image_upload that can handle
+post of images. See the ImageController in the cmf sandbox for an example.
 
 Finally add the relevant routing to your configuration
 
@@ -66,6 +70,8 @@ Usage
 Adjust your template to load the editor js files if the current session is allowed to edit content.
 
     {% render "liip_vie.controller.vie:includeJSFilesAction" %}
+
+Plus include the css files from Resources/public/css.
 
 The other thing you have to do is adjusting your templates to include semantic RDFa annotations so VIE knows what content is editable.
 For an example RDFa annotation, see the cmf sandbox template:
