@@ -10,4 +10,7 @@
         <requirement key="id">.+</requirement>
     </route>
 
+    <!-- this route should never be used from the outside, only to be used inside "includejsfiles-vie.html.twig -->
+    <route id="liip_vie_phpcr_odm_put_documents" pattern="/{_locale}/liip/vie/phpcr_odm/documents" />
+
 </routes>

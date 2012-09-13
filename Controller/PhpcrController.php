@@ -5,7 +5,8 @@ namespace Liip\VieBundle\Controller;
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-use FOS\RestBundle\View\ViewHandlerInterface;
+use FOS\RestBundle\View\ViewHandlerInterface,
+    FOS\RestBundle\View\View;
 
 use PHPCR\NodeInterface;
 
@@ -58,13 +59,12 @@ class PhpcrController
      */
     public function putDocumentAction(Request $request, $id)
     {
-        $path = '/'.$id;
         $data = $request->request->all();
 
         $session = $this->registry->getConnection($this->name);
-        $node = $session->getNode($path);
+        $node = $session->getNode($id);
         if (empty($node)) {
-            throw new ResourceNotFoundException($path.' not found');
+            throw new ResourceNotFoundException($id.' not found');
         }
 
         $this->fromJsonLD($node, $data);

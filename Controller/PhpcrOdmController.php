@@ -11,6 +11,6 @@ class PhpcrOdmController extends DoctrineController
      */
     public function putDocumentAction(Request $request, $id)
     {
-        return parent::putDocumentAction($request, '/' . $id);
+        return parent::putDocumentAction($request, $id);
     }
 }
