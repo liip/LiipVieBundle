@@ -1,3 +1,8 @@
+UNMAINTAINED
+============
+
+This bundle is no longer maintained. Use SymfonyCmfCreateBundle instead.
+
 Introduction
 ============
 
